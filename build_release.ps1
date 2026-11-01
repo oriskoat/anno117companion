@@ -1,4 +1,4 @@
-param([string]$Version = '0.20.0', [string]$BuildDependencies = '')
+param([string]$Version = '0.20.1', [string]$BuildDependencies = '')
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 if (-not $BuildDependencies) { $BuildDependencies = Join-Path $projectRoot 'tools\build-deps' }

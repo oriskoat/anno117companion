@@ -178,7 +178,7 @@ def finalize(version):
     for p in sorted(output.iterdir()):
         if p.suffix in {'.exe','.apk','.zip','.pdf'}:assets.append({'file':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
     (output/'SHA256SUMS.txt').write_text(''.join(a['sha256']+'  '+a['file']+'\n' for a in assets),encoding='utf8')
-    manifest={'version':version,'published':False,'android_package':'hu.anno117.companion','android_version_code':21,'windows_signing':'unsigned','android_signing':'dedicated release certificate; fingerprint in SIGNING_CERTIFICATE.txt','demo':'synthetic Example islands','assets':assets,'source':'Exact staged source used for both binaries; private settings/keys excluded'}
+    manifest={'version':version,'published':False,'android_package':'hu.anno117.companion','android_version_code':22,'windows_signing':'unsigned','android_signing':'dedicated release certificate; fingerprint in SIGNING_CERTIFICATE.txt','demo':'synthetic Example islands','assets':assets,'source':'Exact staged source used for both binaries; private settings/keys excluded'}
     (output/'release-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf8')
     for name in ['RELEASE_NOTES.md','SIGNING_CERTIFICATE.txt','UPLOAD_GUIDE_HU.md','REDDIT_POST.md']:
         shutil.copy2(ROOT/'launch-kit'/version/name,output/name)

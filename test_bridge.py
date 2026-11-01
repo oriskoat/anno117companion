@@ -140,7 +140,7 @@ class BridgeChecks(unittest.TestCase):
             self.assertEqual(failure.exception.code, 401)
             request = urllib.request.Request(url, headers={'Authorization': 'Bearer test-token'})
             with urllib.request.urlopen(request) as response:
-                self.assertEqual(json.load(response)['bridge_version'], '0.20.0')
+                self.assertEqual(json.load(response)['bridge_version'], '0.20.1')
             with urllib.request.urlopen(url.replace('/v1/snapshot', '/')) as response:
                 self.assertIn(b'Anno Companion', response.read())
             with self.assertRaises(urllib.error.HTTPError):

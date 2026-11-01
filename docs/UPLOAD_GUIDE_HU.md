@@ -1,3 +1,5 @@
+> Historical 0.20.0 publication checklist. Current downloads and patch notes are in README.md and RELEASE_NOTES.md.
+
 # GitHub feltöltés — 0.20.0
 
 Minden helyben előkészítve. Ezzel még semmi nem került fel a GitHubra.

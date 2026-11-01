@@ -1,3 +1,17 @@
+# v0.20.1 patch verification
+
+- Shared production/import island picker uses existing region-gallery photos; every candidate has an existing image and different islands receive different images where available.
+- Regression test clicks a source card and confirms the original import destination, deficit and return navigation remain intact.
+- All three JavaScript suites and the Python regression suite pass.
+- Desktop (1440px) and mobile (390px) browser checks: images load with nonzero natural dimensions, no horizontal overflow.
+- Windows dependency audit and EXE self-test are run on the release build. Android release build and lint use the existing public signing identity, versionCode 22.
+- Release packaging checks every embedded dashboard file against this source in both EXE and APK, and verifies the synthetic demo, APK identity and certificate.
+- Updater metadata and anonymous public downloads are checked after publication. A manual end-to-end update on the user's devices remains a separate test.
+
+The historical verification record below describes 0.20.0.
+
+---
+
 # Release candidate verification — 0.20.0
 
 Initial build verification on 2026-11-01, before publication. Version 0.20.0 was subsequently published that day. The post-publication checks below describe its current public state.

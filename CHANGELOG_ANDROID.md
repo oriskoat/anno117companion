@@ -1,10 +1,17 @@
 # Android APK changelog
 
-Reconstructed through **0.20.0** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
+## 0.20.1 — Island artwork in production and import planning
+
+- Show distinct regional island artwork in the “Build there and plan import” island picker instead of the pale Needs icon.
+- Keep source-island selection and the original import destination intact. Verify image loading and layout on desktop and mobile.
+- Android versionCode 22; same public package and release signing certificate as 0.20.0.
+
+
+Reconstructed through **0.20.1** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
 
-A local build, installation on the developer's Samsung or prepared archive is not a public release. No Play Store submission or public upload is established here.
+A local build, installation on the developer's Samsung or prepared archive is not a public release. Versions 0.20.0 and 0.20.1 are public GitHub APK releases. There is no Play Store release.
 
 ## 0.20.0 — Region-aware planning and public signing identity
 
