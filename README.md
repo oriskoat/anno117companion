@@ -145,6 +145,10 @@ Checks: `python -m unittest test_bridge test_trade_routes test_updater test_publ
 
 A source build can be made with your own Android key. It cannot replace official release-signed installs unless the signing identity matches; build output need not be byte-identical across environments.
 
+## Pannonia — another idea
+
+My next idea is an **Albion-inspired Pannonian region for Anno 117**. It now has its own [Pannonia concept folder](pannonia/README.md) in this repository. This is an early concept, separate from the Companion; no playable mod or release date is announced.
+
 ## About, support and ownership
 
 Made by Ádám, a gamer from Hungary. Free to use; no account, advertisements or mandatory payment.

@@ -145,6 +145,10 @@ Die App sucht über GitHub Releases nach Updates und prüft Downloads. Windows s
 
 Ein selbst gebautes APK kann mit einem eigenen Schlüssel signiert werden. Es kann offizielle Release-Installationen nur ersetzen, wenn die Signaturidentität übereinstimmt. Builds müssen zwischen verschiedenen Umgebungen nicht byteidentisch sein.
 
+## Pannonia — eine weitere Idee
+
+Meine nächste Idee ist eine **von Albion inspirierte pannonische Region für Anno 117**. Dafür gibt es jetzt einen eigenen [Pannonia-Konzeptordner](pannonia/README.md) in diesem Repository. Das Konzept steht noch am Anfang und ist vom Companion getrennt; eine spielbare Mod oder ein Veröffentlichungstermin sind nicht angekündigt. Die Konzeptbeschreibung ist derzeit auf Englisch.
+
 ## Über den Autor, Unterstützung und Rechte
 
 Entwickelt von Ádám, einem Spieler aus Ungarn. Kostenlos nutzbar, ohne Konto, Werbung oder verpflichtende Zahlung.
