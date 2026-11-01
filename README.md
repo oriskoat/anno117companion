@@ -1,8 +1,14 @@
 # Anno 117 Companion
 
+**English** · [Deutsch](README.de.md)
+
 **Your empire. A clearer view.** A free, unofficial companion for Anno 117: Pax Romana by Ádám.
 
-[Download Windows](https://github.com/oriskoat/anno117companion/releases/latest) · [Download Android](https://github.com/oriskoat/anno117companion/releases/latest) · [Windows changelog](CHANGELOG_WINDOWS.md) · [Android changelog](CHANGELOG_ANDROID.md)
+[Download Windows ZIP](https://github.com/oriskoat/anno117companion/releases/download/v0.20.0/Anno117Companion-0.20.0-Windows-x64.zip) · [Download Android APK](https://github.com/oriskoat/anno117companion/releases/download/v0.20.0/Anno-Companion-0.20.0.apk) · [All downloads](https://github.com/oriskoat/anno117companion/releases/latest)
+
+☕ **[Buy me a coffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — the Companion is free. Support is completely optional. No tribute required.
+
+[Windows changelog](CHANGELOG_WINDOWS.md) · [Android changelog](CHANGELOG_ANDROID.md)
 
 Windows first, then any device on your local network. The Windows app reads the game’s production pipe and provides the same dashboard in its own window, on Android, or in a browser on iPhone/another computer.
 
@@ -36,20 +42,88 @@ Windows first, then any device on your local network. The Windows app reads the 
 
 ## Start on Windows
 
-1. Download and extract the **Windows-x64.zip** to a writable folder, such as Documents.
-2. Run **Anno117Companion.exe**. Python and development tools are not required.
-3. Explore **Demo**, or select **Live**, launch Anno with `/pipe`, load a save and open Production Statistics.
-4. Keep the Companion running for Live data and other devices. Use **Open browser** if you prefer your normal browser.
+### 1. Download and open the Companion
 
-Target: Windows 10 22H2 / Windows 11 x64. The embedded window uses .NET Framework 4.8+ and WebView2 109+; a bundled browser-mode controller is offered if those prerequisites are missing. No prerequisite is silently installed. This EXE is unsigned, so Windows reputation/security controls may display a warning. No clean Windows VM certification is claimed. [Compatibility details](docs/WINDOWS_COMPATIBILITY.md).
+1. **[Download the Windows ZIP directly](https://github.com/oriskoat/anno117companion/releases/download/v0.20.0/Anno117Companion-0.20.0-Windows-x64.zip)**, or choose the Windows ZIP on the [latest release page](https://github.com/oriskoat/anno117companion/releases/latest). GitHub's **Code → Download ZIP** is the source code, not the ready-to-run app.
+2. Right-click the downloaded ZIP and select **Extract All**. Choose a folder you can write to, for example `Documents\Anno117Companion`. Run the extracted app, rather than opening the EXE inside the ZIP.
+3. Open **Anno117Companion.exe**. Python, Android Studio and development tools are not needed.
+4. Choose **Demo** to explore the invented Example Empire without starting the game. The top bar contains the local-server controls, Demo/Live switch and pairing details for other devices. Expand the bar if it is collapsed.
+5. For your own game, follow the `/pipe` instructions below, then select **Live**. Keep one Companion instance running on the gaming PC.
+
+Target: Windows 10 22H2 / Windows 11 **x64**. The embedded window uses .NET Framework 4.8+ and WebView2 109+. If these are missing, the bundled browser-mode controller offers **Open browser** so you can use the dashboard in your installed browser. No prerequisite is silently installed. The EXE is unsigned; Windows reputation/security controls may display a warning. No clean Windows VM certification is claimed. [Compatibility details](docs/WINDOWS_COMPATIBILITY.md).
+
+### 2. Enable the game's statistics pipe
+
+**The launch argument is `/pipe` — including the forward slash.** Enter it in the game's launcher settings, not in the Companion, an in-game chat or a console. The game must be restarted after adding it. Ubisoft documents pipe activation in its [Anno 117 pipe example](https://github.com/UbisoftMainzAnno/anno117_pipe_example#activation).
+
+**Ubisoft Connect**
+
+1. Close Anno 117 if it is running.
+2. Open your Ubisoft Connect library and find **Anno 117: Pax Romana**.
+3. Open the game's menu/settings and choose **Properties**. Depending on your launcher version, this is available from the game's menu, a right-click, or **Manage**.
+4. Find **Game launch arguments / Add launch arguments**, add `/pipe` and save. If you already use other arguments, retain them and append a space followed by `/pipe`.
+5. Launch Anno again from that launcher.
+
+**Steam**
+
+1. Close Anno 117. In your Steam Library, right-click the game and open **Properties → General**.
+2. Add `/pipe` to **Launch Options**, retaining any existing arguments, then close Properties and launch the game again. See [Steam's launch-option instructions](https://help.steampowered.com/en/faqs/view/7D01-D2DD-D75E-2955).
+3. If your Steam installation starts through Ubisoft Connect and no statistics arrive, check the Anno launch arguments in Ubisoft Connect as well.
+
+### 3. Receive your first Live statistics
+
+1. Keep the Companion's **local server running** and select **Live**.
+2. In Anno, load a save and **resume the simulation**.
+3. Open **Production Statistics** using the game's statistics interface. Allow a little time for island statistics to arrive; islands can update separately.
+4. Check the Companion's status. **Live + cached** means some islands have fresh data while others still use their previous values. Individual islands retain their own update age.
+5. When you pause, leave the statistics view, or close the game, the pipe may stop publishing. The last data remains available as **Cached**, with its age. Live mode means “use my game connection”; it does not guarantee that a new message is arriving at that moment.
+
+You can use the complete tool in the EXE, or click **Open browser**. The Windows app must stay running to serve other devices. Minimizing it is fine; closing it stops its server.
 
 ## Android, iPhone and another computer
 
-- **Android:** install the release APK, pair once using the PC’s LAN address and six-digit code, and choose Demo or Live. Use **More → Add home screen widget**, or your launcher’s Widgets menu.
-- **iPhone/browser:** scan the PC’s QR code, or open the displayed address and enter the six-digit code. Safari’s Add to Home Screen provides an icon. The PC must remain available for the browser interface; no native iOS app is included.
-- Keep devices on the same trusted LAN. A code alone does not discover the PC address.
+### Before pairing
 
-The public Android app ID is `hu.anno117.companion`. Older Pipe Probe/development builds use a different ID and can remain installed separately. Public releases use a dedicated signing identity, preserved for future updates. The private key is not in this repository.
+- Start the Windows Companion and leave its local server running. Expand the pairing bar to see the **PC address**, **six-digit code** and **QR code**.
+- Connect your phone/tablet/laptop and the PC to the same trusted local network. The PC may use Ethernet while the phone uses Wi-Fi.
+- Use the address displayed by the Companion, including its port, for example `http://192.168.1.50:11780`. This is only an example: use **your PC's displayed address**, not this one or `localhost` on the phone. The six-digit code alone cannot find the PC.
+- If Windows Firewall prompts, allow the Companion on your trusted **Private** network. Guest Wi-Fi/client isolation or a VPN may prevent devices from reaching one another.
+
+### Android app
+
+1. **[Download the Android APK directly](https://github.com/oriskoat/anno117companion/releases/download/v0.20.0/Anno-Companion-0.20.0.apk)** on your phone and open the downloaded file.
+2. If Android requests permission to install from that browser/file manager, review and allow that installation source to proceed. This is a direct APK installation, not a Play Store download.
+3. Open **Anno Companion**. Demo works without pairing or the game.
+4. Select **Live**. If the app is not paired, it opens the connection screen. Enter the PC address displayed by the Windows app and its current six-digit code, then connect.
+5. Pairing is remembered. If a code has expired, use the current code from the PC window. You do not need your Windows username, Windows password or SMB access.
+6. For the widget, use **More → Add home screen widget**, then confirm placement in your launcher; alternatively use the launcher's Widgets menu. The widget has its own Demo/Live control. Background refresh timing depends on Android; use its refresh button when needed.
+
+Requires Android **8.0+**. The public app ID is `hu.anno117.companion`. Older Pipe Probe/development builds use a different ID and remain separate; pair the public app once. Public APK updates retain the package and dedicated signing identity. The private key is not in this repository.
+
+### iPhone / iPad
+
+1. Scan the Windows Companion's QR code with your camera and open the link in Safari. Alternatively, type the displayed PC address into Safari and enter the six-digit pairing code when asked.
+2. Select **Live** for your own statistics, or **Demo** for the example empire.
+3. To keep an icon, use Safari's **Share → Add to Home Screen**. Menu wording may differ by iOS version.
+4. Keep the PC Companion running and remain on the same LAN. There is no native iOS app; this is the Companion's local web interface.
+
+### Another computer
+
+Open the displayed PC address in a browser on that computer, enter the six-digit code, and select Demo or Live. No second bridge or game installation is needed on the viewing computer.
+
+## If something does not connect
+
+| What you see | What to check |
+| --- | --- |
+| Live selected, but Cached data | Resume the game; confirm `/pipe` was added before the last game launch; close and reopen Production Statistics. Check each island's age. |
+| Live + cached | Fresh messages are arriving for some islands. Others keep their last values until the game publishes them again. |
+| Waiting for Anno / no islands | Load a save and open Production Statistics. Start only one pipe-reading tool at a time: another Companion or pipe reader can occupy the game's pipe. |
+| Phone cannot reach the PC | Keep the Windows server running. Check the displayed IP/port, shared LAN, Private-network firewall permission, guest-network isolation and VPN. |
+| Pairing code rejected | Use the current six-digit code from the PC. It expires/rotates; it is not your Windows PIN or password. After repeated failures, wait a minute before retrying. |
+| Embedded Windows window unavailable | Use the offered **Open browser** controller. For an explicit browser-mode launch, run `Anno117Companion.exe --browser` in the extracted app folder. |
+| Cannot start a second Companion | Close the previous instance. The local server port may already be in use. |
+
+For a bug report, describe the platform, Companion version, visible connection state and reproduction steps. Do not upload `bridge-settings`, pairing codes, QR codes, tokens or personal exports.
 
 ## What the numbers mean
 
