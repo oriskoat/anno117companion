@@ -1,4 +1,4 @@
-[English concept](README.md) · [Detailed population and needs plan (Hungarian)](pannonia-population-needs.hu.md) · [Research and implementation notes (Hungarian)](pannonia-research-and-skeleton.hu.md) · [Discussion draft (English)](pannonia-discussion.en.md)
+[English concept](README.md) · [Population and needs design](pannonia-population-needs.en.md) · [Historical research and implementation framework](pannonia-research-and-skeleton.en.md)
 
 # Anno 117: Pannonia
 ## Orchards, Riverlands and the Danube Frontier
