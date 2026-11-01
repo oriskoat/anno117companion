@@ -1,6 +1,6 @@
 # Anno 117 Companion v0.20.2
 
-A small visual fix for Windows, Android and the dashboard served to local browsers.
+Observed production and direct import planning for Windows, Android and the dashboard served to local browsers.
 
 ## Improved production and import planning
 

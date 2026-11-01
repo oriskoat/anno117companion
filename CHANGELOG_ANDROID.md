@@ -1,5 +1,11 @@
 # Android APK changelog
 
+Reconstructed through **0.20.2** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
+
+This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
+
+Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub APK releases. Older entries document local development checkpoints. There is no Play Store release.
+
 ## 0.20.2 — Observed production in import planning
 
 - Rank production-region islands by local surplus, then observed production, then other compatible islands. Show production, consumption, local balance and data freshness on each photo card.
@@ -15,12 +21,6 @@
 - Keep source-island selection and the original import destination intact. Verify image loading and layout on desktop and mobile.
 - Android versionCode 22; same public package and release signing certificate as 0.20.0.
 
-
-Reconstructed through **0.20.2** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
-
-This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
-
-A local build, installation on the developer's Samsung or prepared archive is not a public release. Versions 0.20.0 and 0.20.1 are public GitHub APK releases. There is no Play Store release.
 
 ## 0.20.0 — Region-aware planning and public signing identity
 

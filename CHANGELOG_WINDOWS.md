@@ -1,5 +1,11 @@
 # Windows EXE changelog
 
+Reconstructed through **0.20.2** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
+
+This log covers the Windows bridge, native Companion window and the dashboard served to LAN browsers, including iPhone. Shared dashboard features are included because they ship in the EXE. Android-only installation, Keystore and widget work is documented separately in [CHANGELOG_ANDROID.md](CHANGELOG_ANDROID.md).
+
+Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub releases. Older entries document local development checkpoints and do not establish public publication.
+
 ## 0.20.2 — Observed production in import planning
 
 - Rank production-region islands by local surplus, then observed production, then other compatible islands. Show production, consumption, local balance and data freshness on each photo card.
@@ -13,12 +19,6 @@
 - Show distinct regional island artwork in the “Build there and plan import” island picker instead of the pale Needs icon.
 - Keep source-island selection and the original import destination intact. Verify image loading and layout on desktop and mobile.
 
-
-Reconstructed through **0.20.2** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
-
-This log covers the Windows bridge, native Companion window and the dashboard served to LAN browsers, including iPhone. Shared dashboard features are included because they ship in the EXE. Android-only installation, Keystore and widget work is documented separately in [CHANGELOG_ANDROID.md](CHANGELOG_ANDROID.md).
-
-All entries describe local development builds or checkpoints. A built executable or prepared archive does not establish that it was published. Versions 0.20.0 and 0.20.1 are public GitHub releases; older entries describe development checkpoints.
 
 ## 0.20.0 — Region-aware production and import planning
 

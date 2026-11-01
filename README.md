@@ -24,7 +24,7 @@ Windows first, then any device on your local network. The Windows app reads the 
 | --- | --- |
 | <img src="docs/screenshots/07-android-supply.png" alt="Actual Samsung APK showing complete Supply suggestions" width="300"> | <img src="docs/screenshots/09-android-widget.png" alt="Clean Samsung launcher widget showing cached Live game data" width="300"> |
 
-[View all 11 screenshots](docs/SCREENSHOTS.md): Windows Supply, chain calculator and Needs; browser route plans and regional import; Android product details; illustrated PDF.
+[View all 13 screenshots](docs/SCREENSHOTS.md): Windows Supply, chain calculator and Needs; browser route plans and regional import; Android product details; illustrated PDF.
 
 [Open the actual example Empire Summary PDF](docs/Example-Empire-Summary.pdf).
 

@@ -1,6 +1,8 @@
-# Screenshot gallery — 0.20.0
+# Screenshot gallery — 0.20.2
 
 These are actual captures of the Windows Companion, its local browser dashboard, the release APK on a Samsung, and the exported PDF. The application and browser examples use the invented **Example Empire** demo. The clean widget screenshot was arranged and supplied by the author and shows cached Live values from their own game. The browser views are labelled separately from the EXE views. No generated interface, simulated phone frame, pairing code, QR code or PC address is used in this gallery.
+
+Images 1–11 were captured for 0.20.0; images 12–13 show the 0.20.2 import-planning update.
 
 Images are deliberately captured at useful scroll positions. A screenshot illustrates the named feature, rather than showing every control in a long page. Click an image to inspect its original resolution.
 

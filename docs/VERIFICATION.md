@@ -6,6 +6,16 @@
 - Python and JavaScript regression suites, Windows native-dependency audit and EXE self-test, Android release build and lint, release-certificate validation, embedded dashboard parity, anonymous downloads and updater metadata are checked for this release.
 - Device installation/update remains a manual user test; running installations are not replaced during publication.
 
+
+## Publication audit — 1 November 2026
+
+- Public latest stable: **v0.20.2**, eight release files. Every anonymous download returns successfully and matches its GitHub digest, local SHA-256 and published checksum/manifest entry.
+- Windows ZIP contains the same EXE as the updater asset. All 906 dashboard files match the public source ZIP, EXE and APK byte for byte. Source archive contains the four synthetic Example islands and no settings, private keys, captures or developer build folders.
+- All 13 gallery image hashes match the public manifest; 56 relative documentation links resolve. Screenshot captions distinguish native-device captures from responsive browser screenshots.
+- Actual release metadata offers the correct EXE/APK to versions 0.20.0 and 0.20.1 and reports 0.20.2 as current. Both GitHub CI runs for the release commit succeeded.
+- User confirmed manual Windows and Android updates to 0.20.1. Manual update to 0.20.2 remains unreported; no such device test is claimed here.
+- Corrected stale screenshot counts, gallery version, changelog publication wording and release summary. Documentation-only archive refresh retains the same EXE/APK bytes and original release signing identity.
+
 Historical verification follows.
 
 ---

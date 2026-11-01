@@ -16,4 +16,4 @@
 
 [Windows EXE history](CHANGELOG_WINDOWS.md) · [Android APK history](CHANGELOG_ANDROID.md)
 
-Current candidate: 0.20.0. See README for setup and build instructions.
+Latest stable release: [0.20.2](https://github.com/oriskoat/anno117companion/releases/tag/v0.20.2). See README for setup and build instructions.

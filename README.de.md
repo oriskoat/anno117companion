@@ -24,7 +24,7 @@ Zuerst Windows, danach jedes Gerät in deinem lokalen Netzwerk: Die Windows-App 
 | --- | --- |
 | <img src="docs/screenshots/07-android-supply.png" alt="Samsung-App mit vollständigen Versorgungsvorschlägen" width="300"> | <img src="docs/screenshots/09-android-widget.png" alt="Samsung-Widget mit zwischengespeicherten Live-Spieldaten ohne persönliche Verknüpfungen" width="300"> |
 
-[Alle 11 Screenshots mit englischen Beschreibungen](docs/SCREENSHOTS.md): Windows-Versorgung, Produktionsrechner und Bedürfnisse; Routen und regionaler Import im Browser; Android-Produktdetails; illustrierter PDF-Bericht.
+[Alle 13 Screenshots mit englischen Beschreibungen](docs/SCREENSHOTS.md): Windows-Versorgung, Produktionsrechner und Bedürfnisse; Routen und regionaler Import im Browser; Android-Produktdetails; illustrierter PDF-Bericht.
 
 [Den tatsächlich exportierten Beispielbericht als PDF öffnen](docs/Example-Empire-Summary.pdf).
 
