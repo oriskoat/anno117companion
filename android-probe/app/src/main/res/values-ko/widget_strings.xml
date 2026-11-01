@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Companion을 열어 PC 연결</string>
+  <string name="widget_offline">PC 연결 불가 · 마지막 데이터: %1$s</string>
+  <string name="widget_last">마지막 게임 데이터: %1$s</string>
+  <string name="widget_demo">기록된 데모 · %1$s</string>
+  <string name="widget_waiting">게임 데이터 대기 중</string>
+  <string name="widget_expired">연결 만료 · Companion 열기</string>
+  <string name="widget_open">Companion 열기</string>
+  <string name="widget_refresh">위젯 새로고침</string>
+  <string name="widget_description">제국 현황과 공급 제안. 저장된 PC 연결을 사용합니다.</string>
+  <string name="widget_name">Anno 117 · 제국 현황</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">캐시됨 · %1$s</string>
+  <string name="widget_no_supply">운송 후보가 아직 없습니다</string>
+  <string name="widget_metrics">%1$d 섬 · %2$d 물품 · %3$d 지역 부족분</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">나의 제국</string>
+  <string name="widget_supply">공급 제안</string>
+  <string name="widget_metrics_preview">섬 · 물품 · 지역 부족분</string>
+  <string name="widget_pin_help">홈 화면을 길게 누르고 위젯 → Anno Companion을 선택하세요.</string>
+  <string name="widget_gaps">지역 부족분</string>
+  <string name="widget_no_gaps">지역 부족분 없음</string>
+  <string name="widget_mixed">실시간 + 캐시 · %1$s</string>
+</resources>

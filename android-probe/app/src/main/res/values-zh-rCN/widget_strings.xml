@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">打开Companion配对电脑</string>
+  <string name="widget_offline">电脑不可用 · 最后数据：%1$s</string>
+  <string name="widget_last">最后游戏数据：%1$s</string>
+  <string name="widget_demo">演示记录 · %1$s</string>
+  <string name="widget_waiting">等待游戏数据</string>
+  <string name="widget_expired">配对已过期 · 打开Companion</string>
+  <string name="widget_open">打开Companion</string>
+  <string name="widget_refresh">刷新小组件</string>
+  <string name="widget_description">帝国概况与供应建议，使用已保存的电脑配对。</string>
+  <string name="widget_name">Anno 117 · 帝国概况</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">已缓存 · %1$s</string>
+  <string name="widget_no_supply">暂无匹配的运输</string>
+  <string name="widget_metrics">%1$d 岛屿 · %2$d 物资 · %3$d 本地缺口</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">你的帝国</string>
+  <string name="widget_supply">供应建议</string>
+  <string name="widget_metrics_preview">岛屿 · 物资 · 本地缺口</string>
+  <string name="widget_pin_help">长按主屏幕，选择小组件 → Anno Companion。</string>
+  <string name="widget_gaps">本地缺口</string>
+  <string name="widget_no_gaps">无本地缺口</string>
+  <string name="widget_mixed">实时＋缓存 · %1$s</string>
+</resources>

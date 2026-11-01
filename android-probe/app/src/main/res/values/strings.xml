@@ -1,0 +1,7 @@
+<resources>
+    <!-- Legacy diagnostic activities are excluded from the Companion build. -->
+    <string translatable="false" name="test_connection">Test Anno Connection</string>
+    <string translatable="false" name="network_only">Check PC / SMB only</string>
+    <string translatable="false" name="stop_test">Stop</string>
+    <string translatable="false" name="copy_report">Copy diagnostic report</string>
+</resources>

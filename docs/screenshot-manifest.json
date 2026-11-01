@@ -1,0 +1,73 @@
+{
+  "version": "0.20.0",
+  "data": "Synthetic Example Empire except user-approved cached Live widget screenshot",
+  "reviewed": true,
+  "images": [
+    {
+      "file": "01-windows-home.jpg",
+      "surface": "Windows EXE",
+      "caption": "The actual Companion window, with pairing details collapsed. A complete transfer suggestion and priority gaps are visible.",
+      "sha256": "f71202ea9006cdfe657470937bbe9fc74682f363124013dea2ec150f030ccd8f"
+    },
+    {
+      "file": "02-windows-supply.jpg",
+      "surface": "Windows EXE",
+      "caption": "Expanded Plebeians group showing complete Coal, Bread and Olives transfer cards and planning actions.",
+      "sha256": "702d7660c483afb11f287b45e9e710aa0cc0a2e89c28ebee9b18f20d0b82a4ea"
+    },
+    {
+      "file": "03-windows-chain.jpg",
+      "surface": "Windows EXE",
+      "caption": "The Amphorae panel is scrolled to its core Resin, Clay and Potter steps, additional building counts, productivity and specialist links. Fuel and other sections remain available by scrolling.",
+      "sha256": "b2f96ad6b85f1698a57808194801839028efc081fd7dbf64d54b71c4544779c8"
+    },
+    {
+      "file": "04-windows-needs.jpg",
+      "surface": "Windows EXE",
+      "caption": "Expanded Liberti Food category with rewards, local balance information and build/import/supply options. This does not claim measured residence or service fulfilment.",
+      "sha256": "41efc70bf5cb4ffb6abae8c979518278cc94df67b658a7dfa1e23578da5fdcd0"
+    },
+    {
+      "file": "05-browser-trade-routes.png",
+      "surface": "Local browser",
+      "caption": "Two saved demo plans. Golden Coast Supply visits three Example islands, carries three goods and checks slot capacity on each leg. Cargo quantities are manual example values, not game telemetry.",
+      "sha256": "078171f013a2ef3d74d3c6a439f72b28a32587fc89e24d79d73757ac5005fd23"
+    },
+    {
+      "file": "06-browser-regional-import.png",
+      "surface": "Local browser",
+      "caption": "Olives demand on Example Fenbrook in Albion, with the complete Latium production-plus-import alternative and its action visible.",
+      "sha256": "9d9d39cc4c6e7319849709cf00cbe52ec90d747f99fc548b7d500d496db5a290"
+    },
+    {
+      "file": "07-android-supply.png",
+      "surface": "Samsung / release APK",
+      "caption": "Actual APK on the connected Samsung. Two complete transfer cards and their planning actions are visible.",
+      "sha256": "aea163f9c607fb464d8e5061640b065ff3b98846ea005e705c7930a20b8ffd90"
+    },
+    {
+      "file": "08-android-product.png",
+      "surface": "Samsung / release APK",
+      "caption": "Actual Murex Snails detail: Example Portus, production 1, consumption 6 and local balance -5. Overview, Supply, Improve and All data tabs are visible.",
+      "sha256": "7740a87f659ceceeaf9fa7b65cc7bb45fdcc5cc6d9c41d6cf28aa5780077eda2"
+    },
+    {
+      "file": "09-android-widget.png",
+      "surface": "Samsung launcher",
+      "caption": "User-arranged clean Samsung launcher page without personal shortcuts. The widget shows the user's last received Live game values while the PC is unavailable; it is a cached-data example, not synthetic Demo or a currently live connection.",
+      "sha256": "5d65f93a64dfbaf8dee1f632746c6cae6c0413aac26ffc713279e68e77c13bf1"
+    },
+    {
+      "file": "10-pdf-overview.png",
+      "surface": "Exported PDF / page 1",
+      "caption": "Rendered from the Companion export, including the four Example islands and region artwork.",
+      "sha256": "dda2f8d70f9ab34a6493316e8e773d80c52cb38a69384c1f3b0b2f03967d5601"
+    },
+    {
+      "file": "11-pdf-production-icons.png",
+      "surface": "Exported PDF / page 2",
+      "caption": "Rendered from the same PDF. Product icons, island names, production, consumption and balances are visible.",
+      "sha256": "7240c139d8f005d03bb758b9eabbf63cf2545f25baf4881e1bf5c84ced8528c4"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Ouvrez Companion pour associer le PC</string>
+  <string name="widget_offline">PC indisponible · Dernières données : %1$s</string>
+  <string name="widget_last">Dernières données du jeu : %1$s</string>
+  <string name="widget_demo">Démo enregistrée · %1$s</string>
+  <string name="widget_waiting">En attente des données du jeu</string>
+  <string name="widget_expired">Association expirée · Ouvrez Companion</string>
+  <string name="widget_open">Ouvrir Companion</string>
+  <string name="widget_refresh">Actualiser le widget</string>
+  <string name="widget_description">Votre empire et une suggestion de livraison. Utilise votre association PC enregistrée.</string>
+  <string name="widget_name">Anno 117 · Bilan de l’empire</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">En cache · %1$s</string>
+  <string name="widget_no_supply">Aucun transfert correspondant</string>
+  <string name="widget_metrics">%1$d Îles · %2$d Marchandises · %3$d Déficits locaux</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Votre empire</string>
+  <string name="widget_supply">Suggestions d’approvisionnement</string>
+  <string name="widget_metrics_preview">Îles · Marchandises · Déficits locaux</string>
+  <string name="widget_pin_help">Appuyez longuement sur l’écran d’accueil, puis Widgets → Anno Companion.</string>
+  <string name="widget_gaps">Déficits locaux</string>
+  <string name="widget_no_gaps">Aucun déficit local</string>
+  <string name="widget_mixed">Direct + cache · %1$s</string>
+</resources>

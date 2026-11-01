@@ -1,0 +1,22 @@
+.product-heading{margin-bottom:14px}.product-heading .product-icon{width:64px!important;height:64px!important}
+.product-heading h2{font-size:28px}.product-scope{display:flex;align-items:center;gap:15px;color:var(--muted);font-size:11px;margin-bottom:16px}
+.product-scope select{flex:1;width:auto;padding:11px 13px;font-size:12px}.product-verdict{padding:14px 16px;border-radius:13px;margin-bottom:15px;line-height:1.5;background:#e9eef4}
+.product-verdict b{display:block;font-size:13px}.product-verdict>span{display:block;margin-top:4px;font-size:10px;color:var(--muted)}.product-verdict.has-gaps{background:#f2e7d7;border-left:3px solid #ad7945}.product-verdict.covered{border-left:3px solid var(--positive)}
+.product-detail-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:4px;margin:20px 0;background:#e4eaf2;border-radius:13px}
+.product-detail-tabs button{padding:10px 3px;min-height:42px;font-size:11px;border-radius:9px;overflow-wrap:anywhere}
+.product-detail-tabs button[aria-selected=true]{background:var(--blue);color:#fffefa;font-weight:700;box-shadow:0 2px 5px #102a4914}
+[data-product-detail] [role=tabpanel]>h3{font-size:17px;margin:4px 0 15px}.product-island-table{background:var(--white);border-radius:14px;overflow:hidden;margin-bottom:21px}
+.product-island-table-head,.product-island-table-row{display:grid;grid-template-columns:minmax(95px,1.2fr) repeat(3,minmax(0,1fr));gap:8px;align-items:center;padding:13px 11px;text-align:right;font-size:11px;width:100%}
+.product-island-table-head{font-size:8px;color:var(--muted);border-bottom:1px solid var(--line);line-height:1.4}
+.product-island-table-head>span:first-child,.product-island-table-row>span:first-child{text-align:left}.product-island-table-row:not(:last-child){border-bottom:1px solid var(--line)}
+.product-island-table-row small{display:block;color:var(--muted);font-size:8px;margin-top:4px}.product-island-table-row b{font-size:11px}.product-island-table-row strong{font-size:13px}
+.product-island-table-row:hover{background:#edf2f8}.product-next-step{padding:17px;background:#eaf0f6;border-radius:16px;margin:20px 0}.product-next-step h3{font-size:18px;line-height:1.3;margin:5px 0 10px}.product-next-step .primary{margin-top:0;font-size:12px}
+.product-data-notes .small-note{margin:12px 0 0}.product-data-notes{background:transparent;border:1px solid var(--line)}
+[data-product-detail] .increase-section{border:0;margin:0;padding:0}[data-product-detail] .chain-open{box-shadow:none;border:1px solid var(--line);padding:13px}
+[data-product-detail] .route-card{padding:14px;border:1px solid var(--line);box-shadow:none;margin-bottom:13px}
+.product-detail-tabs+section{scroll-margin-top:90px}.detail-game-quote{margin-top:25px}
+@media(max-width:360px){.product-island-table-head,.product-island-table-row{grid-template-columns:minmax(75px,1.2fr) repeat(3,minmax(0,1fr));gap:5px;padding:12px 8px}.product-island-table-head{font-size:7px}.product-detail-tabs button{font-size:10px}}
+
+.live-access-banner{background:#f2e7d7;border-radius:13px;padding:16px;margin:0 0 22px;border-left:3px solid #ad7945}.live-access-banner h3{font-size:17px;margin-bottom:8px}.live-access-banner p{font-size:12px;color:var(--muted);line-height:1.6}.image-load-status{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;margin:0 auto 20px;max-width:1320px;background:#f2e7d7;border-radius:12px;color:var(--ink);font-size:11px}.image-load-status button{font-weight:700;min-height:36px;color:var(--blue);flex-shrink:0}.image-unavailable{opacity:.45;object-fit:contain!important}.island-photo img.image-unavailable,.island-detail-photo img.image-unavailable{padding:30px;background:#e9eef4}
+
+.procurement-overview{margin:20px 0;padding:18px;border:1px solid var(--line);background:#eef3f8;border-radius:17px}.procurement-overview h3{font-size:20px;margin:8px 0}.procurement-option{margin-top:12px}.procurement-back{display:inline-flex;gap:8px;align-items:center;margin-bottom:18px}.procurement-back svg{width:16px;transform:rotate(180deg)}

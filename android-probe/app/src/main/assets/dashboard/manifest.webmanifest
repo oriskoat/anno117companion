@@ -1,0 +1,1 @@
+{"id": "/", "name": "Anno 117 Companion", "short_name": "Anno Companion", "start_url": "/", "scope": "/", "display": "standalone", "background_color": "#f5f1e9", "theme_color": "#183b60", "icons": [{"src": "app-icon-192.png", "sizes": "192x192", "type": "image/png"}, {"src": "app-icon-512.png", "sizes": "512x512", "type": "image/png"}]}

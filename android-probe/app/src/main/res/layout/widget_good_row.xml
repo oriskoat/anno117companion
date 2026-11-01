@@ -1,0 +1,7 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_row" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="68dp" android:padding="10dp" android:gravity="center_vertical" android:background="@drawable/widget_item">
+    <ImageView android:id="@+id/widget_row_icon" android:layout_width="38dp" android:layout_height="38dp" android:layout_marginEnd="10dp" android:scaleType="fitCenter" android:contentDescription="@null"/>
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+        <TextView android:id="@+id/widget_row_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#E0C78E" android:textStyle="bold" android:textSize="14sp" android:maxLines="1" android:ellipsize="end"/>
+        <TextView android:id="@+id/widget_row_detail" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textColor="#DFE8F1" android:textSize="11sp" android:maxLines="2" android:ellipsize="end"/>
+    </LinearLayout>
+</LinearLayout>

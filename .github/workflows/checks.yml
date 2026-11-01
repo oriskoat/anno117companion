@@ -1,0 +1,18 @@
+name: Candidate checks
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements-build.txt
+      - run: python -m unittest test_bridge test_trade_routes test_updater test_public test_startup test_report
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test

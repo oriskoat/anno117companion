@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <application android:label="Anno Companion" android:usesCleartextTraffic="true" android:icon="@drawable/companion_icon" android:theme="@android:style/Theme.Material.NoActionBar" android:allowBackup="false" android:fullBackupContent="false" android:dataExtractionRules="@xml/extraction_rules" android:supportsRtl="true">
+        <provider android:name=".UpdatePackageProvider" android:authorities="${applicationId}.updates" android:exported="false" android:grantUriPermissions="true" />
+        <receiver android:name=".EmpireWidget" android:label="@string/widget_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/empire_widget"/>
+        </receiver>
+        <service android:name=".WidgetListService" android:permission="android.permission.BIND_REMOTEVIEWS" android:exported="false"/>
+        <service android:name=".WidgetRefreshJob" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false"/>
+        <activity android:name=".DashboardActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+            <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+        </activity>
+    </application>
+</manifest>

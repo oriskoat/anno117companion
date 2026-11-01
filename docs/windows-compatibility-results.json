@@ -1,0 +1,209 @@
+{
+  "bundle_audit": {
+    "file": "Anno117Companion-0.19.1.exe",
+    "sha256": "8d7562a8ae0ca8d24995a081af85fbc40c1c250aa3cf57f84cf02a579c37d406",
+    "binary_count": 87,
+    "missing_payloads": [],
+    "unexpected_external_dlls": [],
+    "declared_external_imports": {
+      "advapi32.dll": [
+        "cryptography/hazmat/bindings/_rust.pyd",
+        "libcrypto-3-x64.dll",
+        "python311.dll",
+        "tcl86t.dll",
+        "tk86t.dll",
+        "webview/lib/runtimes/win-arm64/native/webview2loader.dll",
+        "webview/lib/runtimes/win-x64/native/webview2loader.dll",
+        "webview/lib/runtimes/win-x86/native/webview2loader.dll"
+      ],
+      "api-ms-win-core-path-l1-1-0.dll": [
+        "python311.dll"
+      ],
+      "bcrypt.dll": [
+        "python311.dll"
+      ],
+      "bcryptprimitives.dll": [
+        "cryptography/hazmat/bindings/_rust.pyd"
+      ],
+      "comctl32.dll": [
+        "tk86t.dll"
+      ],
+      "comdlg32.dll": [
+        "tk86t.dll"
+      ],
+      "crypt32.dll": [
+        "_ssl.pyd",
+        "cryptography/hazmat/bindings/_rust.pyd",
+        "libcrypto-3-x64.dll"
+      ],
+      "gdi32.dll": [
+        "pil/_imaging.cp311-win_amd64.pyd",
+        "pil/_imagingcms.cp311-win_amd64.pyd",
+        "tk86t.dll"
+      ],
+      "imm32.dll": [
+        "tk86t.dll"
+      ],
+      "iphlpapi.dll": [
+        "_socket.pyd"
+      ],
+      "kernel32.dll": [
+        "_asyncio.pyd",
+        "_bz2.pyd",
+        "_cffi_backend.cp311-win_amd64.pyd",
+        "_ctypes.pyd",
+        "_decimal.pyd",
+        "_elementtree.pyd",
+        "_hashlib.pyd",
+        "_lzma.pyd",
+        "_multiprocessing.pyd",
+        "_overlapped.pyd",
+        "_queue.pyd",
+        "_socket.pyd",
+        "_ssl.pyd",
+        "_tkinter.pyd",
+        "_uuid.pyd",
+        "cryptography/hazmat/bindings/_rust.pyd",
+        "libcrypto-3-x64.dll",
+        "libffi-8.dll",
+        "libssl-3-x64.dll",
+        "markupsafe/_speedups.cp311-win_amd64.pyd",
+        "pil/_avif.cp311-win_amd64.pyd",
+        "pil/_imaging.cp311-win_amd64.pyd",
+        "pil/_imagingcms.cp311-win_amd64.pyd",
+        "pil/_imagingft.cp311-win_amd64.pyd",
+        "pil/_imagingtk.cp311-win_amd64.pyd",
+        "pil/_webp.cp311-win_amd64.pyd",
+        "pyexpat.pyd",
+        "python311.dll",
+        "select.pyd",
+        "tcl86t.dll",
+        "tk86t.dll",
+        "unicodedata.pyd",
+        "vcruntime140.dll",
+        "webview/lib/runtimes/win-arm64/native/webview2loader.dll",
+        "webview/lib/runtimes/win-x64/native/webview2loader.dll",
+        "webview/lib/runtimes/win-x86/native/webview2loader.dll"
+      ],
+      "mscoree.dll": [
+        "clr_loader/ffi/dlls/amd64/clrloader.dll",
+        "clr_loader/ffi/dlls/x86/clrloader.dll",
+        "pythonnet/runtime/python.runtime.dll",
+        "webview/lib/microsoft.web.webview2.core.dll",
+        "webview/lib/microsoft.web.webview2.winforms.dll",
+        "webview/lib/webbrowserinterop.x64.dll",
+        "webview/lib/webbrowserinterop.x86.dll"
+      ],
+      "netapi32.dll": [
+        "tcl86t.dll"
+      ],
+      "ntdll.dll": [
+        "cryptography/hazmat/bindings/_rust.pyd"
+      ],
+      "ole32.dll": [
+        "_ctypes.pyd",
+        "tk86t.dll",
+        "webview/lib/runtimes/win-arm64/native/webview2loader.dll",
+        "webview/lib/runtimes/win-x64/native/webview2loader.dll",
+        "webview/lib/runtimes/win-x86/native/webview2loader.dll"
+      ],
+      "oleaut32.dll": [
+        "_ctypes.pyd"
+      ],
+      "psapi.dll": [
+        "pil/_imagingtk.cp311-win_amd64.pyd"
+      ],
+      "rpcrt4.dll": [
+        "_uuid.pyd"
+      ],
+      "shell32.dll": [
+        "tk86t.dll"
+      ],
+      "user32.dll": [
+        "_cffi_backend.cp311-win_amd64.pyd",
+        "cryptography/hazmat/bindings/_rust.pyd",
+        "libcrypto-3-x64.dll",
+        "pil/_imaging.cp311-win_amd64.pyd",
+        "pil/_imagingcms.cp311-win_amd64.pyd",
+        "tcl86t.dll",
+        "tk86t.dll"
+      ],
+      "userenv.dll": [
+        "tcl86t.dll"
+      ],
+      "version.dll": [
+        "python311.dll"
+      ],
+      "ws2_32.dll": [
+        "_multiprocessing.pyd",
+        "_overlapped.pyd",
+        "_socket.pyd",
+        "_ssl.pyd",
+        "cryptography/hazmat/bindings/_rust.pyd",
+        "libcrypto-3-x64.dll",
+        "libssl-3-x64.dll",
+        "python311.dll",
+        "select.pyd",
+        "tcl86t.dll"
+      ]
+    },
+    "not_bundled": [
+      "Microsoft .NET Framework 4.8+ (embedded view only)",
+      "Microsoft Edge WebView2 Runtime 109+ (embedded view only)"
+    ],
+    "limits": "Static native imports do not prove all dynamic loading or operation on a clean Windows installation.",
+    "ok": true
+  },
+  "isolated_self_test": {
+    "runtime": {
+      "system": "Windows",
+      "machine": "AMD64",
+      "process_bits": 64,
+      "netfx_release": 533509,
+      "webview_version": "156.0.4314.58",
+      "issues": []
+    },
+    "checks": {
+      "qr_png": {
+        "ok": true
+      },
+      "bundled_png_webp": {
+        "ok": true
+      },
+      "pdf_fonts": {
+        "ok": true
+      },
+      "tk_browser_controller": {
+        "ok": true
+      },
+      "dotnet_winforms": {
+        "ok": true
+      },
+      "webview2_loader": {
+        "ok": true
+      }
+    },
+    "webview_loader_version": "156.0.4314.58",
+    "ok": true
+  },
+  "smoke_environment": {
+    "exe_only_directory": true,
+    "spaces_and_non_ascii_path": true,
+    "path": "Windows System32 only",
+    "python_environment_removed": true,
+    "installed_os_runtimes_retained": true
+  },
+  "browser_controller_smoke": {
+    "window_rendered": true,
+    "html_http_status": 200,
+    "product_icon_http_status": 200
+  },
+  "not_tested": [
+    "Clean Windows 10 VM",
+    "Clean Windows 11 VM",
+    "Windows ARM64",
+    "32-bit Windows",
+    "Actual removal of .NET/WebView2 from OS"
+  ],
+  "regression_tests_passed": 27
+}

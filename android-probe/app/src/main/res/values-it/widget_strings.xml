@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Apri Companion per associare il PC</string>
+  <string name="widget_offline">PC non disponibile · Ultimi dati: %1$s</string>
+  <string name="widget_last">Ultimi dati di gioco: %1$s</string>
+  <string name="widget_demo">Demo registrata · %1$s</string>
+  <string name="widget_waiting">In attesa dei dati di gioco</string>
+  <string name="widget_expired">Associazione scaduta · Apri Companion</string>
+  <string name="widget_open">Apri Companion</string>
+  <string name="widget_refresh">Aggiorna widget</string>
+  <string name="widget_description">Il tuo impero e un suggerimento di fornitura. Usa il PC già associato.</string>
+  <string name="widget_name">Anno 117 · Riepilogo dell’impero</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">Memorizzato · %1$s</string>
+  <string name="widget_no_supply">Nessun trasferimento disponibile</string>
+  <string name="widget_metrics">%1$d Isole · %2$d Merci · %3$d Deficit locali</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Il tuo impero</string>
+  <string name="widget_supply">Suggerimenti di rifornimento</string>
+  <string name="widget_metrics_preview">Isole · Merci · Deficit locali</string>
+  <string name="widget_pin_help">Tieni premuta la schermata iniziale, poi scegli Widget → Anno Companion.</string>
+  <string name="widget_gaps">Deficit locali</string>
+  <string name="widget_no_gaps">Nessun deficit locale</string>
+  <string name="widget_mixed">Live + cache · %1$s</string>
+</resources>

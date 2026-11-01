@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Otwórz Companion, aby sparować PC</string>
+  <string name="widget_offline">PC niedostępny · Ostatnie dane: %1$s</string>
+  <string name="widget_last">Ostatnie dane gry: %1$s</string>
+  <string name="widget_demo">Zapisane demo · %1$s</string>
+  <string name="widget_waiting">Oczekiwanie na dane gry</string>
+  <string name="widget_expired">Parowanie wygasło · Otwórz Companion</string>
+  <string name="widget_open">Otwórz Companion</string>
+  <string name="widget_refresh">Odśwież widżet</string>
+  <string name="widget_description">Twoje imperium i propozycja dostawy. Korzysta z zapisanego parowania PC.</string>
+  <string name="widget_name">Anno 117 · Raport imperium</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">Zapisane · %1$s</string>
+  <string name="widget_no_supply">Brak pasujących transferów</string>
+  <string name="widget_metrics">%1$d Wyspy · %2$d Towary · %3$d Lokalne niedobory</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Twoje imperium</string>
+  <string name="widget_supply">Sugestie zaopatrzenia</string>
+  <string name="widget_metrics_preview">Wyspy · Towary · Lokalne niedobory</string>
+  <string name="widget_pin_help">Przytrzymaj ekran główny i wybierz Widżety → Anno Companion.</string>
+  <string name="widget_gaps">Lokalne niedobory</string>
+  <string name="widget_no_gaps">Brak lokalnych deficytów</string>
+  <string name="widget_mixed">Na żywo + pamięć podręczna · %1$s</string>
+</resources>

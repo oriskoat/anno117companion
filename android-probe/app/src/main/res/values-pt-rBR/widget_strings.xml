@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Abra o Companion para parear o PC</string>
+  <string name="widget_offline">PC indisponível · Últimos dados: %1$s</string>
+  <string name="widget_last">Últimos dados do jogo: %1$s</string>
+  <string name="widget_demo">Demo gravada · %1$s</string>
+  <string name="widget_waiting">Aguardando dados do jogo</string>
+  <string name="widget_expired">Pareamento expirado · Abra o Companion</string>
+  <string name="widget_open">Abrir Companion</string>
+  <string name="widget_refresh">Atualizar widget</string>
+  <string name="widget_description">Seu império e uma sugestão de fornecimento. Usa o pareamento salvo do PC.</string>
+  <string name="widget_name">Anno 117 · Panorama do império</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">Em cache · %1$s</string>
+  <string name="widget_no_supply">Ainda sem transferências correspondentes</string>
+  <string name="widget_metrics">%1$d Ilhas · %2$d Mercadorias · %3$d Déficits locais</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Seu império</string>
+  <string name="widget_supply">Sugestões de abastecimento</string>
+  <string name="widget_metrics_preview">Ilhas · Mercadorias · Déficits locais</string>
+  <string name="widget_pin_help">Pressione a tela inicial e escolha Widgets → Anno Companion.</string>
+  <string name="widget_gaps">Déficits locais</string>
+  <string name="widget_no_gaps">Sem déficits locais</string>
+  <string name="widget_mixed">Ao vivo + cache · %1$s</string>
+</resources>

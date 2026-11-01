@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Companion öffnen, um den PC zu koppeln</string>
+  <string name="widget_offline">PC nicht erreichbar · Letzte Daten: %1$s</string>
+  <string name="widget_last">Letzte Spieldaten: %1$s</string>
+  <string name="widget_demo">Aufgezeichnete Demo · %1$s</string>
+  <string name="widget_waiting">Warte auf Spieldaten</string>
+  <string name="widget_expired">Kopplung abgelaufen · Companion öffnen</string>
+  <string name="widget_open">Companion öffnen</string>
+  <string name="widget_refresh">Widget aktualisieren</string>
+  <string name="widget_description">Euer Reich und ein Versorgungsvorschlag. Nutzt die gespeicherte PC-Kopplung.</string>
+  <string name="widget_name">Anno 117 · Reichsbericht</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">Gespeichert · %1$s</string>
+  <string name="widget_no_supply">Noch keine passenden Transfers</string>
+  <string name="widget_metrics">%1$d Inseln · %2$d Waren · %3$d Lokale Defizite</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Dein Reich</string>
+  <string name="widget_supply">Versorgungsvorschläge</string>
+  <string name="widget_metrics_preview">Inseln · Waren · Lokale Defizite</string>
+  <string name="widget_pin_help">Startbildschirm gedrückt halten, dann Widgets → Anno Companion wählen.</string>
+  <string name="widget_gaps">Lokale Defizite</string>
+  <string name="widget_no_gaps">Keine lokalen Defizite</string>
+  <string name="widget_mixed">Live + zwischengespeichert · %1$s</string>
+</resources>

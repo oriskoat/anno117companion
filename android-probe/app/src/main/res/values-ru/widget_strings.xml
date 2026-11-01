@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Откройте Companion для сопряжения с ПК</string>
+  <string name="widget_offline">ПК недоступен · Последние данные: %1$s</string>
+  <string name="widget_last">Последние данные игры: %1$s</string>
+  <string name="widget_demo">Записанное демо · %1$s</string>
+  <string name="widget_waiting">Ожидание данных игры</string>
+  <string name="widget_expired">Сопряжение истекло · Откройте Companion</string>
+  <string name="widget_open">Открыть Companion</string>
+  <string name="widget_refresh">Обновить виджет</string>
+  <string name="widget_description">Ваша империя и предложение поставки. Использует сохранённое сопряжение с ПК.</string>
+  <string name="widget_name">Anno 117 · Обзор империи</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">Сохранено · %1$s</string>
+  <string name="widget_no_supply">Пока нет подходящих перевозок</string>
+  <string name="widget_metrics">%1$d Острова · %2$d Товары · %3$d Местные дефициты</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Ваша империя</string>
+  <string name="widget_supply">Рекомендации по снабжению</string>
+  <string name="widget_metrics_preview">Острова · Товары · Местные дефициты</string>
+  <string name="widget_pin_help">Удерживайте главный экран и выберите Виджеты → Anno Companion.</string>
+  <string name="widget_gaps">Местные дефициты</string>
+  <string name="widget_no_gaps">Нет местных дефицитов</string>
+  <string name="widget_mixed">Онлайн + кэш · %1$s</string>
+</resources>

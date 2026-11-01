@@ -1,0 +1,29 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'hu.anno117.pipeprobe'
+    compileSdk 35
+    defaultConfig { applicationId 'hu.anno117.companion'; minSdk 26; targetSdk 35; versionCode 21; versionName '0.20.0' }
+    signingConfigs {
+        release {
+            if (System.getenv('ANNO_KEYSTORE')) {
+                storeFile file(System.getenv('ANNO_KEYSTORE'))
+                storePassword System.getenv('ANNO_STORE_PASSWORD')
+                keyAlias System.getenv('ANNO_KEY_ALIAS')
+                keyPassword System.getenv('ANNO_KEY_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        release { signingConfig signingConfigs.release }
+        debug { applicationIdSuffix '.dev' }
+    }
+    sourceSets { main.java.exclude '**/MainActivity.java', '**/BridgeActivity.java' }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    packaging { resources { excludes += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF', 'META-INF/DEPENDENCIES', 'META-INF/INDEX.LIST'] } }
+}
+
+gradle.taskGraph.whenReady { graph ->
+    if (graph.allTasks.any { it.name == 'packageRelease' } && !System.getenv('ANNO_KEYSTORE')) {
+        throw new GradleException('Release signing requires ANNO_KEYSTORE and signing passwords in the environment. No debug-key fallback is permitted.')
+    }
+}

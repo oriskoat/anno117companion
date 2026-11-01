@@ -1,0 +1,16 @@
+build/
+releases/
+bridge-settings/
+exports/
+node_modules/
+__pycache__/
+*.pyc
+*.spec
+*.log
+android-probe/.gradle/
+android-probe/local.properties
+android-probe/app/build/
+*.jks
+*.keystore
+.env
+private/

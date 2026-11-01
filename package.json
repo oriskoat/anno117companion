@@ -1,0 +1,11 @@
+{
+  "name": "anno117-companion-checks",
+  "version": "0.20.0",
+  "private": true,
+  "scripts": {
+    "test": "node test_release.cjs && node test_procurement.cjs && node test_needs.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.3"
+  }
+}

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Open Companion to pair your PC</string>
+  <string name="widget_offline">PC unavailable · Last data: %1$s</string>
+  <string name="widget_last">Last game data: %1$s</string>
+  <string name="widget_demo">Recorded demo · %1$s</string>
+  <string name="widget_waiting">Waiting for game data</string>
+  <string name="widget_expired">Pairing expired · Open Companion</string>
+  <string name="widget_open">Open Companion</string>
+  <string name="widget_refresh">Refresh widget</string>
+  <string name="widget_description">Your empire and a Supply suggestion. Uses your saved PC pairing.</string>
+  <string name="widget_name">Anno 117 · Empire briefing</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">Cached · %1$s</string>
+  <string name="widget_no_supply">No transfer matches yet</string>
+  <string name="widget_metrics">%1$d Islands · %2$d Products · %3$d Local gaps</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">Your empire</string>
+  <string name="widget_supply">Supply suggestions</string>
+  <string name="widget_metrics_preview">Islands · Products · Local gaps</string>
+  <string name="widget_brand" translatable="false">ANNO 117</string>
+  <string name="widget_mode_demo" translatable="false">Demo</string>
+  <string name="widget_pin_help">Long-press your home screen, then choose Widgets → Anno Companion.</string>
+  <string name="widget_gaps">Local gaps</string>
+  <string name="widget_no_gaps">No local gaps</string>
+  <string name="widget_mixed">Live + cached · %1$s</string>
+</resources>

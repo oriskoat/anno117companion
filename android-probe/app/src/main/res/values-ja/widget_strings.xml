@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">Companionを開いてPCとペアリング</string>
+  <string name="widget_offline">PCに接続不可 · 最終データ: %1$s</string>
+  <string name="widget_last">最終ゲームデータ: %1$s</string>
+  <string name="widget_demo">記録されたデモ · %1$s</string>
+  <string name="widget_waiting">ゲームデータを待機中</string>
+  <string name="widget_expired">ペアリング期限切れ · Companionを開く</string>
+  <string name="widget_open">Companionを開く</string>
+  <string name="widget_refresh">ウィジェットを更新</string>
+  <string name="widget_description">帝国と供給の提案。保存済みのPCペアリングを使用します。</string>
+  <string name="widget_name">Anno 117 · 帝国の概況</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">キャッシュ · %1$s</string>
+  <string name="widget_no_supply">輸送候補はまだありません</string>
+  <string name="widget_metrics">%1$d 島 · %2$d 物資 · %3$d 地域の不足</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">あなたの帝国</string>
+  <string name="widget_supply">供給の提案</string>
+  <string name="widget_metrics_preview">島 · 物資 · 地域の不足</string>
+  <string name="widget_pin_help">ホーム画面を長押しし、ウィジェット → Anno Companionを選択。</string>
+  <string name="widget_gaps">地域の不足</string>
+  <string name="widget_no_gaps">地域の不足なし</string>
+  <string name="widget_mixed">ライブ＋キャッシュ · %1$s</string>
+</resources>

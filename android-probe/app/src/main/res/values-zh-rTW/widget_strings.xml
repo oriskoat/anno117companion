@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="widget_pair">開啟Companion配對電腦</string>
+  <string name="widget_offline">電腦無法連線 · 最後資料：%1$s</string>
+  <string name="widget_last">最後遊戲資料：%1$s</string>
+  <string name="widget_demo">示範記錄 · %1$s</string>
+  <string name="widget_waiting">等待遊戲資料</string>
+  <string name="widget_expired">配對已過期 · 開啟Companion</string>
+  <string name="widget_open">開啟Companion</string>
+  <string name="widget_refresh">重新整理小工具</string>
+  <string name="widget_description">帝國概況與供應建議，使用已儲存的電腦配對。</string>
+  <string name="widget_name">Anno 117 · 帝國概況</string>
+  <string name="widget_switch_mode">Demo / Live</string>
+  <string name="widget_cached">已快取 · %1$s</string>
+  <string name="widget_no_supply">暫無相符的運輸</string>
+  <string name="widget_metrics">%1$d 島嶼 · %2$d 物資 · %3$d 本地缺口</string>
+  <string name="widget_rate">%1$s → %2$s · %3$s / min</string>
+  <string name="widget_empire">你的帝國</string>
+  <string name="widget_supply">供應建議</string>
+  <string name="widget_metrics_preview">島嶼 · 物資 · 本地缺口</string>
+  <string name="widget_pin_help">長按主畫面，選擇小工具 → Anno Companion。</string>
+  <string name="widget_gaps">本地缺口</string>
+  <string name="widget_no_gaps">無本地缺口</string>
+  <string name="widget_mixed">即時＋快取 · %1$s</string>
+</resources>

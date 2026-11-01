@@ -1,0 +1,22 @@
+.chain-selectors label{font-size:11px;color:var(--muted);min-width:0}
+.chain-selectors select{display:block;width:100%;margin-top:7px}
+.chain-group{margin:12px 0 30px}.chain-group h2{font-size:20px}
+.chain-grid{align-items:start}.chain-card{height:100%;margin:0}
+.chain-grid{display:grid;gap:12px}.chain-footer{gap:12px;line-height:1.5}
+.island-balances{border-radius:16px;overflow:hidden;margin:15px 0 25px;background:var(--white)}
+.island-balance{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px 12px;border-bottom:1px solid var(--line);font-size:11px}
+.island-balance>span:first-child{flex:1}.island-balance small{display:block;color:var(--muted);font-size:9px;line-height:1.5;margin:3px 0}
+.island-balance>strong{min-width:45px;text-align:right}.island-balance svg{width:15px;flex-shrink:0}
+.game-context{padding-top:4px}.game-context .route-card{margin-bottom:12px}
+.field-label select{display:block;width:100%;margin:10px 0 18px}.calculator-fields select{margin-top:8px;width:100%}
+.chain-step-detail{margin:13px 0;border-radius:16px;background:var(--white);overflow:hidden;border:1px solid var(--line)}
+.chain-step-detail .chain-step{margin:0;box-shadow:none}.chain-step .inline-link{font-size:13px;text-align:left;line-height:1.4;color:var(--ink)}
+.step-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;padding:0 13px 14px}
+.step-controls label{font-size:10px;color:var(--muted);flex:1;min-width:90px}
+.step-controls select,.step-controls input{display:block;width:100%;border:1px solid var(--line);padding:9px;border-radius:8px;margin-top:6px;background:var(--paper);color:var(--ink);min-height:38px}
+.step-controls input{max-width:110px}.step-controls>.inline-link{font-size:10px}.step-controls svg{width:14px}
+.icon-button{padding:0;flex-shrink:0}.specialist-name{font:inherit;color:inherit;text-align:left}
+.sheet .chain-open>b{flex:1;text-align:left}.chain-open svg{flex-shrink:0}
+@media(max-width:380px){.island-balance{gap:7px;font-size:10px}.island-balance>span:nth-child(2){max-width:92px}.chain-step-detail .chain-step{padding:10px;gap:6px}.chain-step strong{font-size:20px}.chain-step small{font-size:8px}}
+
+.chain-dependency{font-size:11px;color:var(--muted);line-height:1.8;padding:0 14px 8px}.chain-dependency button{font-size:11px;color:var(--blue)}

@@ -1,0 +1,1 @@
+Windows: run Anno117Companion.exe from a writable folder. No Python installation needed. Android: install the release APK. Live data requires the Windows app, /pipe and the game publishing statistics. Demo islands are invented examples. Read README and third-party notices.
