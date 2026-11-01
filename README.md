@@ -147,7 +147,7 @@ A source build can be made with your own Android key. It cannot replace official
 
 ## Pannonia — another idea
 
-My next idea is an **Albion-inspired Pannonian region for Anno 117**. It now has its own [Pannonia concept folder](pannonia/README.md) in this repository. This is an early concept, separate from the Companion; no playable mod or release date is announced.
+My next idea is an **Albion-inspired Pannonian region for Anno 117**. It now has its own [Pannonia concept folder](.ideas/README.md) in this repository. The detailed design covers two population paths, orchards and basket weaving, horse breeding, civic Marvels and the Ripa Pannonica frontier network. It is separate from the Companion; no playable mod or release date is announced.
 
 ## About, support and ownership
 

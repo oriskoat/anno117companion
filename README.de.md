@@ -147,7 +147,7 @@ Ein selbst gebautes APK kann mit einem eigenen Schlüssel signiert werden. Es ka
 
 ## Pannonia — eine weitere Idee
 
-Meine nächste Idee ist eine **von Albion inspirierte pannonische Region für Anno 117**. Dafür gibt es jetzt einen eigenen [Pannonia-Konzeptordner](pannonia/README.md) in diesem Repository. Das Konzept steht noch am Anfang und ist vom Companion getrennt; eine spielbare Mod oder ein Veröffentlichungstermin sind nicht angekündigt. Die Konzeptbeschreibung ist derzeit auf Englisch.
+Meine nächste Idee ist eine **von Albion inspirierte pannonische Region für Anno 117**. Dafür gibt es jetzt einen eigenen [Pannonia-Konzeptordner](.ideas/README.md) in diesem Repository. Der ausführliche Entwurf beschreibt zwei Bevölkerungswege, Obstgärten und Korbflechterei, Pferdezucht, Monumente und das Grenznetz der Ripa Pannonica. Das Konzept ist vom Companion getrennt; eine spielbare Mod oder ein Veröffentlichungstermin sind nicht angekündigt. Die Konzeptbeschreibung ist auf Englisch, ergänzende Planungsnotizen sind auf Ungarisch.
 
 ## Über den Autor, Unterstützung und Rechte
 
