@@ -1,6 +1,6 @@
 Anno 117 Companion — public Android release certificate
 Package: hu.anno117.companion
-Version: 0.20.1 (versionCode 22)
+Version: 0.20.2 (versionCode 23)
 Certificate SHA-256:
 d8ebc84cc0a6e419cccc0908cf56076c9e56cf318f2156a25c928beb19f34fd6
 

@@ -1,5 +1,14 @@
 # Android APK changelog
 
+## 0.20.2 — Observed production in import planning
+
+- Rank production-region islands by local surplus, then observed production, then other compatible islands. Show production, consumption, local balance and data freshness on each photo card.
+- Plan a transfer directly from observed surplus to the original destination. Cap the proposed rate by both surplus and deficit, distinguish partial coverage, and retain manual cargo quantities.
+- Offer production expansion on existing producer islands and new construction on other region-compatible islands. Do not imply that all chain inputs, fertility, deposits or unlocks are confirmed.
+- Translate the new interface text in all twelve supported languages.
+- APK versionCode 23, same public package and release certificate as 0.20.0/0.20.1.
+
+
 ## 0.20.1 — Island artwork in production and import planning
 
 - Show distinct regional island artwork in the “Build there and plan import” island picker instead of the pale Needs icon.
@@ -7,7 +16,7 @@
 - Android versionCode 22; same public package and release signing certificate as 0.20.0.
 
 
-Reconstructed through **0.20.1** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
+Reconstructed through **0.20.2** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
 

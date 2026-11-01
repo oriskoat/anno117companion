@@ -72,3 +72,11 @@ Images are deliberately captured at useful scroll positions. A screenshot illust
 
 ![Report production icons — Exported PDF / page 2](screenshots/11-pdf-production-icons.png)
 
+
+## 12–13. Observed production and import options (v0.20.2)
+
+**Local browser, desktop and mobile viewport.** Synthetic Example Empire. Island cards show observed production, consumption, balance and freshness. Existing surplus can be planned directly; expansion and new construction remain separate actions. These are browser captures, not native Android screenshots.
+
+![Observed import sources — desktop browser](screenshots/12-browser-import-sources-desktop.png)
+
+![Observed import sources — mobile browser viewport](screenshots/13-browser-import-sources-mobile.png)

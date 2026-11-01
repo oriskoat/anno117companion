@@ -1,0 +1,32 @@
+{
+  "runtime": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "process_bits": 64,
+    "netfx_release": 533509,
+    "webview_version": "156.0.4314.58",
+    "issues": []
+  },
+  "checks": {
+    "qr_png": {
+      "ok": true
+    },
+    "bundled_png_webp": {
+      "ok": true
+    },
+    "pdf_fonts": {
+      "ok": true
+    },
+    "tk_browser_controller": {
+      "ok": true
+    },
+    "dotnet_winforms": {
+      "ok": true
+    },
+    "webview2_loader": {
+      "ok": true
+    }
+  },
+  "webview_loader_version": "156.0.4314.58",
+  "ok": true
+}

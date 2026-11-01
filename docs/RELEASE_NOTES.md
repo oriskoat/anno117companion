@@ -1,20 +1,28 @@
-# Anno 117 Companion v0.20.1
+# Anno 117 Companion v0.20.2
 
 A small visual fix for Windows, Android and the dashboard served to local browsers.
 
-## Fixed
+## Improved production and import planning
 
-The **Build there and plan import** island picker now displays distinct artwork from the existing regional island gallery. Previously it used a pale Needs icon, leaving the island cards looking empty. Source selection still preserves the original import destination.
+**Build there and plan import** now uses the observed game data on each island card:
 
-These are regional illustrations, not screenshots of your actual islands.
+- Show production, consumption, local balance and snapshot freshness beside the island artwork.
+- List islands with a local surplus first, followed by observed producers and other islands in the compatible production region.
+- **Plan this transfer** sends an observed surplus straight into route planning for the original destination. The suggested rate is capped by available local surplus and the destination deficit; partial coverage is labelled.
+- **Expand production and plan import** is offered on islands already producing this good. Other compatible islands offer **Build there and plan import**.
+- New labels and explanations are translated in all twelve interface languages.
+
+Observed production is useful evidence for choosing an island, but does not confirm the full chain can be built locally: inputs may already be imported. Local balances exclude imports and warehouse stocks. Shipment quantities per visit remain manual. Existing routes and stock levels are not reported by the game.
+
+Island images remain regional illustrations, not screenshots of your actual islands.
 
 ## Downloads and updates
 
-- **Windows:** download `Anno117Companion-0.20.1-Windows-x64.zip`, or use **More → Updates** in the Companion. The updater uses the separately supplied `Anno117Companion.exe`. Settings and route plans stay in the existing writable folder.
-- **Android 8.0+:** download `Anno-Companion-0.20.1.apk`, or check for updates in the public Android app. Android asks you to approve installation. Package `hu.anno117.companion`, versionCode **22**, signed with the same release certificate as 0.20.0.
+- **Windows:** download `Anno117Companion-0.20.2-Windows-x64.zip`, or use **More → Updates** in the Companion. The updater uses the separately supplied `Anno117Companion.exe`. Settings and route plans stay in the existing writable folder.
+- **Android 8.0+:** download `Anno-Companion-0.20.2.apk`, or check for updates in the public Android app. Android asks you to approve installation. Package `hu.anno117.companion`, versionCode **23**, signed with the same release certificate as 0.20.0.
 - Older developer installs named `hu.anno117.pipeprobe` (including 0.19.0) are a separate application. Install the public APK; they cannot be upgraded in place to the public package.
 - **iPhone and other LAN browsers:** update the Windows Companion and reload the local page. There is no native iOS installer.
-- **Source + resources:** `Anno117Companion-0.20.1-source.zip` matches both binaries and includes the synthetic demo.
+- **Source + resources:** `Anno117Companion-0.20.2-source.zip` matches both binaries and includes the synthetic demo.
 - `SHA256SUMS.txt`, `release-manifest.json` and `SIGNING_CERTIFICATE.txt` identify the release files.
 
 The Windows EXE remains unsigned. No game data or pairing codes are sent to GitHub during update checks.

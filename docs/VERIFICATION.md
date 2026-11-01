@@ -1,3 +1,15 @@
+# v0.20.2 verification
+
+- Regression coverage: surplus/producer/region-only sorting; missing goods distinct from zero production; partial and full deficit coverage; capped rate; source and original destination preserved; manual cargo; back navigation; no nested buttons; balance revalidation before transfer.
+- New copy translated for all twelve supported interface languages.
+- Desktop/mobile browser inspection verifies images, layout and source actions.
+- Python and JavaScript regression suites, Windows native-dependency audit and EXE self-test, Android release build and lint, release-certificate validation, embedded dashboard parity, anonymous downloads and updater metadata are checked for this release.
+- Device installation/update remains a manual user test; running installations are not replaced during publication.
+
+Historical verification follows.
+
+---
+
 # v0.20.1 patch verification
 
 - Shared production/import island picker uses existing region-gallery photos; every candidate has an existing image and different islands receive different images where available.

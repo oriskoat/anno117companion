@@ -1,5 +1,5 @@
 {
-  "version": "0.20.0",
+  "version": "0.20.2",
   "data": "Synthetic Example Empire except user-approved cached Live widget screenshot",
   "reviewed": true,
   "images": [
@@ -68,6 +68,19 @@
       "surface": "Exported PDF / page 2",
       "caption": "Rendered from the same PDF. Product icons, island names, production, consumption and balances are visible.",
       "sha256": "7240c139d8f005d03bb758b9eabbf63cf2545f25baf4881e1bf5c84ced8528c4"
+    },
+    {
+      "file": "12-browser-import-sources-desktop.png",
+      "surface": "Local browser / desktop viewport",
+      "caption": "v0.20.2 synthetic Example Empire: observed source production, capped direct transfer and separate expansion/construction actions. Responsive browser capture, not a native-device screenshot.",
+      "sha256": "f65244c2bdc7149b8580ec51aa42d81c71d9fbf92ec5320f7e271a16768b9443"
+    },
+    {
+      "file": "13-browser-import-sources-mobile.png",
+      "surface": "Local browser / mobile viewport",
+      "caption": "v0.20.2 synthetic Example Empire: observed source production, capped direct transfer and separate expansion/construction actions. Responsive browser capture, not a native-device screenshot.",
+      "sha256": "54ac91d51f25724bccc9c03e94a52b7b8ac48437a459eb58e4295c7f0eff95a6"
     }
-  ]
+  ],
+  "version_note": "Images 01–11 retained from 0.20.0; images 12–13 captured for 0.20.2."
 }
