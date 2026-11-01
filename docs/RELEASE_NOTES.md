@@ -19,6 +19,10 @@ Live data with some older island snapshots is now labelled **Live + cached**, wi
 
 Both platforms are version 0.20.0. Their individual development histories are in CHANGELOG_WINDOWS.md and CHANGELOG_ANDROID.md. Earlier development checkpoints were not all public releases.
 
+## Setup guides
+
+[Detailed English setup](https://github.com/oriskoat/anno117companion#start-on-windows) · [Deutsche Anleitung](https://github.com/oriskoat/anno117companion/blob/main/README.de.md#start-unter-windows)
+
 ## Connect
 
 Start the Windows app, enable `/pipe` in Anno's launch options, load a save and open Production Statistics. Pair other devices with the LAN address plus six-digit code, or scan the QR code. The PC must remain running. Demo is available without the game; it uses invented Example islands. Pause can stop game messages, so the last cached statistics remain visible with their age.
@@ -31,7 +35,7 @@ Windows targets Windows 10 22H2 / Windows 11 x64. The embedded window requires .
 
 The public Android package is **hu.anno117.companion**, versionCode 21, signed with a dedicated release certificate. Old Pipe Probe/development installations are separate apps: this APK does not migrate their pairing/settings. Pair the public app once. Future public releases retain its package and certificate. See SIGNING_CERTIFICATE.txt.
 
-Update checks use stable GitHub Releases. This prepared candidate is not available to updaters until its release is published. Keep the Windows bridge-settings folder when upgrading; never upload it.
+Update checks use stable GitHub Releases. Version 0.20.0 is published as the latest stable release. The former development Android package cannot be upgraded in place: install the public APK separately and pair it once. Keep the Windows bridge-settings folder when upgrading; never upload it.
 
 Unofficial community project, not affiliated with or endorsed by Ubisoft. Original code is MIT; Ubisoft resources retain their ownership and are not relicensed under MIT. See the included notices. No account, analytics, advertisements or mandatory payment.
 
