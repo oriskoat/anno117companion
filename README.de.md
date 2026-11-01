@@ -72,6 +72,8 @@ Zielplattform: Windows 10 22H2 / Windows 11 **x64**. Das integrierte Fenster ben
 
 ### 3. Erste Live-Statistiken empfangen
 
+**Das Spiel liefert neue Statistiken nur bei laufender Simulation — nicht während einer Pause.** Lass das Spiel zunächst laufen, bis mindestens einmal Statistiken empfangen wurden. Wenn du danach pausierst, zeigt der Companion weiterhin die **zuletzt empfangenen Daten** einschließlich der daraus berechneten Versorgungsvorschläge. Ältere Werte werden als **Cached** mit ihrem Alter gekennzeichnet. Während der Pause werden keine Änderungen erfunden oder hochgerechnet. Sobald du die Simulation fortsetzt und das Spiel wieder Statistiken sendet, aktualisieren sich die Werte automatisch. Wurden noch keine Daten empfangen, kann im pausierten Zustand auch kein erster Datenstand angezeigt werden.
+
 1. Den **lokalen Server** im Companion laufen lassen und **Live** wählen.
 2. In Anno einen Spielstand laden und die **Simulation fortsetzen**.
 3. Die **Produktionsstatistik** über die Statistikoberfläche des Spiels öffnen. Kurz warten: Inseln können nacheinander aktualisiert werden.

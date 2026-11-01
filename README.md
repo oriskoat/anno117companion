@@ -72,6 +72,8 @@ Target: Windows 10 22H2 / Windows 11 **x64**. The embedded window uses .NET Fram
 
 ### 3. Receive your first Live statistics
 
+**The game only supplies new statistics while the simulation is running — not while paused.** Let the game run and receive statistics at least once. If you pause afterwards, the Companion continues to display the **last received data**, including its supply calculations, and marks older values as **Cached** with their age. It does not invent or extrapolate changes during the pause. When you resume and the game publishes statistics again, the values update automatically. If no data has been received yet, pausing cannot provide an initial snapshot.
+
 1. Keep the Companion's **local server running** and select **Live**.
 2. In Anno, load a save and **resume the simulation**.
 3. Open **Production Statistics** using the game's statistics interface. Allow a little time for island statistics to arrive; islands can update separately.
