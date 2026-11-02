@@ -18,6 +18,6 @@ Save statistics are snapshots and may predate the save itself; they are not a su
 
 I'm planning to release this on **Thursday, 5 November 2026, after the 3.0 patch**, once I have checked the reader against the updated game and its saves. The reader already works with the current game; compatibility with 3.0 still needs that final check.
 
-The existing pipe-based Companion will remain free. Save Insights is planned as an optional paid add-on; pricing and purchase details will be announced separately.
+**The entire Companion, including Save Insights and the existing pipe features, is free.**
 
 [Back to ideas](README.md) · [Companion downloads and setup](../README.md)
