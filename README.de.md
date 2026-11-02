@@ -12,6 +12,14 @@
 
 Zuerst Windows, danach jedes Gerät in deinem lokalen Netzwerk: Die Windows-App liest die Produktions-Pipe des Spiels und stellt dieselbe Übersicht im eigenen Fenster, in der Android-App oder im Browser auf einem iPhone beziehungsweise weiteren Computer bereit.
 
+## Als Nächstes: Save Insights
+
+In der Entwicklungsversion läuft bereits ein **funktionierender lokaler Spielstandleser zusammen mit der Live-Produktions-Pipe**. Er ergänzt gespeicherte Lagerverläufe, bestehende Handelsrouten im Spiel, Bedürfniszustände von Wohnhäusern und Produktionsgebäude. Die Übersicht kann dadurch gespeicherte Statistiken verwenden, wenn keine Live-Pipe-Daten verfügbar sind.
+
+Die Veröffentlichung ist für **Donnerstag, den 5. November 2026, nach dem Patch 3.0 und den Kompatibilitätsprüfungen** geplant. **Das Update wird über die integrierte Update-Funktion der bereits heruntergeladenen App verfügbar sein.** Der Pipe-basierte Companion bleibt kostenlos; Save Insights ist als optionales kostenpflichtiges Zusatzmodul geplant. Preise und Kaufdetails folgen. Die aktuelle öffentliche Version enthält diese Funktion noch nicht.
+
+[Entwicklungsstand von Save Insights lesen (Englisch)](.ideas/save-insights.md).
+
 ## Screenshots
 
 **Windows Companion — das tatsächliche EXE-Fenster:**

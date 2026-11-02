@@ -12,6 +12,14 @@
 
 Windows first, then any device on your local network. The Windows app reads the game’s production pipe and provides the same dashboard in its own window, on Android, or in a browser on iPhone/another computer.
 
+## Coming next: Save Insights
+
+A **working local save-game reader already runs alongside the live production pipe** in the development build. It adds recorded stock history, existing in-game trade routes, residence need states and production buildings, and lets the dashboard use saved statistics when live pipe data is unavailable.
+
+I'm planning to release it on **Thursday, 5 November 2026, after the 3.0 patch and compatibility checks**. **The update will be available through the built-in updater in the app you've already downloaded.** The pipe-based Companion remains free; Save Insights is planned as an optional paid add-on, with pricing and purchase details to follow. It is not included in the current public release yet.
+
+[Read the Save Insights development update](.ideas/save-insights.md).
+
 ## Screenshots
 
 **Windows Companion — actual EXE window:**
