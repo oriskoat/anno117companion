@@ -20,6 +20,10 @@ Die Veröffentlichung ist für **Donnerstag, den 5. November 2026, nach dem Patc
 
 [Entwicklungsstand von Save Insights lesen (Englisch)](.ideas/save-insights.md).
 
+**Funktionierende Windows-Entwicklungsversion — gespeicherter Lagerverlauf und Bedürfniszustände aus meiner eigenen Kampagne:**
+
+[![Save Insights unter Windows: gespeicherter Lagerverlauf und Bedürfniszustände](.ideas/screenshots/save-insights-stock-history.png)](.ideas/save-insights.md#screenshots-from-the-working-windows-preview)
+
 ## Screenshots
 
 **Windows Companion — das tatsächliche EXE-Fenster:**

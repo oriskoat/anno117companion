@@ -20,6 +20,10 @@ I'm planning to release it on **Thursday, 5 November 2026, after the 3.0 patch a
 
 [Read the Save Insights development update](.ideas/save-insights.md).
 
+**Working Windows development preview — recorded stock history and saved needs from my own campaign:**
+
+[![Save Insights Windows preview: stock history and saved needs](.ideas/screenshots/save-insights-stock-history.png)](.ideas/save-insights.md#screenshots-from-the-working-windows-preview)
+
 ## Screenshots
 
 **Windows Companion — actual EXE window:**
