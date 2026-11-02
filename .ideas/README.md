@@ -1,3 +1,11 @@
+## Companion development update
+
+**[Save Insights — working local save-game reader alongside the pipe](save-insights.md)**
+
+Planned release: **Thursday, 5 November 2026, after the 3.0 patch and compatibility checks**. The pipe-based Companion remains free; Save Insights is planned as an optional paid add-on.
+
+---
+
 [English concept](README.md) · [Population and needs design](pannonia-population-needs.en.md) · [Historical research and implementation framework](pannonia-research-and-skeleton.en.md)
 
 # Anno 117: Pannonia
