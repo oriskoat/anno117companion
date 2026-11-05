@@ -1,4 +1,4 @@
-# Screenshot gallery — 0.20.2
+# Screenshot gallery — 0.21.0
 
 These are actual captures of the Windows Companion, its local browser dashboard, the release APK on a Samsung, and the exported PDF. The application and browser examples use the invented **Example Empire** demo. The clean widget screenshot was arranged and supplied by the author and shows cached Live values from their own game. The browser views are labelled separately from the EXE views. No generated interface, simulated phone frame, pairing code, QR code or PC address is used in this gallery.
 
@@ -82,3 +82,18 @@ Images are deliberately captured at useful scroll positions. A screenshot illust
 ![Observed import sources — desktop browser](screenshots/12-browser-import-sources-desktop.png)
 
 ![Observed import sources — mobile browser viewport](screenshots/13-browser-import-sources-mobile.png)
+
+
+## 14–16. Aegyptus and Save Insights (v0.21.0)
+
+Actual local browser dashboard with synthetic example data. The Windows and Android apps share this dashboard.
+
+- **Aegyptus chains** — regional filter and recipe cards with official goods artwork.
+- **Aegyptus needs** — the Threshers portrait and needs on Example Nilopolis.
+- **Save Insights** — island artwork and saved statistics sections in Demo mode.
+
+![Aegyptus chains](screenshots/14-aegyptus-chains.png)
+
+![Aegyptus needs](screenshots/15-aegyptus-needs.png)
+
+![Save Insights overview](screenshots/16-save-insights.png)

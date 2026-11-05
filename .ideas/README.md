@@ -2,7 +2,7 @@
 
 **[Save Insights — working local save-game reader alongside the pipe](save-insights.md)**
 
-Planned release: **Thursday, 5 November 2026, after the 3.0 patch and compatibility checks**. **The entire Companion, including Save Insights, is free.**
+Released in **0.21.0**. The entire Companion, including Save Insights, is free.
 
 ---
 

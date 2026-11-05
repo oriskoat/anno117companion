@@ -81,6 +81,8 @@ def main():
     parser.add_argument('--host',default='0.0.0.0')
     parser.add_argument('--port',type=int,default=11780)
     parser.add_argument('--browser',action='store_true',help='Run the local server with the bundled browser-mode controller (no .NET/WebView2 required).')
+    parser.add_argument('--save-insights-preview', action='store_true', help='Enable the local Save Insights development preview. No billing or purchase is required for this private preview.')
+    parser.add_argument('--no-pipe', action='store_true', help='Do not connect another pipe reader; useful for isolated save-preview testing.')
     args=parser.parse_args()
     from startup_guard import runtime_status, browser_window
     import tempfile
@@ -90,7 +92,7 @@ def main():
     except OSError as error:
         raise RuntimeError('The Companion folder is not writable. Extract the app to a folder you own (for example Documents), keeping bridge-settings beside the EXE.') from error
     status=runtime_status()
-    service = BridgeService(args.port,args.host)
+    service = BridgeService(args.port,args.host,save_preview=True,connect_pipe=not args.no_pipe)
     try:
         service.start()
     except OSError as error:
@@ -107,8 +109,8 @@ def main():
             return
         import webview
         api = DesktopAPI(service)
-        address = 'http://127.0.0.1:' + str(service.port) + '/#pair=' + service.token + '&desktop=1&sample=1'
-        title='Anno 117 Companion'+(f' ({args.port})' if args.port!=11780 else '')
+        address = 'http://127.0.0.1:' + str(service.port) + '/#pair=' + service.token + '&desktop=1' + ('&insights=1' if args.save_insights_preview else '&sample=1')
+        title='Anno 117 Companion'+(' — Save Insights Preview' if args.save_insights_preview else '')+(f' ({args.port})' if args.port!=11780 else '')
         webview.create_window(title, address, js_api=api, width=1360, height=960, min_size=(640, 640), maximized=True)
         try:
             webview.start(gui='edgechromium', private_mode=False, storage_path=str(ROOT / 'bridge-settings/webview'))

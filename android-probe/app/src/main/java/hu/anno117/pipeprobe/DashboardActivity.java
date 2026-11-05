@@ -100,6 +100,26 @@ public final class DashboardActivity extends Activity {
         });
     }
     public final class NativeApi {
+        @JavascriptInterface public void refreshSnapshot(){main.post(() -> {if(!demo&&!busy)fetch(generation);});}
+        @JavascriptInterface public void saveInsights(String id,String body){
+            final String host=address,secret=token;
+            if(demo||id==null||id.length()>100||body==null||body.length()>2048)return;
+            worker.execute(() -> {
+                HttpURLConnection connection=null;
+                try {
+                    connection=(HttpURLConnection)new URL(host+"/v1/save-insights").openConnection();
+                    connection.setConnectTimeout(5000);connection.setReadTimeout(12000);connection.setInstanceFollowRedirects(false);connection.setRequestProperty("Authorization","Bearer "+secret);
+                    if(!body.isEmpty()){
+                        connection.setRequestMethod("POST");connection.setDoOutput(true);connection.setRequestProperty("Content-Type","application/json");
+                        byte[] bytes=body.getBytes(StandardCharsets.UTF_8);connection.setFixedLengthStreamingMode(bytes.length);try(OutputStream out=connection.getOutputStream()){out.write(bytes);}
+                    }
+                    int status=connection.getResponseCode();String text=read(status>=400?connection.getErrorStream():connection.getInputStream());
+                    JSONObject result=new JSONObject().put("status",status).put("document",new JSONObject(text));
+                    main.post(() -> js("window.saveInsightsReply&&window.saveInsightsReply("+JSONObject.quote(id)+","+result+")"));
+                }catch(Exception e){main.post(() -> js("window.saveInsightsReply&&window.saveInsightsReply("+JSONObject.quote(id)+",{status:0})"));}
+                finally{if(connection!=null)connection.disconnect();}
+            });
+        }
         @JavascriptInterface public void tradeRoutes(String id,String context,String body){
             final String host=address,secret=token;
             if(demo||context.length()>240||body.length()>2000000)return;

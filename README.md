@@ -4,7 +4,7 @@
 
 **Your empire. A clearer view.** A free, unofficial companion for Anno 117: Pax Romana by Ádám.
 
-[Download Windows ZIP](https://github.com/oriskoat/anno117companion/releases/download/v0.20.2/Anno117Companion-0.20.2-Windows-x64.zip) · [Download Android APK](https://github.com/oriskoat/anno117companion/releases/download/v0.20.2/Anno-Companion-0.20.2.apk) · [All downloads](https://github.com/oriskoat/anno117companion/releases/latest)
+[Download Windows ZIP](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno117Companion-0.21.0-Windows-x64.zip) · [Download Android APK](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno-Companion-0.21.0.apk) · [All downloads](https://github.com/oriskoat/anno117companion/releases/latest)
 
 ☕ **[Buy me a coffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — the Companion is free. Support is completely optional. No tribute required.
 
@@ -12,17 +12,17 @@
 
 Windows first, then any device on your local network. The Windows app reads the game’s production pipe and provides the same dashboard in its own window, on Android, or in a browser on iPhone/another computer.
 
-## Coming next: Save Insights
+## New in 0.21.0: Aegyptus and Save Insights
 
-A **working local save-game reader already runs alongside the live production pipe** in the development build. It adds recorded stock history, existing in-game trade routes, residence need states and production buildings, and lets the dashboard use saved statistics when live pipe data is unavailable.
+**Aegyptus / Dawn of the Delta** adds Threshers, the Potters–Chanters and Scribes–Gymnasiarchs paths, and 81 regional chain entries. The catalogue also refreshes Latium and Albion for game update 3.0. Use **Chains → Region** or the DLC filter, and choose a destination island to see local production and import options.
 
-I'm planning to release it on **Thursday, 5 November 2026, after the 3.0 patch and compatibility checks**. **The update will be available through the built-in updater in the app you've already downloaded.** **The entire Companion, including Save Insights, is free.** It is not included in the current public release yet.
+**Save Insights is free.** On Windows, open **More → Save Insights**, choose your campaign and turn **Use save data** on. The Companion reads your save locally and keeps fresh pipe statistics first when they match the campaign. Paired devices can see saved routes, stock history, residence needs, and specialists relevant to building or import plans.
 
-[Read the Save Insights development update](.ideas/save-insights.md).
+Already using the Companion? Open **More → Updates** on Windows or Android to get 0.21.0 through the built-in updater.
 
-**Working Windows development preview — recorded stock history and saved needs from my own campaign:**
+[How Save Insights works](.ideas/save-insights.md)
 
-[![Save Insights Windows preview: stock history and saved needs](.ideas/screenshots/save-insights-stock-history.png)](.ideas/save-insights.md#screenshots-from-the-working-windows-preview)
+![Aegyptus production chains in the Companion browser dashboard](docs/screenshots/14-aegyptus-chains.png)
 
 ## Screenshots
 
@@ -36,7 +36,7 @@ I'm planning to release it on **Thursday, 5 November 2026, after the 3.0 patch a
 | --- | --- |
 | <img src="docs/screenshots/07-android-supply.png" alt="Actual Samsung APK showing complete Supply suggestions" width="300"> | <img src="docs/screenshots/09-android-widget.png" alt="Clean Samsung launcher widget showing cached Live game data" width="300"> |
 
-[View all 13 screenshots](docs/SCREENSHOTS.md): Windows Supply, chain calculator and Needs; browser route plans and regional import; Android product details; illustrated PDF.
+[View all 16 screenshots](docs/SCREENSHOTS.md): Windows Supply, chain calculator and Needs; browser route plans and regional import; Android product details; illustrated PDF.
 
 [Open the actual example Empire Summary PDF](docs/Example-Empire-Summary.pdf).
 
@@ -56,7 +56,7 @@ I'm planning to release it on **Thursday, 5 November 2026, after the 3.0 patch a
 
 ### 1. Download and open the Companion
 
-1. **[Download the Windows ZIP directly](https://github.com/oriskoat/anno117companion/releases/download/v0.20.2/Anno117Companion-0.20.2-Windows-x64.zip)**, or choose the Windows ZIP on the [latest release page](https://github.com/oriskoat/anno117companion/releases/latest). GitHub's **Code → Download ZIP** is the source code, not the ready-to-run app.
+1. **[Download the Windows ZIP directly](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno117Companion-0.21.0-Windows-x64.zip)**, or choose the Windows ZIP on the [latest release page](https://github.com/oriskoat/anno117companion/releases/latest). GitHub's **Code → Download ZIP** is the source code, not the ready-to-run app.
 2. Right-click the downloaded ZIP and select **Extract All**. Choose a folder you can write to, for example `Documents\Anno117Companion`. Run the extracted app, rather than opening the EXE inside the ZIP.
 3. Open **Anno117Companion.exe**. Python, Android Studio and development tools are not needed.
 4. Choose **Demo** to explore the invented Example Empire without starting the game. The top bar contains the local-server controls, Demo/Live switch and pairing details for other devices. Expand the bar if it is collapsed.
@@ -105,7 +105,7 @@ You can use the complete tool in the EXE, or click **Open browser**. The Windows
 
 ### Android app
 
-1. **[Download the Android APK directly](https://github.com/oriskoat/anno117companion/releases/download/v0.20.2/Anno-Companion-0.20.2.apk)** on your phone and open the downloaded file.
+1. **[Download the Android APK directly](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno-Companion-0.21.0.apk)** on your phone and open the downloaded file.
 2. If Android requests permission to install from that browser/file manager, review and allow that installation source to proceed. This is a direct APK installation, not a Play Store download.
 3. Open **Anno Companion**. Demo works without pairing or the game.
 4. Select **Live**. If the app is not paired, it opens the connection screen. Enter the PC address displayed by the Windows app and its current six-digit code, then connect.
@@ -151,7 +151,7 @@ Update checks use GitHub Releases. Downloads are verified; Windows restarts to r
 
 ## Build and test
 
-Windows: Python **3.11 x64** with Tk, then `pip install -r requirements-build.txt` and `.\build_release.ps1 -Version 0.20.2`. The build includes a native-DLL payload audit. Generated dashboard/catalogue resources are checked in; no local game extraction is required to build this snapshot.
+Windows: Python **3.11 x64** with Tk, then `pip install -r requirements-build.txt` and `.\build_release.ps1 -Version 0.21.0`. The build includes a native-DLL payload audit. Generated dashboard/catalogue resources are checked in; no local game extraction is required to build this snapshot.
 
 Android: JDK 17, Android SDK platform 35 and the Gradle wrapper. Set your own untracked `android-probe/local.properties`, then run `gradlew.bat assembleDebug lintDebug` there. A public release build requires private signing environment variables `ANNO_KEYSTORE`, `ANNO_STORE_PASSWORD`, `ANNO_KEY_ALIAS`, `ANNO_KEY_PASSWORD`; run `assembleRelease lintRelease`. Debug builds use the `.dev` package suffix. Never commit keys or passwords.
 

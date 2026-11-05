@@ -9,7 +9,7 @@ function needsAction(action,areaId,tier,id,value){const area=snapshot?.areas?.fi
 function needsBrowseToggle(node){if(!node.isConnected||!!needsExpanded.get(node.dataset.needsBrowse)===node.open)return;needsExpanded.set(node.dataset.needsBrowse,node.open);render(true);}
 function needArt(label){const p=N.art[label]||N.art.Infrastructure;return p?`<img class="tier-art ${label==='Infrastructure'?'infra-art':''}" src="${p}" alt="" loading="lazy">`:icon(3087);}
 function needsArea(){return needsViewContext?.area||snapshot?.areas?.find(a=>key(a)===needsIsland)||snapshot?.areas?.[0];}
-function needsRegion(a){return a?.session_guid===3245?'Latium':a?.session_guid===6627?'Albion':null;}
+function needsRegion(a){return a?.session_guid===3245?'Latium':a?.session_guid===6627?'Albion':a?.session_guid===149679?'Aegyptus':null;}
 function needsTierList(){return N.tiers.filter(t=>needsIsland==='all'&&!needsViewContext||t.region===needsRegion(needsArea())).sort((a,b)=>chainGroupRank(a)-chainGroupRank(b));}
 function needsSelectedTier(){const tiers=needsTierList();return needsViewContext?.tier||tiers.find(t=>t.tier===needsTier)||tiers[0];}
 function needsObservationKey(n){return 'anno.need.'+JSON.stringify([tradeContext(),key(needsArea()),n.tier,n.need_guid]);}

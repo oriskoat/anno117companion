@@ -5,7 +5,7 @@ if(!K.languages[appLanguage])appLanguage='en';
 function gameName(guid,fallback){return K.names[appLanguage]?.[guid]||K.names.en?.[guid]||fallback||`GUID ${guid}`;}
 function producers(guid,region='all'){return K.factories.filter(f=>f.outputs.some(o=>o.product_guid===Number(guid))&&(region==='all'||f.regions.includes(region)));}
 function relevantSpecialists(factoryIds){return K.specialists.filter(s=>s.status==='source-linked'&&s.target_assets.some(t=>factoryIds.includes(t.guid)&&!s.excluded_targets.some(x=>x.guid===t.guid)));}
-function regionImage(a){const region=a.session_guid===6627?'albion':'latium';const files=window.islandGallery?.[region]||[`islands/${region}.webp`];const ids=(snapshot?.areas||[]).filter(x=>(x.session_guid===6627?'albion':'latium')===region).map(key).sort();return files[Math.max(0,ids.indexOf(key(a)))%files.length];}
+function regionImage(a){const region=a.session_guid===6627?'albion':a.session_guid===149679?'aegyptus':'latium';const files=window.islandGallery?.[region]||[`islands/${region}.webp`];const ids=(snapshot?.areas||[]).filter(x=>x.session_guid===a.session_guid).map(key).sort();return files[Math.max(0,ids.indexOf(key(a)))%files.length];}
 const baseModel=model;
 model=function(){baseModel();for(const p of allProducts)p.name=gameName(p.guid,p.name);for(const e of allEntries)e.ProductNameEnglish=gameName(e.ProductGuid,e.ProductNameEnglish);};
 const baseRender=render;

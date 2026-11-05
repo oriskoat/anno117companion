@@ -3,7 +3,7 @@ const root='android-probe/app/src/main/assets/dashboard',dom=new JSDOM(fs.readFi
 for(const m of fs.readFileSync(root+'/index.html','utf8').matchAll(/<script src="([^"]+)"/g)){if(['browser.js','updates.js'].includes(m[1]))continue;const s=w.document.createElement('script');s.textContent=fs.readFileSync(root+'/'+m[1],'utf8');w.document.body.appendChild(s);}
 const sample=JSON.parse(fs.readFileSync(root+'/demo.json','utf8'));w.receiveSnapshot(sample,'demo');
 try{
- assert.equal(w.annoNeeds.tiers.length,9);assert(w.annoNeeds.needs.some(n=>n.is_service));
+ assert.equal(w.annoNeeds.tiers.length,14);assert.deepEqual(Array.from(w.annoNeeds.tiers.filter(t=>t.region==='Aegyptus'),t=>t.tier),['Threshers','Potters','Chanters','Scribes','Gymnasiarchs']);const aegyptusNeed=w.annoNeeds.needs.find(n=>n.tier==='Threshers'&&n.rates.Low>0);assert(Math.abs(aegyptusNeed.rates.VeryHigh-aegyptusNeed.rates.Low*1.75)<1e-12);assert(w.annoNeeds.needs.some(n=>n.is_service));
  w.nav('supply');w.setSupplyFilter('region','Albion');assert(w.supplyTierOptions().includes('Waders'));
  const albion=sample.areas.find(a=>a.session_guid===6627);assert(albion);
  const c=w.supplyClassification({from_area_key:[albion.session_id,albion.island_id,albion.area_index].join(':'),product_guid:2097});assert.equal(c.tier,'Waders');const latium=sample.areas.find(a=>a.session_guid===3245);assert.equal(w.supplyClassification({from_area_key:[latium.session_id,latium.island_id,latium.area_index].join(':'),product_guid:2110}).tier,'Infrastructure');assert(w.needArt('Infrastructure').includes('infra-art'));
@@ -18,5 +18,5 @@ try{
  w.needsPlan(garum.need_guid);assert(!w.document.querySelector('#overlay').hidden);w.closeSheet();
  assert(w.buildingEffects(2994).includes('-2'));assert(w.buildingEffects(2994).includes('Radius: 20'));assert(w.buildingEffects(13808).includes('Fire safety'));assert(w.buildingEffects(13808).includes('Radius: 24'));
  w.openChain(13808);assert(w.document.querySelector('#chainCalculation .building-effects'));w.closeSheet();
- assert.equal(errors.length,0,errors.map(String).join('\n'));console.log('PASS: all nine tiers + services, Waders grouping and portrait, unknown vs manual fulfilment, per-island/mode isolation, category thresholds, need rewards, contextual chain and building radius effects');
+ assert.equal(errors.length,0,errors.map(String).join('\n'));console.log('PASS: all fourteen tiers + services, Waders grouping and portrait, unknown vs manual fulfilment, per-island/mode isolation, category thresholds, need rewards, contextual chain and building radius effects');
 }finally{w.close();}

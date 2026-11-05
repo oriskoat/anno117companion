@@ -6,6 +6,7 @@ if (!window.Native) {
     const storage={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v){try{localStorage.setItem(k,v)}catch{}},remove(k){try{localStorage.removeItem(k)}catch{}}};
     token=storage.get('anno.pairing')||'';
     const fragment=new URLSearchParams(location.hash.slice(1));let enrollment='';
+    window.saveInsightsLanding=fragment.get('insights')==='1';
     window.desktopMode=fragment.get('desktop')==='1';
     if(fragment.has('pair')){const supplied=fragment.get('pair').toUpperCase();if(/^\d{6}$/.test(supplied))enrollment=supplied;else token=supplied;if(!window.desktopMode||storage.get('anno.demo')===null)storage.set('anno.demo',fragment.has('sample')?'true':'false');history.replaceState(null,'',location.pathname);}
     demo=storage.get('anno.demo')!=='false';
@@ -34,6 +35,11 @@ if (!window.Native) {
       catch(error){window.connectionNotice(error.message);window.openSettings();window.settingsError(error.message);}
     }
     window.Native={
+      refreshSnapshot(){if(!demo&&token){cancel();receive(generation);}},
+      async saveInsights(body){
+        const response=await fetch('/v1/save-insights',{method:body?'POST':'GET',headers:{Authorization:'Bearer '+token,...(body?{'Content-Type':'application/json'}:{})},cache:'no-store',...(body?{body:JSON.stringify(body)}:{})});
+        return {status:response.status,document:await response.json()};
+      },
       async tradeRoutes(context,body){
         const response=await fetch('/v1/trade-routes?context='+encodeURIComponent(context),{method:body?'PUT':'GET',headers:{Authorization:'Bearer '+token,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
         return {status:response.status,document:await response.json()};

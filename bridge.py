@@ -251,10 +251,45 @@ class Bridge:
                     pass
 
 
-def handler_for(bridge, token, trade_store=None):
+def handler_for(bridge, token, trade_store=None, insights=None):
     trade_store=trade_store if trade_store is not None else TradeRouteStore()
     pairing = token if isinstance(token, Pairing) else None
     class Handler(BaseHTTPRequestHandler):
+        def insights_request(self, write=False):
+            supplied = self.headers.get('Authorization', '')
+            valid = (pairing.authenticate(supplied[7:]) if pairing and supplied.startswith('Bearer ')
+                     else not pairing and hmac.compare_digest(supplied.encode(), ('Bearer '+token).encode()))
+            if not valid:
+                self.reply(401, {'error': 'Pairing required'});return
+            origin = self.headers.get('Origin')
+            if origin and urlsplit(origin).netloc != self.headers.get('Host'):
+                self.reply(403, {'error': 'Use the bridge page'});return
+            if insights is None or not insights.allowed():
+                self.reply(403, {'enabled': False, 'status': 'disabled', 'billing_available': False});return
+            try:
+                if write:
+                    length = int(self.headers.get('Content-Length', '0'))
+                    if not 0 < length <= 2048:
+                        raise ValueError('Invalid request size')
+                    value = json.loads(self.rfile.read(length))
+                    if not isinstance(value, dict):
+                        raise ValueError('Invalid Save Insights request')
+                    if value.get('action') == 'refresh' and set(value) == {'action'}:
+                        insights.refresh()
+                    elif value.get('action') == 'use_saves' and set(value) == {'action','enabled'}:
+                        insights.set_use_saves(value['enabled'])
+                    elif value.get('action') == 'select' and set(value) <= {'action','profile_id','participant','file_name'}:
+                        insights.choose(value['profile_id'], value.get('participant'), value.get('file_name'))
+                    else:
+                        raise ValueError('Invalid Save Insights request')
+                self.reply(202 if write else 200, insights.state(bridge.snapshot()))
+            except PermissionError:
+                self.reply(403, {'error': 'Save Insights is not enabled.'})
+            except (ValueError, KeyError, TypeError):
+                self.reply(400, {'error': 'Invalid save selection. Use a discovered profile.'})
+            except OSError:
+                self.reply(503, {'error': 'Save settings could not be stored.'})
+
         def trade_request(self,write=False):
             supplied=self.headers.get('Authorization','')
             valid=pairing.authenticate(supplied[7:]) if pairing and supplied.startswith('Bearer ') else not pairing and hmac.compare_digest(supplied.encode(),('Bearer '+token).encode())
@@ -279,6 +314,8 @@ def handler_for(bridge, token, trade_store=None):
             else:self.reply(404,{'error':'Not found'})
 
         def do_POST(self):
+            if urlsplit(self.path).path == '/v1/save-insights':
+                self.insights_request(True);return
             if self.path == '/v1/report':
                 self.report();return
             if self.path != '/v1/pair' or pairing is None:
@@ -322,6 +359,7 @@ def handler_for(bridge, token, trade_store=None):
 
         def do_GET(self):
             path = unquote(urlsplit(self.path).path)
+            if path == '/v1/save-insights':self.insights_request();return
             if path=='/v1/trade-routes':self.trade_request();return
             if path != '/v1/snapshot':
                 self.static(path)
@@ -331,7 +369,10 @@ def handler_for(bridge, token, trade_store=None):
             if not valid:
                 self.reply(401, {'error': 'Pairing code required or incorrect'})
             elif path == '/v1/snapshot':
-                self.reply(200, bridge.snapshot())
+                pipe_snapshot = bridge.snapshot()
+                effective = insights.dashboard(pipe_snapshot) if insights is not None else pipe_snapshot
+                effective['use_save_data'] = bool(insights is not None and insights.allowed() and insights.use_saves)
+                self.reply(200, effective)
             else:
                 self.reply(404, {'error': 'Not found'})
 
@@ -398,7 +439,7 @@ def pairing_token():
 
 
 class BridgeService:
-    def __init__(self, port=11780, host='0.0.0.0'):
+    def __init__(self, port=11780, host='0.0.0.0', save_preview=False, connect_pipe=True):
         self.port = port
         self.host = host
         self.token = pairing_token()
@@ -407,20 +448,31 @@ class BridgeService:
         self.bridge = None
         self.pipe_thread = None
         self.trade_store=TradeRouteStore(ROOT/'bridge-settings/trade-routes.json')
+        self.save_preview = save_preview
+        self.connect_pipe = connect_pipe
+        self.insights = None
 
     def start(self):
         if self.server:
             return
         names = json.loads((RESOURCE / 'guid_map.json').read_text(encoding='utf-8'))['guids']
         bridge = Bridge(names, ROOT/'bridge-settings/recent-game-cache.json')
-        server = CompanionHTTPServer((self.host, self.port), handler_for(bridge, self.pairing,self.trade_store))
+        if self.insights is None:
+            from save_reader.service import SaveInsightsService, preview_access, default_accounts
+            self.insights = SaveInsightsService(default_accounts(),
+                ROOT/'bridge-settings', RESOURCE/'save_catalogue.json', preview_access(self.save_preview))
+        server = CompanionHTTPServer((self.host, self.port), handler_for(bridge, self.pairing,self.trade_store,self.insights))
         server.daemon_threads = True
         self.bridge, self.server = bridge, server
-        self.pipe_thread = threading.Thread(target=bridge.run_pipe, daemon=True)
-        self.pipe_thread.start()
+        if self.connect_pipe:
+            self.pipe_thread = threading.Thread(target=bridge.run_pipe, daemon=True)
+            self.pipe_thread.start()
+        self.insights.start()
         threading.Thread(target=server.serve_forever, daemon=True).start()
 
     def stop(self):
+        if self.insights:
+            self.insights.stop()
         if self.bridge:
             self.bridge.stop()
         if self.server:

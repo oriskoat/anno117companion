@@ -9,7 +9,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements-build.txt
-      - run: python -m unittest test_bridge test_trade_routes test_updater test_public test_startup test_report
+      - run: python -m unittest test_bridge test_trade_routes test_updater test_public test_startup test_report test_save_insights test_save_insights
       - uses: actions/setup-node@v4
         with:
           node-version: '22'

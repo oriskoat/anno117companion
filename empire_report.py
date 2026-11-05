@@ -85,6 +85,9 @@ def _build(payload):
     has_live=any(not (a.get('cached') or a.get('stale')) for a in areas)
     mode='DEMO' if snapshot.get('synthetic') else 'RECORDED' if payload.get('isDemo') else 'LIVE + CACHED' if has_cached and has_live else 'CACHED' if snapshot.get('data_mode')=='cached' or has_cached else 'LIVE'
     row_mode='DEMO' if snapshot.get('synthetic') else 'RECORDED' if payload.get('isDemo') else 'LIVE'
+    save_source = snapshot.get('save_source')
+    if save_source and not payload.get('isDemo'):
+        mode = 'SAVED DATA' if save_source.get('saved_areas') == len(areas) else 'LIVE + SAVE'
     if not areas and not payload.get('isDemo'):mode='WAITING'
     generated=datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
     buffer=io.BytesIO();doc=SimpleDocTemplate(buffer,pagesize=(595.28,841.89),rightMargin=42,leftMargin=42,topMargin=50,bottomMargin=45,title='Anno 117 - Empire Summary',author='Anno 117 Companion')
@@ -108,19 +111,22 @@ def _build(payload):
     metrics.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),PAPER),('TOPPADDING',(0,0),(-1,0),12),('BOTTOMPADDING',(0,1),(-1,1),13),('LEFTPADDING',(0,0),(-1,-1),12)]));story.append(metrics)
     story.extend([Spacer(1,15),para(text('Local balances exclude imports and warehouse stock.'),small)])
     if mode=='CACHED':story.append(para(text('Cached: using last known game data.')+' '+str(snapshot.get('last_data_at') or ''),small))
+    if save_source:
+        story.append(para('Save: '+str(save_source.get('file_name',''))+' / '+str(save_source.get('saved_at',''))+'. Production and consumption come from recorded statistics history, which may predate this save.',small))
     story.append(para(text('Island briefing'),heading))
     island_rows=[]
     for area in sorted(areas,key=lambda a:-sum(e.get('ProductDelta',0)<-.01 for e in a.get('entries',[]))):
         entries=area.get('entries',[]);age=area.get('age_seconds')
         status=text('Cached') if not payload.get('isDemo') and (area.get('cached') or area.get('stale')) else row_mode
+        if area.get('data_source') == 'save':status='SAVED STATISTICS'
         if age is not None:status+=' / '+(str(int(age)//60)+'m '+str(int(age)%60)+'s' if age>=60 else str(int(age))+'s')
         island_rows.append([area.get('area_name','-'),str(len(entries)),str(sum(e.get('ProductDelta',0)<-.01 for e in entries)),status])
     artwork=Path(__file__).resolve().parent/'android-probe/app/src/main/assets/dashboard/islands'
     cards=[];card_width=width/3-8
     for area,values in zip(sorted(areas,key=lambda a:-sum(e.get('ProductDelta',0)<-.01 for e in a.get('entries',[]))),island_rows):
-        region='albion' if area.get('session_guid')==6627 else 'latium'
+        region={6627:'albion',149679:'aegyptus'}.get(area.get('session_guid'),'latium')
         pictures=sorted(artwork.glob(region+'-*.webp'),key=lambda p:int(p.stem.rsplit('-',1)[1]))
-        neighbours=sorted(':'.join(str(a.get(k)) for k in ['session_id','island_id','area_index']) for a in areas if (a.get('session_guid')==6627)==(region=='albion'))
+        neighbours=sorted(':'.join(str(a.get(k)) for k in ['session_id','island_id','area_index']) for a in areas if {6627:'albion',149679:'aegyptus'}.get(a.get('session_guid'),'latium')==region)
         identity=':'.join(str(area.get(k)) for k in ['session_id','island_id','area_index'])
         content=[]
         if pictures:content.extend([RegionPhoto(pictures[neighbours.index(identity)%len(pictures)],card_width-14,62),Spacer(1,5)])

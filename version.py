@@ -1,2 +1,2 @@
-APP_VERSION='0.20.2'
+APP_VERSION='0.21.0'
 REPOSITORY='oriskoat/anno117companion'
