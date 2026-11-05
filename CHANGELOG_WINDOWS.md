@@ -1,10 +1,15 @@
 # Windows EXE changelog
 
-Reconstructed through **0.21.1** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
+Reconstructed through **0.21.2** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Windows bridge, native Companion window and the dashboard served to LAN browsers, including iPhone. Shared dashboard features are included because they ship in the EXE. Android-only installation, Keystore and widget work is documented separately in [CHANGELOG_ANDROID.md](CHANGELOG_ANDROID.md).
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub releases. Older entries document local development checkpoints and do not establish public publication.
+
+## 0.21.2 — Aegyptus specialists
+
+- Refresh specialist and captain data for game 3.0, including Aegyptus production targets and fertility effects.
+- List matching specialists regardless of ownership. When a matching save is available, show stored or assigned status and the saved island when known.
 
 ## 0.21.1 — Individual Needs cards
 

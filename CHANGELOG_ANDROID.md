@@ -1,10 +1,15 @@
 # Android APK changelog
 
-Reconstructed through **0.21.1** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
+Reconstructed through **0.21.2** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub APK releases. Older entries document local development checkpoints. There is no Play Store release.
+
+## 0.21.2 — Aegyptus specialists
+
+- Refresh specialist and captain data for game 3.0, including Aegyptus production targets and fertility effects.
+- List matching specialists regardless of ownership. When a matching save is available, show stored or assigned status and the saved island when known.
 
 ## 0.21.1 — Individual Needs cards
 

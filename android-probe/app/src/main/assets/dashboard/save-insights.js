@@ -29,22 +29,30 @@ function savedOwnedItems(kind){
  return (savedSnapshot()?.owned_items||[]).filter(i=>i.kind===kind);
 }
 function ownedItemState(item){
- if(item.state==='assigned')return 'Already assigned in the save';
- if(item.source==='ship')return 'Stored aboard a ship';
- return item.source==='global'?'Stored in the saved item pool':'Stored on an island';
+ const location=item.area_key?savedArea(item.area_key)?.name:null;
+ const state=item.state==='assigned'?'Already assigned in the save':
+   item.source==='ship'?'Stored aboard a ship':
+   item.source==='global'?'Stored in the saved item pool':'Stored on an island';
+ return location?state+' · '+location:state;
+}
+function specialistAvailability(guid){
+ const copies=savedOwnedItems('Specialist').filter(i=>i.guid===guid);
+ if(!copies.length)return savedContextAllowed()&&!isDemo&&Array.isArray(savedSnapshot()?.owned_items)?'Not found in this save':'Ownership not checked';
+ const states=[...new Set(copies.map(ownedItemState))];
+ return (copies.some(i=>i.state==='stored')?'Owned · may be usable':'Owned')+' · '+states.join('; ');
 }
 function savedBuildSuggestions(factory,areaId=''){
- const owned=savedOwnedItems('Specialist'), area=savedArea(areaId);
- const applicable=K.specialists.filter(s=>s.status!=='placeholder/test'&&s.target_assets.some(t=>t.guid===factory.factory_guid)&&!s.excluded_targets.some(t=>t.guid===factory.factory_guid));
- const rows=applicable.map(s=>({s,i:owned.find(i=>i.guid===s.guid&&i.state==='stored')||owned.find(i=>i.guid===s.guid)})).filter(r=>r.i);
- rows.sort((a,b)=>(a.i.state==='assigned')-(b.i.state==='assigned'));
+ const area=savedArea(areaId);
+ const owned=savedOwnedItems('Specialist');
+ const rank=guid=>owned.some(i=>i.guid===guid&&i.state==='stored')?0:owned.some(i=>i.guid===guid)?1:2;
+ const rows=relevantSpecialists([factory.factory_guid]).sort((a,b)=>rank(a.guid)-rank(b.guid));
  if(!rows.length)return '';
- return `<div class="building-effects"><b>Specialists in your save</b>${rows.map(({s,i})=>{
+ return `<details class="building-effects"><summary><b>Specialist options (${rows.length})</b></summary>${rows.map(s=>{
    const fertility=s.fertility_grants?.find(g=>g.guid===factory.fertility_guid);
-   const knownMissing=area&&area.fertilities.length>0&&!area.fertilities.some(f=>f.guid===fertility?.guid);
+   const knownMissing=area?.fertilities?.length&&!area.fertilities.some(f=>f.guid===fertility?.guid);
    const hint=fertility?` · Adds ${esc(gameName(fertility.guid,'required fertility'))} (+${fmt(fertility.percent)}%)${knownMissing?' · Not recorded on this island':''}`:'';
-   return `<p><button class="inline-link" onclick="openSpecialist(${s.guid})">${esc(gameName(s.guid,s.name))}</button><br><small>${ownedItemState(i)}${hint}</small></p>`;
- }).join('')}<small>Check placement, slot requirements and current availability in game.</small></div>`;
+   return `<p><button class="inline-link" onclick="openSpecialist(${s.guid})">${esc(gameName(s.guid,s.name))}</button><br><small>${esc(specialistAvailability(s.guid))}${hint}</small></p>`;
+ }).join('')}<small>Check placement, slot requirements and current availability in game.</small></details>`;
 }
 function savedImportCaptains(){
  const owned=savedOwnedItems('Captains').filter(i=>i.state==='stored');

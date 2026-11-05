@@ -17,6 +17,15 @@ try{
  w.eval('saveInsightsState.live.snapshot.owned_items='+JSON.stringify([{kind:'Specialist',guid:fertility.guid,state:'assigned',source:'island'},{kind:'Captains',guid:captain.guid,state:'stored',source:'global'}]));
  assert.match(w.savedBuildSuggestions(factory,area.area_key),/Already assigned.*Adds/);
  assert.match(w.savedImportCaptains(),/Captains to consider/);
+ const dates=w.annoKnowledge.specialists.find(s=>s.guid===173071);
+ const dateFarm=w.annoKnowledge.factories.find(f=>f.factory_guid===152272);
+ assert(dateFarm&&dates&&w.relevantSpecialists([dateFarm.factory_guid]).some(s=>s.guid===dates.guid));
+ assert.match(w.savedBuildSuggestions(dateFarm,area.area_key),/Datetosser.*Not found in this save/);
+ const oilseed=w.annoKnowledge.specialists.find(s=>s.guid===179655);
+ assert(oilseed.fertility_grants.some(g=>g.guid===149818&&g.percent===75));
+ w.eval('saveInsightsState.live.snapshot.owned_items.push('+JSON.stringify({kind:'Specialist',guid:173071,state:'stored',source:'island',area_key:area.area_key})+')');
+ assert(w.savedBuildSuggestions(dateFarm,area.area_key).includes('Owned · may be usable · Stored on an island · '+area.name));
+
  w.eval('saveInsightsState.live.join.matched=false');assert.equal(w.savedArea(area.area_key),null);assert.equal(w.savedRoutesTo(guid,area.area_key).length,0);assert.equal(w.savedProductContext(guid,area.area_key),'');assert(w.savedArea(area.area_key,false));
  w.nav('insights');w.setSavedTab('routes');assert(w.document.body.textContent.includes('Actual Cheese <route>'));assert(!w.document.querySelector('route'));
  w.eval('saveInsightsState.live.join.matched=true');w.nav('routes');assert(w.document.body.textContent.includes('In-game routes (1)'));assert(w.document.querySelector('.saved-observed-route'));w.eval('saveInsightsState.live.use_saves=false');assert(!w.savedContextAllowed());assert.equal(w.savedProductContext(guid,area.area_key),'');w.nav('routes');assert(!w.document.querySelector('.saved-observed-route'));
