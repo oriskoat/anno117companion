@@ -10,7 +10,9 @@
 
 Full-resolution PNGs for download or print:
 
-**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A4)](.posters/aegyptus-chain-poster-a4.png)**
+**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A2)](.posters/aegyptus-production-a2.png)**
+
+[Aegyptus · A4 quick reference](.posters/aegyptus-chain-poster-a4.png)
 
 ☕ **[Buy me a coffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — the Companion is free. Support is completely optional. No tribute required.
 

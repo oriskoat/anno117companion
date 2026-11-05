@@ -10,7 +10,9 @@
 
 PNG-Dateien in voller Auflösung zum Herunterladen oder Drucken:
 
-**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A4)](.posters/aegyptus-chain-poster-a4.png)**
+**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A2)](.posters/aegyptus-production-a2.png)**
+
+[Aegyptus · A4-Kurzübersicht](.posters/aegyptus-chain-poster-a4.png)
 
 ☕ **[Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — der Companion ist kostenlos. Unterstützung ist vollkommen freiwillig. Kein Tribut erforderlich.
 
