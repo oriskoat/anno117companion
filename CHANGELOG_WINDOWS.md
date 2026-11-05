@@ -1,10 +1,14 @@
 # Windows EXE changelog
 
-Reconstructed through **0.21.2** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
+Reconstructed through **0.21.3** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Windows bridge, native Companion window and the dashboard served to LAN browsers, including iPhone. Shared dashboard features are included because they ship in the EXE. Android-only installation, Keystore and widget work is documented separately in [CHANGELOG_ANDROID.md](CHANGELOG_ANDROID.md).
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub releases. Older entries document local development checkpoints and do not establish public publication.
+
+## 0.21.3 — Alternative chain producers
+
+- Choose alternative producers at the top of the chain calculation. Both Gold Washer and Gold Mine routes are visible in the Aegyptus poster.
 
 ## 0.21.2 — Aegyptus specialists
 

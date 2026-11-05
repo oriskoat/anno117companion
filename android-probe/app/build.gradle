@@ -2,7 +2,7 @@ plugins { id 'com.android.application' }
 android {
     namespace 'hu.anno117.pipeprobe'
     compileSdk 35
-    defaultConfig { applicationId 'hu.anno117.companion'; minSdk 26; targetSdk 35; versionCode 26; versionName '0.21.2' }
+    defaultConfig { applicationId 'hu.anno117.companion'; minSdk 26; targetSdk 35; versionCode 27; versionName '0.21.3' }
     signingConfigs {
         release {
             if (System.getenv('ANNO_KEYSTORE')) {

@@ -13,3 +13,5 @@
 .need-card:not([open])>summary .product-icon,.need-card:not([open])>summary small{display:none}
 .need-card:not([open])>summary h3{margin:0}
 .need-card:not([open]){padding-block:4px}
+
+.chain-source-options{border:1px solid var(--line);border-radius:12px;margin:0 0 12px;padding:8px;min-width:0}.chain-source-options legend{font-weight:700;padding:0 5px}.chain-source-options button{margin:2px}.chain-source-options button[aria-pressed="true"]{outline:2px solid currentColor;outline-offset:-2px}
