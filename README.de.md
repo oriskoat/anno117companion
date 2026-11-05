@@ -4,7 +4,7 @@
 
 **Dein Imperium. Klarer im Blick.** Ein kostenloser, inoffizieller Companion für Anno 117: Pax Romana von Ádám.
 
-[Windows-ZIP herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno117Companion-0.21.0-Windows-x64.zip) · [Android-APK herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno-Companion-0.21.0.apk) · [Alle Downloads / neueste Version](https://github.com/oriskoat/anno117companion/releases/latest)
+[Windows-ZIP herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.1/Anno117Companion-0.21.1-Windows-x64.zip) · [Android-APK herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.1/Anno-Companion-0.21.1.apk) · [Alle Downloads / neueste Version](https://github.com/oriskoat/anno117companion/releases/latest)
 
 ☕ **[Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — der Companion ist kostenlos. Unterstützung ist vollkommen freiwillig. Kein Tribut erforderlich.
 
@@ -12,13 +12,15 @@
 
 Zuerst Windows, danach jedes Gerät in deinem lokalen Netzwerk: Die Windows-App liest die Produktions-Pipe des Spiels und stellt dieselbe Übersicht im eigenen Fenster, in der Android-App oder im Browser auf einem iPhone beziehungsweise weiteren Computer bereit.
 
+**Neu in 0.21.1:** Jede Bedürfniskarte lässt sich einzeln einklappen. Im geschlossenen Zustand bleiben Name und Erfüllungsstatus sichtbar.
+
 ## Neu in 0.21.0: Aegyptus und Save Insights
 
 **Aegyptus / Dawn of the Delta** ergänzt fünf Bevölkerungsgruppen und 81 regionale Produktionsketten. Der Katalog für Latium und Albion wurde auf Spielversion 3.0 aktualisiert. Unter **Chains** kannst du nach Region oder DLC filtern. Wähle eine Zielinsel, um lokale Produktion und Importmöglichkeiten zu vergleichen.
 
 **Save Insights ist kostenlos.** Öffne unter Windows **More → Save Insights**, wähle deine Kampagne und aktiviere **Use save data**. Der Companion liest Spielstände lokal. Frische Pipe-Daten derselben Kampagne haben Vorrang. Gekoppelte Geräte zeigen unter anderem gespeicherte Routen, Lagerverläufe und passende Spezialisten.
 
-Du nutzt den Companion bereits? Unter **More → Updates** findest du das Update auf 0.21.0 für Windows und Android.
+Du nutzt den Companion bereits? Unter **More → Updates** findest du das aktuelle Update für Windows und Android.
 
 [So funktioniert Save Insights (Englisch)](.ideas/save-insights.md)
 
@@ -56,7 +58,7 @@ Du nutzt den Companion bereits? Unter **More → Updates** findest du das Update
 
 ### 1. Companion herunterladen und öffnen
 
-1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno117Companion-0.21.0-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
+1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.1/Anno117Companion-0.21.1-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
 2. Das heruntergeladene ZIP mit der rechten Maustaste anklicken und **Alle extrahieren** wählen. Einen beschreibbaren Ordner verwenden, zum Beispiel `Dokumente\Anno117Companion`. Die EXE aus dem entpackten Ordner starten, nicht direkt aus dem ZIP.
 3. **Anno117Companion.exe** öffnen. Python, Android Studio oder Entwicklungswerkzeuge sind nicht erforderlich.
 4. **Demo** wählen, um das erfundene „Example Empire“ ohne laufendes Spiel kennenzulernen. Die obere Leiste enthält Serversteuerung, Demo/Live und die Kopplungsdaten für weitere Geräte. Bei Bedarf die eingeklappte Leiste öffnen.
@@ -105,7 +107,7 @@ Das vollständige Werkzeug funktioniert im EXE-Fenster oder über **Open browser
 
 ### Android-App
 
-1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.0/Anno-Companion-0.21.0.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
+1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.1/Anno-Companion-0.21.1.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
 2. Falls Android eine Installationsberechtigung für Browser/Dateimanager verlangt, diese Installationsquelle prüfen und für die Installation erlauben. Die APK wird direkt installiert, nicht über den Play Store.
 3. **Anno Companion** öffnen. Demo funktioniert ohne Kopplung und ohne Spiel.
 4. **Live** wählen. Ohne Kopplung öffnet sich die Verbindungsansicht. Die PC-Adresse und den aktuellen sechsstelligen Code aus der Windows-App eingeben und verbinden.
@@ -151,7 +153,7 @@ Die App sucht über GitHub Releases nach Updates und prüft Downloads. Windows s
 
 ## Selbst bauen und testen
 
-**Windows:** Python **3.11 x64** mit Tk installieren, `pip install -r requirements-build.txt` und anschließend `.\build_release.ps1 -Version 0.21.0` ausführen. Der Build prüft die nativen DLL-Abhängigkeiten. Die erzeugten Dashboard-/Katalogressourcen sind enthalten; zum Bauen dieses Standes ist keine lokale Spielextraktion nötig.
+**Windows:** Python **3.11 x64** mit Tk installieren, `pip install -r requirements-build.txt` und anschließend `.\build_release.ps1 -Version 0.21.1` ausführen. Der Build prüft die nativen DLL-Abhängigkeiten. Die erzeugten Dashboard-/Katalogressourcen sind enthalten; zum Bauen dieses Standes ist keine lokale Spielextraktion nötig.
 
 **Android:** JDK 17, Android SDK Plattform 35 und den Gradle Wrapper verwenden. Eine eigene, nicht eingecheckte Datei `android-probe/local.properties` anlegen und in diesem Ordner `gradlew.bat assembleDebug lintDebug` ausführen. Ein Release-Build benötigt die privaten Signatur-Umgebungsvariablen `ANNO_KEYSTORE`, `ANNO_STORE_PASSWORD`, `ANNO_KEY_ALIAS`, `ANNO_KEY_PASSWORD`; danach `assembleRelease lintRelease`. Debug-Builds verwenden den Paket-Zusatz `.dev`. Schlüssel und Passwörter niemals einchecken.
 

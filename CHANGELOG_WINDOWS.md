@@ -1,10 +1,14 @@
 # Windows EXE changelog
 
-Reconstructed through **0.21.0** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
+Reconstructed through **0.21.1** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Windows bridge, native Companion window and the dashboard served to LAN browsers, including iPhone. Shared dashboard features are included because they ship in the EXE. Android-only installation, Keystore and widget work is documented separately in [CHANGELOG_ANDROID.md](CHANGELOG_ANDROID.md).
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub releases. Older entries document local development checkpoints and do not establish public publication.
+
+## 0.21.1 — Individual Needs cards
+
+- Expand or collapse each Needs card independently across all tiers and categories. Collapsed cards show the name and fulfilment status; expanded cards keep their details and actions.
 
 ## 0.21.0 — Aegyptus and Save Insights
 

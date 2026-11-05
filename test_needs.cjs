@@ -10,6 +10,13 @@ try{
  w.nav('needs');assert.equal(w.document.querySelector('[aria-label="Needs island"]').value,'all');assert.equal(w.document.querySelector('#needsTier').value,'all');assert.equal(w.document.querySelectorAll('.needs-island').length,sample.areas.length);w.needsFilter('island',[albion.session_id,albion.island_id,albion.area_index].join(':'));w.needsFilter('tier','Waders');assert(w.document.querySelector('.needs-tier-heading').textContent.includes('Waders'));
  assert(w.document.querySelector('.needs-tier-heading img').src.includes('needs-1500'));assert(w.document.querySelectorAll('.need-card').length>=7);
  const cockles=w.annoNeeds.needs.find(n=>n.tier==='Waders'&&n.product_guid===2097);assert.equal(w.needsObservation(cockles),null);assert.equal(w.needsBalance(cockles),w.needsEntry(cockles)?.ProductDelta<0?'Local deficit':w.needsEntry(cockles)?w.needsEntry(cockles).ProductConsumption>0?'Local production covers demand':'No observed consumption':'No observed data');
+ const cards=[...w.document.querySelectorAll('.need-card')];assert(cards.length>=2);
+ const first=cards[0],second=cards[1],id=first.dataset.needCard;
+ first.querySelector('summary').click();assert.equal(first.open,false);assert.equal(second.open,true);assert(first.closest('.need-category').open);
+ w.needCardToggle(first);
+ w.receiveSnapshot(sample,'demo');
+ const refreshed=[...w.document.querySelectorAll('.need-card')].find(c=>c.dataset.needCard===id);
+ assert.equal(refreshed.open,false);refreshed.querySelector('summary').click();w.needCardToggle(refreshed);assert.equal(refreshed.open,true);
  const confirmation=w.document.querySelector('.need-confirm select');confirmation.focus();w.receiveSnapshot(sample,'demo');assert.equal(w.document.activeElement,confirmation);w.setNeedObservation(cockles.need_guid,'100');assert.equal(w.needsObservation(cockles).value,100);assert(w.document.querySelector('.need-fulfilled'));assert(w.document.body.textContent.includes('Threshold confirmed'));
  const other=sample.areas.find(a=>a.session_guid===6627&&a!==albion);if(other){w.needsFilter('island',[other.session_id,other.island_id,other.area_index].join(':'));assert.equal(w.needsObservation(cockles),null);}
  w.receiveSnapshot(sample,'live');assert.equal(w.needsObservation(cockles),null);w.receiveSnapshot(sample,'demo');
