@@ -6,6 +6,12 @@
 
 [Windows-ZIP herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.3/Anno117Companion-0.21.3-Windows-x64.zip) · [Android-APK herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.3/Anno-Companion-0.21.3.apk) · [Alle Downloads / neueste Version](https://github.com/oriskoat/anno117companion/releases/latest)
 
+## Poster zu den Produktionsketten
+
+PNG-Dateien in voller Auflösung zum Herunterladen oder Drucken:
+
+**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A4)](.posters/aegyptus-chain-poster-a4.png)**
+
 ☕ **[Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — der Companion ist kostenlos. Unterstützung ist vollkommen freiwillig. Kein Tribut erforderlich.
 
 [Windows-Änderungsverlauf](CHANGELOG_WINDOWS.md) · [Android-Änderungsverlauf](CHANGELOG_ANDROID.md) — beide auf Englisch.
@@ -174,5 +180,3 @@ Entwickelt von Ádám, einem Spieler aus Ungarn. Kostenlos nutzbar, ohne Konto, 
 Dies ist ein inoffizielles Community-Projekt ohne Verbindung zu oder Unterstützung durch Ubisoft. Der ursprüngliche Anwendungscode steht unter MIT-Lizenz. Anno-117-Grafiken, offizielle Spieltexte/Dialoge und aus dem Spiel abgeleitete Ressourcen bleiben Ubisoft-Materialien und werden **nicht** unter MIT neu lizenziert. Drittanbieter-Software behält ihre eigenen Lizenzen. Siehe [LICENSE](LICENSE), [ASSET_RIGHTS.md](ASSET_RIGHTS.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) und `third-party/`.
 
 [Datenschutz, Englisch](PRIVACY.md). Keine Analyse-, Werbe-SDKs oder Uploads deiner Spieldaten. GitHub verarbeitet Update-Verkehr, Revolut die freiwillige Unterstützung. Die lokale HTTP-Verbindung ist unverschlüsselt und für ein vertrauenswürdiges LAN gedacht.
-
-[Produktionsketten in Aegyptus (A4-Poster, PNG)](docs/aegyptus-chain-poster-a4.png)

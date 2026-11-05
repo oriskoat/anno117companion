@@ -6,6 +6,12 @@
 
 [Download Windows ZIP](https://github.com/oriskoat/anno117companion/releases/download/v0.21.3/Anno117Companion-0.21.3-Windows-x64.zip) · [Download Android APK](https://github.com/oriskoat/anno117companion/releases/download/v0.21.3/Anno-Companion-0.21.3.apk) · [All downloads](https://github.com/oriskoat/anno117companion/releases/latest)
 
+## Production chain posters
+
+Full-resolution PNGs for download or print:
+
+**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A4)](.posters/aegyptus-chain-poster-a4.png)**
+
 ☕ **[Buy me a coffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — the Companion is free. Support is completely optional. No tribute required.
 
 [Windows changelog](CHANGELOG_WINDOWS.md) · [Android changelog](CHANGELOG_ANDROID.md)
@@ -174,5 +180,3 @@ Made by Ádám, a gamer from Hungary. Free to use; no account, advertisements or
 This is an unofficial community project, not affiliated with or endorsed by Ubisoft. Original application code is MIT-licensed. Anno 117 artwork, official game text/dialogue and game-derived resources remain Ubisoft materials and are **not** relicensed under MIT. Third-party software retains its own licenses. See LICENSE, ASSET_RIGHTS.md, THIRD_PARTY_NOTICES.md and third-party/.
 
 [Privacy](PRIVACY.md). No analytics, advertising SDK or game-data upload. GitHub handles update traffic; Revolut handles optional support. The local HTTP transport is unencrypted and intended for a trusted LAN.
-
-[Aegyptus production chains poster (A4 PNG)](docs/aegyptus-chain-poster-a4.png)
