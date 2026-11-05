@@ -23,6 +23,19 @@ try{
  const lat=sample.areas.find(a=>a.session_guid===3245);w.needsFilter('island',[lat.session_id,lat.island_id,lat.area_index].join(':'));w.needsFilter('tier','Plebeians');
  const garum=w.annoNeeds.needs.find(n=>n.region==='Latium'&&n.tier==='Plebeians'&&n.product_guid===2139);assert.equal(garum.rewards.Money,2);assert.equal(garum.rewards.Happiness,1);
  w.needsPlan(garum.need_guid);assert(!w.document.querySelector('#overlay').hidden);w.closeSheet();
+ const kollurion=w.annoNeeds.needs.find(n=>n.region==='Aegyptus'&&n.product_name==='Kollurion');
+ const egypt={...lat,session_guid:149679,island_id:999,area_name:'Example Nile',entries:[]};
+ const egyptKey=[egypt.session_id,egypt.island_id,egypt.area_index].join(':');
+ for(const delta of [0,-1]){
+  egypt.entries=[{ProductGuid:kollurion.product_guid,ProductNameEnglish:'Kollurion',ProductGeneration:1+delta,ProductConsumption:1,ProductDelta:delta,BuildingsNamed:[],WorkforcesNamed:[],BuildingGUIDtoAmount:{},WorkforceGUIDtoAmount:{}}];
+  w.receiveSnapshot({...sample,areas:[...sample.areas,egypt]},'demo');
+  w.needsFilter('island',egyptKey);w.needsFilter('tier',kollurion.tier);
+  const button=[...w.document.querySelectorAll('.need-card button')].find(b=>b.textContent.includes('Build chain')&&b.closest('.need-card').textContent.includes('Kollurion'));
+  assert(button);button.click();
+  assert.equal(w.document.querySelector('#chainBasis').value,delta<0?egyptKey:'balanced');
+  assert(w.document.querySelector('#chainCalculation .chain-step-detail'));
+  w.closeSheet();
+ }
  assert(w.buildingEffects(2994).includes('-2'));assert(w.buildingEffects(2994).includes('Radius: 20'));assert(w.buildingEffects(13808).includes('Fire safety'));assert(w.buildingEffects(13808).includes('Radius: 24'));
  w.openChain(13808);assert(w.document.querySelector('#chainCalculation .building-effects'));w.closeSheet();
  assert.equal(errors.length,0,errors.map(String).join('\n'));console.log('PASS: all fourteen tiers + services, Waders grouping and portrait, unknown vs manual fulfilment, per-island/mode isolation, category thresholds, need rewards, contextual chain and building radius effects');

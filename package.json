@@ -1,6 +1,6 @@
 {
   "name": "anno117-companion-checks",
-  "version": "0.21.3",
+  "version": "0.21.4",
   "private": true,
   "scripts": {
     "test": "node test_release.cjs && node test_procurement.cjs && node test_needs.cjs && node test_save_insights.cjs"

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.21.4 — Needs chain planning
+
+- Build chain opens the balanced production chain when the island has no local deficit.
+- Import planning offers all eligible producer regions and retains the destination island.
+
 ## 0.20.2 — Observed production in import planning
 
 - Rank production-region islands by local surplus, then observed production, then other compatible islands. Show production, consumption, local balance and data freshness on each photo card.

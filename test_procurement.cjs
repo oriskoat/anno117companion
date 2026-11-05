@@ -22,5 +22,15 @@ try{const areas=sample.areas,from=areas.find(a=>a.session_guid===3245),to=areas.
  entry(first,9,2);w.receiveSnapshot(fixture,'demo');w.openProcurementFactory(f.factory_guid,key(to));assert(w.document.querySelector('.procurement-island').textContent.includes('Covers the local deficit'));assert.equal(w.procurementTransferCandidate(guid,key(first),key(to)).suggested_rate,3);
  entry(first,0,1);w.receiveSnapshot(fixture,'demo');w.planObservedImport(f.factory_guid,key(first),key(to));assert(w.document.querySelector('.procurement-island'));assert(!w.document.querySelector('.procurement-transfer'));assert.equal(w.procurementTransferCandidate(guid,key(first),key(to)),null);assert.equal(w.procurementTransferCandidate(guid,key(to),key(to)),null);
  console.log('PASS: observed source ordering, partial/full surplus transfer caps, manual cargo, original destination, back navigation, revalidation, and unknown production distinct from zero');
+ const needsSource=fs.readFileSync(root+'/needs-data.js','utf8');
+ const needs=JSON.parse(needsSource.slice(needsSource.indexOf('=')+1).trim().replace(/;$/,'')).needs;
+ const cheese=needs.find(n=>n.region==='Latium'&&n.product_name==='Cheese');
+ w.needsAction('plan',key(from),cheese.tier,cheese.need_guid);
+ const cheeseOptions=[...w.document.querySelectorAll('#sheetBody .procurement-option')];
+ assert.equal(cheeseOptions.length,2);
+ for(const region of ['Albion','Aegyptus'])assert(cheeseOptions.some(option=>option.textContent.includes(region)));
+ cheeseOptions.find(option=>option.textContent.includes('Aegyptus')).click();
+ assert(w.document.querySelector('#sheetBody').textContent.includes(from.area_name));
+ assert(!w.document.querySelector('#sheetBody .procurement-option'));
  w.closeSheet();w.nav('home');w.tradeWizard(sample.supply_suggestions[0]);w.returnFromTradePlan();assert(w.document.body.dataset.page==='home');console.log('PASS: Albion cannot build Olives locally; Latium source + original destination + deficit retained; manual cargo, return navigation, local-only plan and Home return');
 }finally{w.close();}
