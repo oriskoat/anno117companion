@@ -1,10 +1,16 @@
 # Android APK changelog
 
-Reconstructed through **0.21.4** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
+Reconstructed through **0.21.5** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub APK releases. Older entries document local development checkpoints. There is no Play Store release.
+
+## 0.21.5 — FAQ and a cleaner More page
+
+- Find setup, pairing, troubleshooting and planning help under More → FAQ / How To. The guide is available in English, German and Hungarian.
+- Find connection, language, updates, Save Insights and data tools in grouped settings. Support remains accessible when About is collapsed.
+- Needs → Build chain opens Balanced chain by default, with the island deficit available as a planning option.
 
 ## 0.21.4 — Needs chain planning
 

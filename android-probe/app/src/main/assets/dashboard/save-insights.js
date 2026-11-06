@@ -157,8 +157,6 @@ function savedProductContext(guid,id){
 }
 
 companionPages.insights={offline:true,titles:['FROM YOUR SAVE','Save Insights','Routes, stock history, homes and needs — recorded locally.'],content:saveInsightsPage};
-const savedMoreBase=morePage;
-morePage=function(){return `<button class="card saved-entry" onclick="nav('insights')"><span class="saved-route-mark">${svg('islands')}</span><span><b>Save Insights</b><small>Local save analysis</small></span>${svg('arrow')}</button>`+savedMoreBase();};
 const savedHomeBase=homePage;
 homePage=function(){const doc=savedContextAllowed()?savedSnapshot():null;return savedHomeBase()+(doc?`<section class="card saved-home"><div class="kicker">SAVE INSIGHTS</div><h3>${doc.routes.length} observed routes · ${doc.areas.reduce((n,a)=>n+a.residence_count,0)} residence objects</h3><p class="small-note">${isDemo?'Invented example data':'Saved '+esc(savedDate(doc.saved_at))}</p><button class="secondary" onclick="nav('insights')">Explore saved evidence ${svg('arrow')}</button></section>`:'');};
 const savedRouteBase=routeCard;

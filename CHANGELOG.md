@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.21.5 — FAQ and a cleaner More page
+
+- Find setup, pairing, troubleshooting and planning help under More → FAQ / How To. The guide is available in English, German and Hungarian.
+- Find connection, language, updates, Save Insights and data tools in grouped settings. Support remains accessible when About is collapsed.
+- Needs → Build chain opens Balanced chain by default, with the island deficit available as a planning option.
+
 ## 0.21.4 — Needs chain planning
 
 - Build chain opens the balanced production chain when the island has no local deficit.

@@ -1,8 +1,6 @@
 'use strict';
-const communityMore=morePage;
 let communityExpanded=false;
 const coffeeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h12v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8Zm12 1h2a3 3 0 0 1 0 6h-2M7 3v2m4-2v2M2 22h18"/></svg>';
-morePage=function(){return communityPage()+communityMore();};
 function communityPage(){return `<section id="community" class="card community-page"><div class="community-top"><details class="community-details" ${communityExpanded?'open':''} ontoggle="if(this.isConnected)communityExpanded=this.open"><summary><h2>About me & Support</h2>${svg('chevron')}</summary><div class="community-columns">${donationStory()}${aboutStory()}</div></details>${donationLink()}</div></section>`;}
 
 function donationLink(){return `<a class="primary donation-link" href="https://revolut.me/vafvyop?currency=EUR&amp;amount=500" target="_blank" rel="noopener noreferrer" onclick="return openDonationLink()">${coffeeIcon}<span>Buy me a coffee</span>${svg('arrow')}</a>`;}

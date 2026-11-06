@@ -1,0 +1,32 @@
+.more-tabs{display:flex;gap:6px;padding:5px;width:max-content;max-width:100%;background:#e4ebf2;border-radius:14px;margin:0 0 18px}
+.more-tabs button{display:flex;align-items:center;gap:8px;border:0;border-radius:10px;padding:10px 15px;background:transparent;color:var(--blue);font:inherit;font-weight:700;cursor:pointer}
+.more-tabs button[aria-current]{background:var(--blue);color:#fff}
+.more-tabs svg,.more-row>svg,.help-question svg{width:17px;height:17px;flex:none}
+.more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.more-group{padding:15px 18px;background:var(--card,#fffdf9);border:1px solid #e3dfd4;border-radius:18px;min-width:0}
+.more-group>h2{font-size:16px;margin:0;padding:5px 0 11px}
+.more-row,.more-language{display:flex;align-items:center;gap:12px;width:100%;min-width:0;padding:11px 0;text-align:left;border:0;border-top:1px solid #e9e5dc;background:transparent;color:var(--ink);font:inherit}
+.more-row{cursor:pointer}
+.more-row:hover,.help-question>summary:hover{color:#315f8c}
+.more-row>span:nth-child(2),.more-language>span{flex:1;min-width:0}
+.more-mark{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:10px;color:var(--blue);background:#e7eef5}
+.more-mark svg{width:19px;height:19px}
+.more-row small,.more-language small{display:block;margin-top:3px;color:var(--muted);overflow-wrap:anywhere;font-size:12px}
+.more-language .form-input{margin:0;width:auto;max-width:45%;min-height:38px;padding:7px}
+.more-group .app-update-panel{margin:0;padding:9px 0 0;border-top:1px solid #e9e5dc}
+.more-group .update-details>summary,.more-grid+.community-page .community-details>summary{background:transparent;padding-left:0;padding-top:4px;padding-bottom:4px}
+.more-grid+.community-page{margin-top:16px;padding:14px 18px;border:1px solid #e3dfd4;border-radius:18px;box-shadow:none}
+.more-grid+.community-page .community-details>summary h2{font-size:17px}
+.help-intro{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin:0 0 16px}
+.help-intro label{display:flex;align-items:center;gap:9px}
+.help-intro .form-input{width:auto;margin:0;padding:8px 12px}
+.help-intro h2{margin:0 0 5px}
+.help-intro p,.help-question p{color:var(--muted);line-height:1.65;margin:0}
+.help-question{border-top:1px solid #e9e5dc}
+.help-question>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;list-style:none;font-size:14px;font-weight:700;padding:12px 0}
+.help-question>summary::-webkit-details-marker{display:none}
+.help-question[open] svg{transform:rotate(90deg)}
+.help-question p{font-size:13px;padding:0 10px 14px 0}
+.more-tabs button:focus-visible,.more-row:focus-visible,.help-question summary:focus-visible{outline:2px solid #376da4;outline-offset:2px}
+@media(max-width:760px){.more-grid{grid-template-columns:1fr;gap:12px}}
+@media(max-width:600px){.more-grid+.community-page .community-top{display:grid;gap:6px}.more-grid+.community-page .community-details>summary{padding:4px 0;min-height:36px;align-items:center}.more-grid+.community-page .community-details>summary svg{margin:0}.more-grid+.community-page .community-top>.donation-link{position:static;justify-self:start}}

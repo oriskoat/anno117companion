@@ -4,7 +4,7 @@
 
 **Your empire. A clearer view.** A free, unofficial companion for Anno 117: Pax Romana by Ádám.
 
-[Download Windows ZIP](https://github.com/oriskoat/anno117companion/releases/download/v0.21.4/Anno117Companion-0.21.4-Windows-x64.zip) · [Download Android APK](https://github.com/oriskoat/anno117companion/releases/download/v0.21.4/Anno-Companion-0.21.4.apk) · [All downloads](https://github.com/oriskoat/anno117companion/releases/latest)
+[Download Windows ZIP](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno117Companion-0.21.5-Windows-x64.zip) · [Download Android APK](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno-Companion-0.21.5.apk) · [All downloads](https://github.com/oriskoat/anno117companion/releases/latest)
 
 ## Production chain posters
 
@@ -21,6 +21,8 @@ Full-resolution PNGs for download or print:
 Windows first, then any device on your local network. The Windows app reads the game’s production pipe and provides the same dashboard in its own window, on Android, or in a browser on iPhone/another computer.
 
 **New in 0.21.1:** Each Needs card can be collapsed independently. The closed card shows the good or service and its fulfilment status.
+
+Open **More → FAQ / How To** in the app for setup, pairing, troubleshooting and planning help.
 
 ## New in 0.21.0: Aegyptus and Save Insights
 
@@ -66,7 +68,7 @@ Already using the Companion? Open **More → Updates** on Windows or Android to 
 
 ### 1. Download and open the Companion
 
-1. **[Download the Windows ZIP directly](https://github.com/oriskoat/anno117companion/releases/download/v0.21.4/Anno117Companion-0.21.4-Windows-x64.zip)**, or choose the Windows ZIP on the [latest release page](https://github.com/oriskoat/anno117companion/releases/latest). GitHub's **Code → Download ZIP** is the source code, not the ready-to-run app.
+1. **[Download the Windows ZIP directly](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno117Companion-0.21.5-Windows-x64.zip)**, or choose the Windows ZIP on the [latest release page](https://github.com/oriskoat/anno117companion/releases/latest). GitHub's **Code → Download ZIP** is the source code, not the ready-to-run app.
 2. Right-click the downloaded ZIP and select **Extract All**. Choose a folder you can write to, for example `Documents\Anno117Companion`. Run the extracted app, rather than opening the EXE inside the ZIP.
 3. Open **Anno117Companion.exe**. Python, Android Studio and development tools are not needed.
 4. Choose **Demo** to explore the invented Example Empire without starting the game. The top bar contains the local-server controls, Demo/Live switch and pairing details for other devices. Expand the bar if it is collapsed.
@@ -115,7 +117,7 @@ You can use the complete tool in the EXE, or click **Open browser**. The Windows
 
 ### Android app
 
-1. **[Download the Android APK directly](https://github.com/oriskoat/anno117companion/releases/download/v0.21.4/Anno-Companion-0.21.4.apk)** on your phone and open the downloaded file.
+1. **[Download the Android APK directly](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno-Companion-0.21.5.apk)** on your phone and open the downloaded file.
 2. If Android requests permission to install from that browser/file manager, review and allow that installation source to proceed. This is a direct APK installation, not a Play Store download.
 3. Open **Anno Companion**. Demo works without pairing or the game.
 4. Select **Live**. If the app is not paired, it opens the connection screen. Enter the PC address displayed by the Windows app and its current six-digit code, then connect.
@@ -161,7 +163,7 @@ Update checks use GitHub Releases. Downloads are verified; Windows restarts to r
 
 ## Build and test
 
-Windows: Python **3.11 x64** with Tk, then `pip install -r requirements-build.txt` and `.\build_release.ps1 -Version 0.21.4`. The build includes a native-DLL payload audit. Generated dashboard/catalogue resources are checked in; no local game extraction is required to build this snapshot.
+Windows: Python **3.11 x64** with Tk, then `pip install -r requirements-build.txt` and `.\build_release.ps1 -Version 0.21.5`. The build includes a native-DLL payload audit. Generated dashboard/catalogue resources are checked in; no local game extraction is required to build this snapshot.
 
 Android: JDK 17, Android SDK platform 35 and the Gradle wrapper. Set your own untracked `android-probe/local.properties`, then run `gradlew.bat assembleDebug lintDebug` there. A public release build requires private signing environment variables `ANNO_KEYSTORE`, `ANNO_STORE_PASSWORD`, `ANNO_KEY_ALIAS`, `ANNO_KEY_PASSWORD`; run `assembleRelease lintRelease`. Debug builds use the `.dev` package suffix. Never commit keys or passwords.
 

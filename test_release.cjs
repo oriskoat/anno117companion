@@ -7,6 +7,19 @@ for(const name of [...dom.window.document.querySelectorAll('script[src]')].map(s
 const sample=JSON.parse(fs.readFileSync(root+'/demo.json','utf8'));assert(sample.synthetic);assert(sample.areas.every(a=>a.area_name.startsWith('Example')));w.receiveSnapshot(sample,'demo');
 assert(w.annoKnowledge.factories.length>200);assert(w.annoKnowledge.chains.some(c=>c.region==='Aegyptus'&&c.tier==='Threshers'&&c.dlc_unlock_guids.includes(67904)));assert(w.annoKnowledge.quote_ids.length>=50);
 for(const page of ['home','islands','products','supply','chains','needs','routes','more']){w.nav(page);assert(w.document.getElementById('main').textContent.trim());}
+assert.equal(w.document.querySelectorAll('.more-grid .more-group').length,2);
+assert(w.document.querySelector('#appUpdatePanel summary'));
+assert(w.document.querySelector('#community .donation-link'));
+w.document.querySelector('.more-tabs button:last-child').click();
+assert.equal(w.document.querySelectorAll('.help-question').length,8);
+assert.equal(w.document.querySelector('.bottom-nav button[aria-current="page"]').getAttribute('onclick'),"nav('more')");
+w.document.querySelector('.help-question summary').click();
+assert(w.document.querySelector('.help-question').open);
+assert(w.document.querySelector('.help-question[open]').textContent.includes('/pipe'));
+const guideLanguage=w.document.querySelector('.help-intro select');
+guideLanguage.value='hu';guideLanguage.dispatchEvent(new w.Event('change'));
+assert.equal(w.document.querySelector('.help-intro [lang]').lang,'hu');
+assert(w.document.querySelector('.help-question').open);
 w.nav('supply');const cards=[...w.document.querySelectorAll('.route-card[data-product]')];assert(cards.length);for(const card of cards){card.click();assert(!w.document.getElementById('overlay').hidden);}w.closeSheet();
 w.nav('products');w.setBrowseSort('products','delta');w.toggleBrowseDirection('products');w.openProduct(3158);assert(w.document.querySelector('.product-verdict'));w.setProductTab('supply');assert(!w.document.getElementById('productPanel-supply').hidden);
 for(const guid of [55962,5959,5605]){w.openChain(guid,'','Albion');assert.equal(w.document.getElementById('chainBasis').value,'balanced');assert.equal(Number(w.document.getElementById('chainTarget').value),2);}w.closeSheet();

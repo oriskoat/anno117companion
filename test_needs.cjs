@@ -32,8 +32,14 @@ try{
   w.needsFilter('island',egyptKey);w.needsFilter('tier',kollurion.tier);
   const button=[...w.document.querySelectorAll('.need-card button')].find(b=>b.textContent.includes('Build chain')&&b.closest('.need-card').textContent.includes('Kollurion'));
   assert(button);button.click();
-  assert.equal(w.document.querySelector('#chainBasis').value,delta<0?egyptKey:'balanced');
+  const basis=w.document.querySelector('#chainBasis');
+  assert.equal(basis.value,'balanced');
   assert(w.document.querySelector('#chainCalculation .chain-step-detail'));
+  if(delta<0){
+   basis.value=egyptKey;
+   basis.dispatchEvent(new w.Event('change'));
+   assert.equal(w.document.querySelector('#chainTarget').value,'1');
+  }
   w.closeSheet();
  }
  assert(w.buildingEffects(2994).includes('-2'));assert(w.buildingEffects(2994).includes('Radius: 20'));assert(w.buildingEffects(13808).includes('Fire safety'));assert(w.buildingEffects(13808).includes('Radius: 24'));
