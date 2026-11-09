@@ -1,5 +1,5 @@
 /* Saved evidence is independently timestamped; it never replaces pipe rates. */
-const saveInsightsState={live:null,error:'',busy:false,lastRead:0,generation:0,tab:'overview',island:'all',query:'',sort:'name',limit:40,demoUse:false};
+const saveInsightsState={live:null,error:'',busy:false,lastRead:0,generation:0,tab:'overview',island:'all',query:'',sort:'name',limit:40,demoUse:true};
 const saveInsightsRequests=new Map();
 window.saveInsightsReply=function(id,reply){const request=saveInsightsRequests.get(id);if(request){clearTimeout(request.timer);saveInsightsRequests.delete(id);request.resolve(reply);}};
 
@@ -11,13 +11,15 @@ function saveInsightsTransport(body=null){
 
 function saveInsightsDemo(){
  if(!isDemo||!snapshot?.synthetic)return null;
- const areas=(snapshot.areas||[]).map((a,i)=>({area_key:key(a),area_id:a.session_id|(a.island_id<<6)|(a.area_index<<13),session_id:a.session_id,session_guid:a.session_guid,name:a.area_name,region:a.session_guid===3245?'Latium':'Albion',owner:1,
+ if(snapshot.saved_insights?.synthetic)return {enabled:true,use_saves:saveInsightsState.demoUse,status:'ready',access:{source:'synthetic_demo'},profiles:[],interval_seconds:600,checked_at:snapshot.recorded_at,join:{matched:true,matched_area_keys:snapshot.saved_insights.areas.map(a=>a.area_key)},snapshot:snapshot.saved_insights};
+ const areas=(snapshot.areas||[]).map((a,i)=>({area_key:key(a),area_id:a.session_id|(a.island_id<<6)|(a.area_index<<13),session_id:a.session_id,session_guid:a.session_guid,name:a.area_name,region:a.session_guid===3245?'Latium':a.session_guid===149679?'Aegyptus':'Albion',owner:1,
   fertilities:[{guid:2210,name:i%2?'Herbs Fertility':'Olive Fertility'}],residence_count:24+i*8,
-  housing:[{building_guid:a.session_guid===3245?3087:6414,tier_guid:a.session_guid===3245?1499:1500,tier_name:a.session_guid===3245?'Liberti':'Waders',count:24+i*8}],
+  housing:[{building_guid:a.session_guid===3245?3087:6414,tier_guid:a.session_guid===3245?1499:1500,tier_name:a.session_guid===3245?'Liberti':a.session_guid===149679?'Threshers':'Waders',count:24+i*8}],
   inventory:(a.entries||[]).map((e,j)=>{const samples=Array.from({length:120},(_,n)=>Math.max(0,Math.round(30+j*9+i*7+Math.sin(n/9)*4+e.ProductDelta*n/7)));return {product_guid:e.ProductGuid,name:e.ProductNameEnglish,samples,latest_sample:samples.at(-1),last_point_tick:0};}),
-  need_states:(a.entries||[]).filter(e=>e.ProductConsumption>0).map(e=>({tier_guid:a.session_guid===3245?1499:1500,tier_name:a.session_guid===3245?'Liberti':'Waders',product_guid:e.ProductGuid,name:e.ProductNameEnglish,tracked_houses:24+i*8,explicit_full:e.ProductDelta>=0?24+i*8:12,explicit_partial:e.ProductDelta<0?4:0,explicit_zero:0,omitted:e.ProductDelta<0?8+i*8:0})),buildings:[]}));
+  need_states:(a.entries||[]).filter(e=>e.ProductConsumption>0).map(e=>({tier_guid:a.session_guid===3245?1499:1500,tier_name:a.session_guid===3245?'Liberti':a.session_guid===149679?'Threshers':'Waders',product_guid:e.ProductGuid,name:e.ProductNameEnglish,tracked_houses:24+i*8,explicit_full:e.ProductDelta>=0?24+i*8:12,explicit_partial:e.ProductDelta<0?4:0,explicit_zero:0,omitted:e.ProductDelta<0?8+i*8:0})),buildings:[]}));
+ for(let i=0;i<areas.length;i++){const a=areas[i],source=snapshot.areas[i],egypt=a.region==='Aegyptus';a.production_context={instances:egypt?[{id:'example-'+i,guid:151997,productivity:1,module_ids:[],water_source_id:null}]:[],warehouses:[{guid:egypt?150645:3402,registered_capacity:550}],current_stocks:source.entries.map(e=>({guid:e.ProductGuid,amount:120+i*15,full_capacity:false})),effects:[],session_effects:[],religion:{patron_guid:egypt?153803:43594,belief:800},season:egypt?{guid:150490,next_guid:150491,start_tick:0,end_tick:10800000}:null,volcano:a.region==='Latium'?{guid:145352,active:1,remaining_ms:6000000}:null};if(egypt){a.fertilities=[...new Set(K.factories.filter(f=>f.regions.includes('Aegyptus')).map(f=>f.fertility_guid).filter(Boolean))].map(guid=>({guid,name:gameName(guid)}));a.production_context.instances=[];if(source.entries.some(e=>e.ProductGuid===2103&&e.ProductGeneration>0))for(let n=0;n<2;n++)a.production_context.instances.push({id:'example-reeds-'+i+'-'+n,guid:151997,productivity:1,module_ids:[],water_source_id:null});if(source.entries.some(e=>e.ProductGuid===151679&&e.ProductGeneration>0))for(let n=0;n<7;n++){const id='example-dove-'+i+'-'+n;a.production_context.instances.push({id:'example-pome-'+i+'-'+n,guid:152145,productivity:1.5,module_ids:[id],water_source_id:null},{id,guid:153816,productivity:1,module_ids:[],water_source_id:null});}const tier=N.tiers.find(t=>t.region==='Aegyptus'&&t.tier==='Threshers');a.housing.forEach(h=>{h.tier_guid=tier?.guid;h.tier_name='Threshers';});}}
  const routes=(snapshot.supply_suggestions||[]).slice(0,2).map((r,i)=>({id:100+i,name:'Example '+r.product_name+' Supply',ship_ids:[i+1],stops:[{area_key:r.from_area_key,name:r.from_area,goods:[{product_guid:r.product_guid,name:r.product_name,amount:50,action:'load'}]},{area_key:r.to_area_key,name:r.to_area,goods:[{product_guid:r.product_guid,name:r.product_name,amount:50,action:'unload'}]}]}));
- return {enabled:true,use_saves:saveInsightsState.demoUse,status:'ready',access:{source:'synthetic_demo'},profiles:[],interval_seconds:600,checked_at:snapshot.recorded_at,join:{matched:true,matched_area_keys:areas.map(a=>a.area_key)},snapshot:{schema:1,synthetic:true,profile_name:'Example Empire',campaign_fingerprint:'synthetic-example',saved_at:snapshot.recorded_at,areas,routes,limitations:[]}};
+ return {enabled:true,use_saves:saveInsightsState.demoUse,status:'ready',access:{source:'synthetic_demo'},profiles:[],interval_seconds:600,checked_at:snapshot.recorded_at,join:{matched:true,matched_area_keys:areas.map(a=>a.area_key)},snapshot:{schema:1,synthetic:true,simulator_clock:{GameTotal:0},production_context:{global_effects:[]},owned_items:[],parsed_at:'synthetic-example',profile_name:'Example Empire',campaign_fingerprint:'synthetic-example',saved_at:snapshot.recorded_at,areas,routes,limitations:[]}};
 }
 
 function saveInsightsData(){return isDemo?saveInsightsDemo():saveInsightsState.live;}
@@ -25,7 +27,7 @@ function savedSnapshot(){return saveInsightsData()?.snapshot||null;}
 function savedContextAllowed(){const data=saveInsightsData();return !!(data?.use_saves&&(data.join?.matched||snapshot?.save_source?.campaign_fingerprint===data.snapshot?.campaign_fingerprint));}
 function savedArea(areaId,requireJoin=true){const data=saveInsightsData();if(requireJoin&&!savedContextAllowed())return null;return data?.snapshot?.areas?.find(a=>a.area_key===areaId)||null;}
 function savedOwnedItems(kind){
- if(isDemo||!savedContextAllowed())return [];
+ if(!savedContextAllowed()||isDemo&&!savedSnapshot()?.synthetic)return [];
  return (savedSnapshot()?.owned_items||[]).filter(i=>i.kind===kind);
 }
 function ownedItemState(item){
@@ -87,7 +89,7 @@ async function loadSaveInsights(force=false,body=null){
   else if(reply.status===401){s.live=null;s.error='Pair your PC bridge to read saved insights.';}
   else throw Error(reply.document?.error||'Save Insights is unavailable on this PC. Update the preview or check its connection.');
  }catch(error){if(generation===s.generation)s.error=error.message;}
- finally{if(generation===s.generation){s.busy=false;if(current==='insights')render(true);else if(['home','supply','needs','more'].includes(current))render(true);}}
+ finally{if(generation===s.generation){s.busy=false;if(!body&&typeof window.governorBackgroundUpdate==='function'){window.governorBackgroundUpdate('save');}else if(current==='insights')render(true);else if(['home','supply','needs','more'].includes(current)||current==='planner'&&!document.activeElement?.closest('.ap-layout,.ip-filters,.ip-cycle-controls'))render(true);}}
 }
 function refreshSaveInsights(){return loadSaveInsights(true,{action:'refresh'});}
 function selectSaveProfile(id,participant=null,fileName=null){saveInsightsState.live={...saveInsightsState.live,status:'waiting',snapshot:null};saveInsightsState.island='all';return loadSaveInsights(true,{action:'select',profile_id:id,participant,file_name:fileName});}

@@ -1,10 +1,18 @@
 # Anno 117 Companion
 
+## Neu in 0.28.0: das ganze Imperium planen
+
+Versorgungspläne für Provinzen und das gesamte Imperium berücksichtigen vollständige Produktionsketten, Brennstoff, saisonale Reserven und Transporte. Hinzu kommen gespeicherte Genehmigungen und Forschung, Vergleiche von Gebäudezahl, Arbeitskräften und Unterhalt, die Verfügbarkeit einzelner Spezialisten, der Flottenbedarf und ausführlichere illustrierte Berichte.
+
+[Neuerungen und Anleitung](docs/RELEASE_028.md). **Alle Funktionen bleiben kostenlos.** Bereits installiert? Unter **Mehr → Updates** auf Windows oder Android aktualisieren.
+
 [English](README.md) · **Deutsch**
 
 **Dein Imperium. Klarer im Blick.** Ein kostenloser, inoffizieller Companion für Anno 117: Pax Romana von Ádám.
 
-[Windows-ZIP herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno117Companion-0.21.5-Windows-x64.zip) · [Android-APK herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno-Companion-0.21.5.apk) · [Alle Downloads / neueste Version](https://github.com/oriskoat/anno117companion/releases/latest)
+[Windows-ZIP herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip) · [Android-APK herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk) · [Alle Downloads / neueste Version](https://github.com/oriskoat/anno117companion/releases/latest)
+
+![Version 0.28.0 im Desktop-Browser · fiktives Demo-Imperium](docs/screenshots/17-candidate-home-desktop.png)
 
 ## Poster zu den Produktionsketten
 
@@ -68,7 +76,7 @@ Du nutzt den Companion bereits? Unter **More → Updates** findest du das aktuel
 
 ### 1. Companion herunterladen und öffnen
 
-1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno117Companion-0.21.5-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
+1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
 2. Das heruntergeladene ZIP mit der rechten Maustaste anklicken und **Alle extrahieren** wählen. Einen beschreibbaren Ordner verwenden, zum Beispiel `Dokumente\Anno117Companion`. Die EXE aus dem entpackten Ordner starten, nicht direkt aus dem ZIP.
 3. **Anno117Companion.exe** öffnen. Python, Android Studio oder Entwicklungswerkzeuge sind nicht erforderlich.
 4. **Demo** wählen, um das erfundene „Example Empire“ ohne laufendes Spiel kennenzulernen. Die obere Leiste enthält Serversteuerung, Demo/Live und die Kopplungsdaten für weitere Geräte. Bei Bedarf die eingeklappte Leiste öffnen.
@@ -117,7 +125,7 @@ Das vollständige Werkzeug funktioniert im EXE-Fenster oder über **Open browser
 
 ### Android-App
 
-1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.21.5/Anno-Companion-0.21.5.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
+1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
 2. Falls Android eine Installationsberechtigung für Browser/Dateimanager verlangt, diese Installationsquelle prüfen und für die Installation erlauben. Die APK wird direkt installiert, nicht über den Play Store.
 3. **Anno Companion** öffnen. Demo funktioniert ohne Kopplung und ohne Spiel.
 4. **Live** wählen. Ohne Kopplung öffnet sich die Verbindungsansicht. Die PC-Adresse und den aktuellen sechsstelligen Code aus der Windows-App eingeben und verbinden.

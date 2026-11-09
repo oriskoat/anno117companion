@@ -47,6 +47,7 @@ final class GitHubUpdater {
     }
     synchronized JSONObject check(boolean force) {
         try {
+            if(activity.getPackageName().endsWith(".productionbeta"))return state=base("preview");
             android.content.SharedPreferences prefs=activity.getSharedPreferences("github-update",0);
             long age=System.currentTimeMillis()-prefs.getLong("checked",0);String json;
             if(!force&&age>=0&&age<21600000)json=prefs.getString("release","");

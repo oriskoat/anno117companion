@@ -19,7 +19,7 @@ from .vendor.parser.filedb.version import detect_version, FileDBVersion
 from .vendor.parser.filedb.dictionary import parse_tag_section
 from .vendor.parser.filedb.dom import iter_dom, EventKind
 
-SCHEMA = 3
+SCHEMA = 8
 MAX_SAVE_BYTES = 256 * 1024 * 1024
 MAX_INNER_BYTES = 768 * 1024 * 1024
 MAX_EVENTS = 40_000_000
@@ -237,7 +237,7 @@ def extract_area(info, aid, session, catalogue):
             'fertilities': [{'guid': integer(c), 'name': catalogue.name(integer(c))}
                             for c in (info.get('Fertility').children if info.get('Fertility') else [])
                             if integer(c) is not None],
-            'inventory': inventory, 'housing': [], 'residence_count': 0,
+            'inventory': inventory, 'production_context': {'instances': [], 'warehouses': [], 'effects': [], 'religion': None, 'current_stocks': __import__(__package__+'.production_context', fromlist=['inventory']).inventory(info)}, 'housing': [], 'residence_count': 0,
             'need_states': [], 'buildings': []}
 
 
@@ -261,6 +261,10 @@ def inspect_object(node, aid, buildings, housing, needs, catalogue):
                                        'tier_guid': tier, 'tier_name': catalogue.name(tier) if tier else 'Unknown tier',
                                        'count': 0})
     h['count'] += 1
+    residents = number(residence.get('ResidentCount'))
+    if residents is not None and 0 <= residents <= 100000:
+        h['residents'] = h.get('residents', 0) + residents
+        h['resident_count_recorded'] = h.get('resident_count_recorded', 0) + 1
     for product, state in pairs(residence.get('ConsumptionStates')):
         key = (tier, product)
         need = needs.setdefault(key, {'tier_guid': tier, 'tier_name': h['tier_name'],
@@ -301,7 +305,7 @@ def extract_routes(route_map, owner, all_areas, catalogue):
                               'amount': integer(item.get('Amount')), 'slot_index': integer(item.get('Index')),
                               'action': 'unload' if loading == 0 else 'load' if loading == 1 else 'unspecified',
                               'loading_value_omitted': loading is None})
-            stops.append({'area_id': aid, 'area_key': area_key(aid) if aid is not None else None,
+            stops.append({'station_id': integer(station.get('StationID')), 'area_id': aid, 'area_key': area_key(aid) if aid is not None else None,
                           'name': all_areas.get(aid, {}).get('name') or f'Area {aid}',
                           'owner': integer(station.get('AreaOwner')), 'goods': goods})
         result.append({'id': rid, 'name': text(record.get('Name')) or f'Route {rid}',
@@ -333,7 +337,7 @@ def saved_items(container, catalogue, source, location=None, equipped=False):
                 kind = catalogue.asset(guid).get('item_kind')
                 if kind not in ('Specialist', 'Captains'):
                     continue
-                items.append((iid.data, {'guid': guid, 'name': catalogue.name(guid), 'kind': kind,
+                items.append((iid.data, {'instance_id': iid.data.hex(), 'guid': guid, 'name': catalogue.name(guid), 'kind': kind,
                                          'state': 'assigned' if equipped else 'stored',
                                          'source': source, 'area_key': location}))
     return items
@@ -356,17 +360,29 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
     profile = next((n for _, n in select(header, lambda p: p == ('CorporationProfile',), cancelled)), None)
     if profile is None:
         raise SaveReadError('Save profile metadata is missing.')
+    from .production_context import effects as production_effects
+    global_production_effects, production_unlocks = [], None
+    empire_economies, empire_money = None, None
     sessions, route_map, clock, history, participants_with_items = [], None, {}, {}, []
     def outer_wanted(p):
         return (p[:2] == ('MetaGameManager', 'GameSessions') and len(p) == 3
                 or p[:3] == ('MetaGameManager', 'MetaGameObjectManager', 'MetaObjectMap') and len(p) == 4
+                or p in [('MetaGameManager','MetaEffectManager'), ('MetaGameManager','ParticipantUnlockManager'), ('MetaGameManager','EconomyManager'), ('MetaGameManager','MetaMoneyManager')]
                 or p == ('MetaGameManager', 'SessionTradeRouteManager', 'RouteMap')
                 or p == ('MetaGameManager', 'EconomyStatisticManager', 'History', 'areaHistory')
                 or p in [('MetaGameManager', 'GameTotal'), ('MetaGameManager', 'GameCount')])
     for where, node in select(outer, outer_wanted, cancelled):
         if where[:3] == ('MetaGameManager', 'MetaGameObjectManager', 'MetaObjectMap'):
-            if node.get('MetaItemTransfer') is not None:
+            if node.get('MetaItemTransfer') is not None or node.get('MetaTechHandler') is not None:
                 participants_with_items.append(node)
+        elif where[-1] == 'EconomyManager':
+            empire_economies = node
+        elif where[-1] == 'MetaMoneyManager':
+            empire_money = node
+        elif where[-1] == 'MetaEffectManager':
+            global_production_effects = production_effects(node)
+        elif where[-1] == 'ParticipantUnlockManager':
+            production_unlocks = node
         elif where[-1] == 'RouteMap':
             route_map = node
         elif where[-1] == 'areaHistory':
@@ -378,6 +394,7 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
             if desc and blob and blob.data:
                 sessions.append({'session_id': integer(desc.get('SessionID'), False),
                                  'session_guid': integer(desc.get('SessionGUID')), 'data': blob.data})
+    from .production_context import observe, session_context
     del outer, header
     if not sessions or any(s['session_id'] is None or s['session_guid'] is None for s in sessions):
         raise SaveReadError('Save sessions could not be identified.')
@@ -397,8 +414,17 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
         participant = humans[0]
     if participant not in humans:
         raise SaveReadError('The selected human participant has no identified islands.')
+    flood_gate = None
+    for pid, record in pairs(production_unlocks.at('UnlockData/Data') if production_unlocks else None):
+        if pid != participant: continue
+        for guid, lock in pairs(record.get('LockState')):
+            if guid == 157020:
+                flood_gate = integer(lock.at('value/value/value'))
     owned = {}
     items = {}
+    routes = extract_routes(route_map, participant, all_areas, catalogue)
+    ship_observations = []
+    from .transport import observe_ship
     for node in participants_with_items:
         if integer(node.get('ParticipantGUID')) == participant:
             for iid, row in saved_items(node.at('MetaItemTransfer/GlobalItemContainer'), catalogue, 'global'):
@@ -422,11 +448,14 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
                 return False
         counters, housing, needs = defaultdict(Counter), defaultdict(dict), defaultdict(dict)
         omit = ('Mesh', 'FeedbackController', 'Health', 'Building', 'LogisticNode', 'AttributeProvider',
-                'Infolayer', 'IncidentInfectable', 'Maintenance', 'Buffable', 'Position', 'Direction')
+                'Infolayer', 'IncidentInfectable', 'Maintenance', 'Buffable')
         for where, obj in select(session['data'], wanted, cancelled, omit):
             aid = int(where[2].removeprefix('AreaManager_'))
             owner = integer(obj.get('OwnerProfile'))
             identifier = obj.get('ID')
+            ship = observe_ship(obj, session, routes)
+            if ship is not None:
+                ship_observations.append(ship)
             verified_area = identifier is not None and identifier.data is not None and len(identifier.data) == 8 and int.from_bytes(identifier.data[4:6], 'little') == aid
             if verified_area and (owner == participant or owner is None and aid in owned and catalogue.asset(integer(obj.get('guid'))).get('template') in ('VillaUrban','VillaRural','HippodromeBuilding','GuestHouse')):
                 for equipped in (False, True):
@@ -436,27 +465,33 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
                         if iid not in items or row['state'] == 'assigned':
                             items[iid] = row
             if aid in owned:
+                observe(obj, owned[aid])
                 inspect_object(obj, aid, counters[aid], housing[aid], needs[aid], catalogue)
+        session_context(session['data'], owned, session['session_guid'], cancelled)
         for aid in [k for k, v in owned.items() if v['session_id'] == session['session_id']]:
             owned[aid]['housing'] = list(housing[aid].values())
             owned[aid]['residence_count'] = sum(x['count'] for x in housing[aid].values())
             owned[aid]['need_states'] = list(needs[aid].values())
             owned[aid]['buildings'] = [{'guid': g, 'name': catalogue.name(g), 'count': count}
                                        for g, count in counters[aid].items()]
-    routes = extract_routes(route_map, participant, all_areas, catalogue)
     ident = (profile.get('ID').data if profile.get('ID') else b'') + (profile.get('CreationTimeStamp').data if profile.get('CreationTimeStamp') else b'')
-    snapshot = {'schema': SCHEMA, 'catalogue_fingerprint': catalogue.fingerprint,
+    from .overview import empire as empire_overview
+    from .progression import read as progression_read
+    snapshot = {'progression': progression_read(production_unlocks, participants_with_items, participant, catalogue), 'empire': empire_overview(empire_economies, empire_money, participant), 'schema': SCHEMA, 'catalogue_fingerprint': catalogue.fingerprint,
                 'campaign_fingerprint': hashlib.sha256(ident + str(participant).encode()).hexdigest(),
                 'profile_display_name': text(profile.get('SavegameProfileDisplayName')),
                 'participant': participant, 'game_seed': integer(profile.get('GameSeed')),
                 'need_consumption_setting_raw': integer(profile.at('SetupNeedConsumption/value/id')),
+                'production_context': {'global_effects': [e for e in global_production_effects if e['participant'] in (None, participant)], 'flood_gate_state': flood_gate},
                 'simulator_clock': clock, 'file_name': path.name, 'saved_at': timestamp(before.st_mtime),
                 'parsed_at': timestamp(), 'areas': list(owned.values()), 'routes': routes, 'owned_items': list(items.values()),
+                'transport': {'observed_game_ms': clock.get('GameTotal'), 'ships': ship_observations,
+                              'timing_status': 'unmeasured', 'path_status': 'not_reconstructed'},
                 'metrics': {'parse_seconds': round(time.monotonic() - start, 3), 'save_bytes': before.st_size,
                             'session_count': len(sessions)},
                 'limitations': ['Inventory is the latest saved statistics sample, not live warehouse stock.',
                                 'Configured routes do not prove delivered throughput.',
                                 'Omitted saturation and loading values are not treated as confirmed defaults.',
-                                'Full population totals and service-radius coverage are not inferred.']}
+                                'Population sums use explicit saved ResidentCount fields; missing residence values remain unknown. Service-radius coverage is not inferred.']}
     json.dumps(snapshot, allow_nan=False)
     return snapshot

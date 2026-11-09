@@ -2,7 +2,7 @@ const fs=require('node:fs'),assert=require('node:assert/strict');let JSDOM;try{(
 const root='android-probe/app/src/main/assets/dashboard',dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'http://localhost',runScripts:'dangerously'}),w=dom.window;w.scrollTo=()=>{};w.Native={ready(){},secure(){}};
 for(const m of fs.readFileSync(root+'/index.html','utf8').matchAll(/<script src="([^"]+)"/g)){if(['browser.js','updates.js'].includes(m[1]))continue;const s=w.document.createElement('script');s.textContent=fs.readFileSync(root+'/'+m[1],'utf8');w.document.body.appendChild(s);}
 try{
- const demo=JSON.parse(fs.readFileSync(root+'/demo.json','utf8'));w.receiveSnapshot(demo,'demo');w.setUseSaveData(true);w.nav('insights');assert(w.document.body.textContent.includes('Invented Example Empire'));assert.equal(w.document.querySelectorAll('.saved-island-card').length,4);
+ const demo=JSON.parse(fs.readFileSync(root+'/demo.json','utf8'));w.receiveSnapshot(demo,'demo');w.setUseSaveData(true);w.nav('insights');assert(w.document.body.textContent.includes('Invented Example Empire'));assert.equal(w.document.querySelectorAll('.saved-island-card').length,demo.areas.length);
  for(const tab of ['routes','stocks','needs','sites']){w.setSavedTab(tab);assert(w.document.querySelector('#savedInsightsResults'));}
  w.setSavedTab('stocks');assert(w.document.querySelector('.saved-stock-row'));w.document.querySelector('.saved-stock-row').click();assert(w.document.querySelector('.saved-stock-detail'));w.closeSheet();
  w.setSavedTab('needs');assert(w.document.querySelector('.saved-tier-counts'));assert(!w.document.querySelector('button button'));

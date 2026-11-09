@@ -1,0 +1,11 @@
+# Preserve binary artifacts even when their content happens to be ASCII (PDF).
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.jar binary
+*.zip binary
+*.apk binary
+*.exe binary

@@ -7,6 +7,7 @@ if (!window.Native) {
     token=storage.get('anno.pairing')||'';
     const fragment=new URLSearchParams(location.hash.slice(1));let enrollment='';
     window.saveInsightsLanding=fragment.get('insights')==='1';
+    window.productionPlannerLanding=fragment.get('planner')==='1';
     window.desktopMode=fragment.get('desktop')==='1';
     if(fragment.has('pair')){const supplied=fragment.get('pair').toUpperCase();if(/^\d{6}$/.test(supplied))enrollment=supplied;else token=supplied;if(!window.desktopMode||storage.get('anno.demo')===null)storage.set('anno.demo',fragment.has('sample')?'true':'false');history.replaceState(null,'',location.pathname);}
     demo=storage.get('anno.demo')!=='false';
@@ -22,6 +23,7 @@ if (!window.Native) {
       }catch(error){if(id===generation&&!demo){const message='Bridge unavailable · showing the previous snapshot';window.connectionNotice(message);if(!received&&!accessShown){accessShown=true;accessIssue('offline',message);}}}
       finally{clearTimeout(timeout);if(id===generation&&!demo&&!document.hidden)poll=setTimeout(()=>receive(id),5000);}
     }
+    window.connectionToolsRequest=async function(kind){const response=await fetch('/v1/'+kind,{headers:{Authorization:'Bearer '+token},cache:'no-store'});if(!response.ok)throw Error('Pair this browser with the PC first.');return response.json();};
     function accessIssue(kind,message){if(window.liveAccessIssue)window.liveAccessIssue(kind,message);else{window.connectionNotice(message);window.openSettings();window.settingsError(message);}}
     async function load(){
       cancel();received=false;accessShown=false;const id=generation;storage.set('anno.demo',String(demo));window.modeChanged(demo,address,!!token);

@@ -1,0 +1,19 @@
+{
+  "provider": "Google public text translation endpoint",
+  "content": "Authored UI text collected exclusively from synthetic examples; no saves, credentials or user content",
+  "languages": [
+    "de",
+    "fr",
+    "it",
+    "es",
+    "ja",
+    "ko",
+    "pl",
+    "pt-BR",
+    "ru",
+    "zh-CN",
+    "zh-TW"
+  ],
+  "source_count": 71,
+  "review": "Automated completeness checks and critical-label review; not a professional translation certification"
+}

@@ -2,7 +2,7 @@ plugins { id 'com.android.application' }
 android {
     namespace 'hu.anno117.pipeprobe'
     compileSdk 35
-    defaultConfig { applicationId 'hu.anno117.companion'; minSdk 26; targetSdk 35; versionCode 29; versionName '0.21.5' }
+    defaultConfig { applicationId 'hu.anno117.companion'; minSdk 26; targetSdk 35; versionCode 35; versionName '0.28.0' }
     signingConfigs {
         release {
             if (System.getenv('ANNO_KEYSTORE')) {
@@ -15,7 +15,7 @@ android {
     }
     buildTypes {
         release { signingConfig signingConfigs.release }
-        debug { applicationIdSuffix '.savepreview'; versionNameSuffix '-save-preview' }
+        debug { applicationIdSuffix '.productionbeta'; versionNameSuffix '-production-beta6' }
     }
     sourceSets { main.java.exclude '**/MainActivity.java', '**/BridgeActivity.java' }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }

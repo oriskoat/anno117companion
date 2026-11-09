@@ -9,8 +9,8 @@ function moreRow(mark,title,detail,action){
 }
 
 function morePage(){
- return `${moreTabs('more')}<div class="more-grid">
- <section class="more-group"><h2>Connection &amp; preferences</h2>
+ return `${moreTabs('more')}<div class="more-grid">${Navigation.secondary()}
+ <section class="more-group"><h2>Connection &amp; preferences</h2>${moreRow('clock','Previous plans & observations','Review and import old campaign data.',"nav('legacy')")}${moreRow('check','Build readiness','Permits, research and island unlocks.',"nav('readiness')")}
  ${moreRow('link','PC bridge',isDemo?'Recorded sample mode':esc(pcAddress),'openSettings()')}
  <label class="more-language"><span><b>Language</b><small>Choose the language for the interface and original game text.</small></span><select class="form-input" aria-label="Language" onchange="setGameLanguage(this.value)">${Object.entries(K.languages).map(([id,label])=>`<option value="${id}" ${id===appLanguage?'selected':''}>${esc(label)}</option>`).join('')}</select></label>
  ${typeof window.Native?.pinWidget==='function'?moreRow('home','Add home screen widget','Empire summary and Supply suggestions.',"native('pinWidget')"):''}

@@ -47,6 +47,8 @@ class SaveInsightsService:
     def __init__(self, accounts, settings, catalogue_path, access=None, interval=600, reader=read_save):
         self.accounts = Path(accounts).resolve()
         self.settings = Path(settings)
+        from .voyages import VoyageHistory
+        self.voyages = VoyageHistory(self.settings/'voyage-observations.json')
         self.catalogue_path = Path(catalogue_path)
         self.access = access or preview_access(False)
         self.interval = max(10, interval)
@@ -63,6 +65,11 @@ class SaveInsightsService:
         self.participant = None
         self.selected_file = None
         self.use_saves = False
+        self.selection_mode = 'automatic'
+        self.pipe_evidence = None
+        self.pipe_generation = 0
+        self.match_status = {'status': 'waiting_for_pipe', 'reason': 'Fresh pipe statistics are required.'}
+        self.selection_cache = {}
         self.snapshot = None
         self.file_identity = None
         self.candidates = []
@@ -125,6 +132,8 @@ class SaveInsightsService:
                 self.selected = config['profile_id']
                 self.participant = config.get('participant')
                 self.selected_file = config.get('file_name')
+                self.selection_mode = config.get('selection_mode', 'manual' if self.selected_file else 'automatic')
+                if self.selection_mode not in ('automatic','manual'):self.selection_mode='manual'
         except (OSError, ValueError, TypeError):
             pass
         if self.selected is None and len(self.profiles) == 1:
@@ -174,7 +183,7 @@ class SaveInsightsService:
 
     def _persist_settings(self):
         _atomic(self.settings / 'save-insights-settings.json', {'profile_id': self.selected,
-                'participant': self.participant, 'file_name': self.selected_file, 'use_saves': self.use_saves})
+                'participant': self.participant, 'file_name': self.selected_file, 'use_saves': self.use_saves, 'selection_mode': self.selection_mode})
 
     def set_use_saves(self, enabled):
         if not self.allowed():
@@ -200,7 +209,7 @@ class SaveInsightsService:
                 raise ValueError('Choose one of the discovered save profiles.')
             if file_name is not None and (not isinstance(file_name, str) or not any(s[1] == file_name for s in profiles[identifier]['_saves'])):
                 raise ValueError('Choose a discovered save file.')
-            if identifier != self.selected or participant != self.participant or file_name != self.selected_file:
+            if identifier != self.selected or participant != self.participant or file_name != self.selected_file or self.selection_mode != 'manual':
                 self.generation += 1
                 self.snapshot = None
                 self.file_identity = None
@@ -208,9 +217,30 @@ class SaveInsightsService:
             self.profiles = profiles
             self.selected, self.participant = identifier, participant
             self.selected_file = file_name
+            self.selection_mode = 'manual'
             self.status, self.error = 'waiting', ''
             self._persist_settings()
         self.wake.set()
+
+    def set_selection_mode(self, mode):
+        if not self.allowed():raise PermissionError('Save Insights is not enabled.')
+        if mode not in ('automatic','manual'):raise ValueError('Invalid selection mode.')
+        with self.lock:
+            self.selection_mode=mode
+            self.generation+=1
+            if mode=='automatic':self.selected_file=None
+            self._persist_settings()
+        self.wake.set()
+
+    def note_pipe(self, pipe):
+        areas=[a for a in pipe.get('areas',[]) if not a.get('cached') and not a.get('stale')]
+        fresh=pipe.get('pipe_state')=='connected' and pipe.get('fresh_area_count',0)>0 and areas
+        evidence={'session_name':pipe.get('session_name'),'areas':[{k:a.get(k) for k in ('session_id','island_id','area_index','session_guid','area_name')} for a in areas]} if fresh else None
+        with self.lock:
+            if evidence==self.pipe_evidence:return
+            self.pipe_evidence=evidence;self.pipe_generation+=1
+            if not evidence:self.match_status={'status':'waiting_for_pipe','reason':'Fresh pipe statistics are required; the current selection is retained.'}
+            if self.selection_mode=='automatic' and evidence:self.wake.set()
 
     def refresh(self):
         if not self.allowed():
@@ -241,8 +271,29 @@ class SaveInsightsService:
             if self.catalogue is None:
                 self.catalogue = Catalogue.read(self.catalogue_path)
             catalogue = self.catalogue
+            pipe_generation = self.pipe_generation
+            evidence = copy.deepcopy(self.pipe_evidence) if self.selection_mode == 'automatic' else None
         try:
             profiles = self._scan()
+            parsed_hint = None
+            if evidence:
+                from .selection import select_matching_profile
+                def read_candidate(profile):
+                    modified, name, path, size = profile['_saves'][0]
+                    if time.time_ns()-modified < 1_000_000_000:raise SaveReadError('Save is still being written.')
+                    identity=(profile['id'],name,modified,size,catalogue.fingerprint)
+                    if identity not in self.selection_cache:
+                        self.selection_cache[identity]=self.reader(path,catalogue,None,lambda: self.cancel.is_set() or generation!=self.generation or pipe_generation!=self.pipe_generation)
+                        if len(self.selection_cache)>4:self.selection_cache.pop(next(iter(self.selection_cache)))
+                    return copy.deepcopy(self.selection_cache[identity])
+                match, parsed_hint = select_matching_profile(evidence,profiles,read_candidate,correlate)
+                with self.lock:
+                    if generation!=self.generation or pipe_generation!=self.pipe_generation or self.selection_mode!='automatic':return
+                    self.match_status=match
+                    if parsed_hint:
+                        selected=match['profile_id'];participant=parsed_hint['participant'];selected_file=None
+                        self.selected,self.participant,self.selected_file=selected,participant,None
+                        self._persist_settings()
             with self.lock:
                 if generation != self.generation:
                     return
@@ -271,11 +322,12 @@ class SaveInsightsService:
                     return
                 self.status, self.error = 'reading', ''
             def cancelled():
-                return self.cancel.is_set() or generation != self.generation or not self.allowed()
-            parsed = self.reader(path, catalogue, participant, cancelled)
+                return self.cancel.is_set() or generation != self.generation or (evidence is not None and pipe_generation != self.pipe_generation) or not self.allowed()
+            parsed = parsed_hint if parsed_hint is not None else self.reader(path, catalogue, participant, cancelled)
             after = path.stat()
             if (modified, size) != (after.st_mtime_ns, after.st_size):
                 raise SaveReadError('The save changed while reading. Previous data is retained; retry on the next check.')
+            parsed.setdefault('transport',{})['cycle_observations']=self.voyages.observe(parsed)
             parsed['profile_name'] = profile['name']
             parsed['source_profile_id'] = selected
             with self.lock:
@@ -314,6 +366,7 @@ class SaveInsightsService:
                       'billing_available': False, 'checked_at': self.checked_at if active else None,
                       'selected_profile_id': self.selected if active else None,
                       'selected_file': self.selected_file if active else None,
+                      'selection_mode': self.selection_mode, 'automatic_match': copy.deepcopy(self.match_status),
                       'use_saves': bool(active and self.use_saves),
                       'participant_candidates': list(self.candidates) if active else [],
                       'profiles': [{k: v for k, v in p.items() if not k.startswith('_')}
@@ -324,6 +377,7 @@ class SaveInsightsService:
         return result
 
     def dashboard(self, pipe):
+        self.note_pipe(pipe)
         with self.lock:
             if not self.allowed() or not self.use_saves or not self.snapshot:
                 return pipe
@@ -333,8 +387,13 @@ class SaveInsightsService:
             areas = []
             for area in saved['areas']:
                 original = pipe_index.get(area['area_key'])
-                if original and not original.get('cached', True) and not original.get('stale', True) and pipe.get('pipe_state') == 'connected':
-                    areas.append(copy.deepcopy(original))
+                from .evidence import retain_pipe
+                keep, reason = retain_pipe(original, area, saved, pipe.get('pipe_state'))
+                if keep:
+                    retained = copy.deepcopy(original)
+                    retained['data_source'] = 'pipe'
+                    retained['provenance'] = {'kind':'rate','source':'pipe','decision':reason,'received_at':original.get('received_at'),'game_tick':original.get('game_timestamp')}
+                    areas.append(retained)
                     continue
                 entries = []
                 for item in area.get('entries', []):
@@ -346,7 +405,7 @@ class SaveInsightsService:
                 areas.append({'session_id': area['session_id'], 'session_guid': area['session_guid'],
                     'island_id': aid >> 6 & 127, 'area_index': aid >> 13 & 7, 'area_name': area['name'],
                     'entries': entries, 'received_at': saved['saved_at'], 'cached': True, 'stale': True,
-                    'data_source': 'save', 'statistics_tick': area.get('statistics_tick'),
+                    'data_source': 'save', 'provenance':{'kind':'rate','source':'save','game_tick':area.get('statistics_tick'),'file_at':saved['saved_at'],'decision':reason}, 'statistics_tick': area.get('statistics_tick'),
                     'saved_residence_count': area['residence_count']})
             represented = {f"{a['session_id']}:{a['island_id']}:{a['area_index']}" for a in areas}
             areas.extend(copy.deepcopy(a) for key, a in pipe_index.items() if key not in represented)

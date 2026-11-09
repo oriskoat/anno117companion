@@ -1,10 +1,93 @@
 # Windows EXE changelog
 
+## 0.28.0 — 9 November 2026
+
+- Windows native window serves the same new dashboard and save analysis to all paired LAN devices. The EXE remains unsigned, like the previous public release.
+- Share a fuel-aware unit recipe across Chains and Planner, including multi-building fuel consumption.
+- Preserve newer matching pipe rates while paused; keep saved inventories/buildings independent. Unknown clock domains and producer decompositions stay explicit.
+- Isolate shared routes, manual Needs observations and device drafts by campaign fingerprint; preview/import older name-based plans explicitly.
+- Restore Needs/page state through browser and Android Back. Keep scenario choices across reloads. Use five primary mobile destinations, with secondary pages in More.
+- Add Build readiness with recorded permits, completed/queued research and conditional unlock checks.
+- Compare fewer buildings, workforce, nominal upkeep or seasonal reserve at the same demand; show construction materials and concrete specialist-copy allocation.
+- Add bounded ship target-transition cycle observations, explicit travel/loading assumptions and required fleet counts. No sea-path inference or exact arrival claim.
+- Make saved population/finance/knowledge facts actionable and include them, patrons and current proposal details in the shared HTML/native-PDF report payload.
+- Expand the fictional Demo and translated UI. Replace generic Home resource symbols with official resource artwork.
+- Build from one release manifest, verify runtime/source/APK assets and public Android certificate, and keep operator settings/captures/keys out of archives.
+
+This is a conservative scenario planner, not a guaranteed global optimum. Spatial coverage, actual shipping capacity, unknown unlocks, prerequisites and hypothetical placements remain conditional. Nominal building maintenance is not a forecast of total treasury changes. All features remain free.
+
+
 Reconstructed through **0.21.5** from the development conversation, retained EXEs, staged source snapshots and release notes. Latest entries appear first. Dates below are local development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Windows bridge, native Companion window and the dashboard served to LAN browsers, including iPhone. Shared dashboard features are included because they ship in the EXE. Android-only installation, Keystore and widget work is documented separately in [CHANGELOG_ANDROID.md](CHANGELOG_ANDROID.md).
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub releases. Older entries document local development checkpoints and do not establish public publication.
+
+## 0.27.0 local beta 8 - unpublished, 8 November 2026
+
+- Add selected-player saved population, treasury, finance balance, knowledge, belief and prestige to Home.
+- Add province/tier population portraits, island patrons/milestones and direct filtered Needs navigation.
+- Preserve missing residence counts as unknown and distinguish empire attributes from residence sums; schema 7 reparses old caches.
+- Replace meaningless single-producer diagrams with compact output rows; retain actual input/module-feed chains.
+
+## 0.26.1 local beta 7 - unpublished, 8 November 2026
+
+- Collapse per-producer assumptions into icon/name rows with selected bonus badges.
+- Keep open editing rows through recalculation and share their choices across cards and detail panels.
+- Pin a same-output chain summary with building/workforce/module-feed changes; fold scope, deity and explanation settings.
+
+## 0.26.0 local beta 6 — unpublished, 8 November 2026
+
+- Show balanced icon/building chains directly on cards, with parallel input branches and regional alternatives.
+- Share water, module, granary, specialist and deity assumptions between cards and detail panels; compare the same final output and forward explicit island scenarios to Planner.
+- Add compact source controls and a top-bar save chooser, with conservative fresh-pipe campaign/island matching and persistent manual selection.
+- Open contextual product details from Home, with distinct supply/planning/island actions and restored Back navigation, filters and scroll.
+- Remove the unhelpful Albion water-link headline. Keep polling stable and preserve the fixed Desktop shortcut.
+
+See [beta guide](docs/BETA_026.md).
+
+## 0.25.0 local beta 5 — unpublished, 8 November 2026
+
+- Replace repeated Home island listings with regional conditions and prioritized supply/stock observations.
+- Consolidate the top wordmark, mode/save controls and source details; display event durations as hours/minutes/seconds.
+- Keep pages stable during snapshot, save and route polling; update Home values without reordering cards.
+- Recompute matching industrial input balances upstream, including reductions, and simulate timed ingredient availability across the selected scope.
+- Group readable build/reduction decisions by island, show reduction badges, input links and phase targets.
+- Compare conditional water, silo/Dovecote, granary, specialist and whole-island deity/belief scenarios before building; recalculate complete scope on preview.
+- Retain unknown/unreconciled inputs explicitly and preserve physical cargo rather than discarding blocked deliveries.
+
+See [beta guide](docs/BETA_025.md).
+
+## 0.24.0 local beta 4 — unpublished, 8 November 2026
+
+- Preserve opened and nested planner panels and scroll during data polling; keep reviewed plans fixed until recalculated.
+- Show existing/retained/paused producer counts, per-phase output targets and input-saving estimates.
+- Expose one configurable forecast window in game minutes.
+- Show saved granary sources and explicitly estimated producer-centre radius matches without double counting existing benefits.
+- Read schema 6 owned-route ship positions, assigned targets and installed modules; show observed fleet evidence without claiming measured voyage times.
+- Deploy each latest build to one fixed Anno117Companion.exe path; leave the Desktop shortcut unchanged after migration. Use an explicit embedded beta channel independent of executable filenames.
+
+See [beta guide](docs/BETA_024.md) for the boundaries of coverage and shipping evidence.
+
+## 0.23.0 local beta 3 — unpublished, 8 November 2026
+
+- Open Planner with province-first and whole-save coordinated proposals. Allocate spare supply once, propagate added upstream inputs and group multi-good route manifests.
+- Show actual owner-linked water/Dovecote evidence, conditional phase reserves and shared storage conflicts.
+- Save manual route proposals with campaign, data-change and shared-revision checks. Preserve existing manual plans.
+- Use region-specific overview cards, call the resting PoA phase Dormant, and keep detailed decisions collapsed/searchable.
+
+See [beta guide](docs/BETA_023.md) for assumptions and limits.
+
+## 0.22.0 local beta 2 — unpublished, 8 November 2026
+
+- Open Planner with an island-first view, regional event timeline, progressive product detail, live search and island/region/empire demand scopes.
+- Use official dry/flood and PoA volcano icons; read the saved current volcano phase/countdown independently of nominal future timings.
+- Plan whole producer counts, phase operating targets, reserve space and interruption buffers; show storage conflicts and peak input requirements.
+- Compare deity production trade-offs across the saved island and retain expanded sections while updates arrive.
+- Discover local Companion PCs without exchanging game data or pairing tokens. Initial access still requires pairing approval.
+- Check running-game /pipe arguments, supported Steam profile options, pipe errors and save-read/matching status separately. Unsupported launcher settings remain unknown.
+- Open the browser with effective saved data when the pipe is unavailable; distinguish server availability from game-data availability.
+- Keep this private beta separate from public updates. Add runtime source fingerprints and matching-source package checks.
 
 ## 0.21.5 — FAQ and a cleaner More page
 

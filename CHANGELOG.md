@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.28.0 — 9 November 2026
+
+- Share a fuel-aware unit recipe across Chains and Planner, including multi-building fuel consumption.
+- Preserve newer matching pipe rates while paused; keep saved inventories/buildings independent. Unknown clock domains and producer decompositions stay explicit.
+- Isolate shared routes, manual Needs observations and device drafts by campaign fingerprint; preview/import older name-based plans explicitly.
+- Restore Needs/page state through browser and Android Back. Keep scenario choices across reloads. Use five primary mobile destinations, with secondary pages in More.
+- Add Build readiness with recorded permits, completed/queued research and conditional unlock checks.
+- Compare fewer buildings, workforce, nominal upkeep or seasonal reserve at the same demand; show construction materials and concrete specialist-copy allocation.
+- Add bounded ship target-transition cycle observations, explicit travel/loading assumptions and required fleet counts. No sea-path inference or exact arrival claim.
+- Make saved population/finance/knowledge facts actionable and include them, patrons and current proposal details in the shared HTML/native-PDF report payload.
+- Expand the fictional Demo and translated UI. Replace generic Home resource symbols with official resource artwork.
+- Build from one release manifest, verify runtime/source/APK assets and public Android certificate, and keep operator settings/captures/keys out of archives.
+
+This is a conservative scenario planner, not a guaranteed global optimum. Spatial coverage, actual shipping capacity, unknown unlocks, prerequisites and hypothetical placements remain conditional. Nominal building maintenance is not a forecast of total treasury changes. All features remain free.
+
+
 ## 0.21.5 — FAQ and a cleaner More page
 
 - Find setup, pairing, troubleshooting and planning help under More → FAQ / How To. The guide is available in English, German and Hungarian.

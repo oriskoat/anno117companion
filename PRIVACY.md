@@ -35,3 +35,8 @@ Update checks contact api.github.com and release downloads contact GitHub and it
 asset CDN. Those services receive the normal connection IP address and the app
 version User-Agent. Game data and pairing credentials are not included. No GitHub
 account or access token is required for public releases.
+
+
+Connection checks are read-only. They inspect supported Steam launch options and the running Anno command line locally; only the check result is returned to paired clients, not unrelated launcher configuration or command-line contents. Ubisoft configuration that cannot be verified is reported as unknown. Save diagnostics report the selected campaign/file, reader status and matching result separately from the ON/OFF switch.
+
+Optional local discovery uses UDP port 11791. Replies advertise the PC name and Companion HTTP port, not game data, credentials or pairing codes. Discovery does not grant access. Remembered device credentials are not automatically sent to a newly discovered address. The public app defaults to HTTP port 11780; separately configured local installations can use another port.

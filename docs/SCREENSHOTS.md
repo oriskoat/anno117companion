@@ -1,3 +1,14 @@
+# 0.28.0 dashboard previews
+
+These are real browser renders of the 0.28.0 dashboard using the fictional Demo empire. Mobile browser images are **not** presented as photographs of an installed Android APK.
+
+- [Home, desktop browser](screenshots/17-candidate-home-desktop.png)
+- [Supply plan, mobile browser](screenshots/18-candidate-plan-mobile-browser.png)
+- [More, mobile browser](screenshots/19-candidate-more-mobile-browser.png)
+- [Illustrated report with saved empire and proposal](Example-Empire-Summary.pdf)
+
+The earlier gallery below documents previous public versions.
+
 # Screenshot gallery — 0.21.0
 
 These are actual captures of the Windows Companion, its local browser dashboard, the release APK on a Samsung, and the exported PDF. The application and browser examples use the invented **Example Empire** demo. The clean widget screenshot was arranged and supplied by the author and shows cached Live values from their own game. The browser views are labelled separately from the EXE views. No generated interface, simulated phone frame, pairing code, QR code or PC address is used in this gallery.

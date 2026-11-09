@@ -1,7 +1,7 @@
 const fs=require('fs'),assert=require('node:assert/strict'),{JSDOM}=require('jsdom');
 const root='android-probe/app/src/main/assets/dashboard',dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'http://localhost',runScripts:'dangerously'}),w=dom.window,errors=[];w.addEventListener('error',e=>errors.push(e.error));w.scrollTo=()=>{};w.Native={ready(){},secure(){}};
 for(const m of fs.readFileSync(root+'/index.html','utf8').matchAll(/<script src="([^"]+)"/g)){if(['browser.js','updates.js'].includes(m[1]))continue;const s=w.document.createElement('script');s.textContent=fs.readFileSync(root+'/'+m[1],'utf8');w.document.body.appendChild(s);}
-const sample=JSON.parse(fs.readFileSync(root+'/demo.json','utf8'));w.receiveSnapshot(sample,'demo');
+const sample=JSON.parse(fs.readFileSync(root+'/demo.json','utf8'));w.receiveSnapshot(sample,'demo');w.setUseSaveData(false);
 try{
  assert.equal(w.annoNeeds.tiers.length,14);assert.deepEqual(Array.from(w.annoNeeds.tiers.filter(t=>t.region==='Aegyptus'),t=>t.tier),['Threshers','Potters','Chanters','Scribes','Gymnasiarchs']);const aegyptusNeed=w.annoNeeds.needs.find(n=>n.tier==='Threshers'&&n.rates.Low>0);assert(Math.abs(aegyptusNeed.rates.VeryHigh-aegyptusNeed.rates.Low*1.75)<1e-12);assert(w.annoNeeds.needs.some(n=>n.is_service));
  w.nav('supply');w.setSupplyFilter('region','Albion');assert(w.supplyTierOptions().includes('Waders'));

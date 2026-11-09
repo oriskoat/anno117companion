@@ -113,6 +113,26 @@ def _build(payload):
     if mode=='CACHED':story.append(para(text('Cached: using last known game data.')+' '+str(snapshot.get('last_data_at') or ''),small))
     if save_source:
         story.append(para('Save: '+str(save_source.get('file_name',''))+' / '+str(save_source.get('saved_at',''))+'. Production and consumption come from recorded statistics history, which may predate this save.',small))
+    model=payload.get('readModel') or {}
+    if model.get('schema')==1:
+        sections=model.get('sections',[])
+        if not isinstance(sections,list) or len(sections)>12:raise ValueError('Invalid report sections')
+        for section in sections:
+            headers=section.get('headers',[]);rows=section.get('rows',[]);icons=section.get('icons',[])
+            if not 1<=len(headers)<=6 or not isinstance(rows,list) or len(rows)>100:raise ValueError('Invalid report table')
+            if any(not isinstance(row,list) or len(row)!=len(headers) or any(not isinstance(v,str) or len(v)>300 for v in row) for row in rows):raise ValueError('Invalid report rows')
+            title=section.get('title','')
+            if not isinstance(title,str) or len(title)>160:raise ValueError('Invalid report heading')
+            widths=[width/len(headers)]*len(headers)
+            if len(headers)>=3:widths=[width*.32]+[width*.68/(len(headers)-1)]*(len(headers)-1)
+            data=[]
+            for index,row in enumerate(rows):
+                line=list(row)
+                if index<len(icons) and isinstance(icons[index],int):line[0]=good(icons[index],line[0],widths[0])
+                data.append(line)
+            story.extend([para(title,heading),table(headers,data,widths),Spacer(1,10)])
+        for note in model.get('notes',[])[:6]:
+            if isinstance(note,str) and len(note)<=1000:story.append(para(note,small))
     story.append(para(text('Island briefing'),heading))
     island_rows=[]
     for area in sorted(areas,key=lambda a:-sum(e.get('ProductDelta',0)<-.01 for e in a.get('entries',[]))):

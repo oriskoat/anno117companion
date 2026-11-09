@@ -8,12 +8,14 @@ import threading
 import webbrowser
 import os
 import sys
+import time
 from updater import Updater, apply_update
 from datetime import datetime
 from empire_report import build_empire_pdf
 from pathlib import Path
 import qrcode
 from bridge import BridgeService, ROOT
+from version import APP_VERSION, BUILD_CHANNEL
 
 
 class DesktopAPI:
@@ -37,17 +39,25 @@ class DesktopAPI:
         qr.make(fit=True)
         buffer = io.BytesIO()
         qr.make_image(fill_color='#183b60', back_color='#fffefa').save(buffer, format='PNG')
-        return {'running': bool(self.service.server), 'code': code, 'address': self.address,
+        state=self.service.bridge.snapshot() if self.service.bridge else {}
+        effective=self.service.insights.dashboard(state) if self.service.insights and state else state
+        game_label='Game statistics connected' if state.get('pipe_state')=='connected' and state.get('fresh_area_count',0)>0 else 'Pipe opened; waiting for game statistics' if state.get('pipe_state')=='connected' else 'Game pipe unavailable; check setup'
+        if effective.get('save_source',{}).get('saved_areas',0)>0:game_label='Live + saved game statistics' if effective.get('fresh_area_count',0)>0 else 'Using saved game statistics'
+        return {'running': bool(self.service.server), 'game_label':game_label, 'code': code, 'address': self.address,
                 'qr': 'data:image/png;base64,' + base64.b64encode(buffer.getvalue()).decode('ascii')}
 
     def open_browser(self):
-        sample = not self.service.bridge or not self.service.bridge.snapshot()['areas']
+        pipe=self.service.bridge.snapshot() if self.service.bridge else {'areas':[]}
+        effective=self.service.insights.dashboard(pipe) if self.service.insights else pipe
+        sample=not effective['areas']
         webbrowser.open('http://127.0.0.1:' + str(self.service.port) + '/#pair=' + self.service.token + ('&sample=1' if sample else ''))
 
     def open_donation(self):
         webbrowser.open('https://revolut.me/vafvyop?currency=EUR&amount=500')
 
     def check_update(self,force=False):
+        if BUILD_CHANNEL == 'local-beta':
+            return {'status':'preview','current':APP_VERSION,'url':'https://github.com/oriskoat/anno117companion/releases'}
         return self.updater.check(bool(force))
 
     def download_update(self):
@@ -77,12 +87,19 @@ class DesktopAPI:
 
 
 def main():
+    local_beta = BUILD_CHANNEL == 'local-beta'
     parser=argparse.ArgumentParser(description='Anno 117 Companion local server and dashboard')
     parser.add_argument('--host',default='0.0.0.0')
-    parser.add_argument('--port',type=int,default=11780)
+    default_port=11790 if local_beta else 11780
+    try:
+        port_hint=json.loads((ROOT/'bridge-settings/listen-port.json').read_text(encoding='utf-8')).get('port')
+        if isinstance(port_hint,int) and not isinstance(port_hint,bool) and 1024<=port_hint<=65535:default_port=port_hint
+    except (OSError,ValueError,TypeError,AttributeError):pass
+    parser.add_argument('--port',type=int,default=default_port)
     parser.add_argument('--browser',action='store_true',help='Run the local server with the bundled browser-mode controller (no .NET/WebView2 required).')
     parser.add_argument('--save-insights-preview', action='store_true', help='Enable the local Save Insights development preview. No billing or purchase is required for this private preview.')
     parser.add_argument('--no-pipe', action='store_true', help='Do not connect another pipe reader; useful for isolated save-preview testing.')
+    parser.add_argument('--production-planner', action='store_true', default=local_beta, help='Open the local Production Planner beta.')
     args=parser.parse_args()
     from startup_guard import runtime_status, browser_window
     import tempfile
@@ -109,9 +126,23 @@ def main():
             return
         import webview
         api = DesktopAPI(service)
-        address = 'http://127.0.0.1:' + str(service.port) + '/#pair=' + service.token + '&desktop=1' + ('&insights=1' if args.save_insights_preview else '&sample=1')
-        title='Anno 117 Companion'+(' — Save Insights Preview' if args.save_insights_preview else '')+(f' ({args.port})' if args.port!=11780 else '')
-        webview.create_window(title, address, js_api=api, width=1360, height=960, min_size=(640, 640), maximized=True)
+        address = 'http://127.0.0.1:' + str(service.port) + '/#pair=' + service.token + '&desktop=1' + ('&planner=1' if args.production_planner else '&insights=1' if args.save_insights_preview else '')
+        title='Anno 117 Companion'+(' — Production Planner Beta' if args.production_planner else ' — Save Insights Preview' if args.save_insights_preview else '')+(f' ({args.port})' if args.port!=11780 else '')
+        window = webview.create_window(title, address, js_api=api, width=1360, height=960, min_size=(640, 640), maximized=True)
+        if args.production_planner:
+            def verify_planner_window():
+                target = ROOT / 'bridge-settings/planner-ui-status.json'
+                for _ in range(30):
+                    try:
+                        value = window.evaluate_js("JSON.stringify({page:document.body.dataset.page,plannerVisible:!!document.querySelector('.ap-layout'),source:typeof advisorCompute==='function'?advisorCompute().source?.name:null,saveMatched:typeof savedContextAllowed==='function'&&savedContextAllowed(),width:innerWidth,scrollWidth:document.documentElement.scrollWidth})")
+                        status = json.loads(value) if isinstance(value, str) else value
+                        if status.get('plannerVisible') and status.get('saveMatched'):
+                            target.write_text(json.dumps(status), encoding='utf-8')
+                            return
+                    except Exception:
+                        pass
+                    time.sleep(1)
+            window.events.loaded += lambda: threading.Thread(target=verify_planner_window, daemon=True).start()
         try:
             webview.start(gui='edgechromium', private_mode=False, storage_path=str(ROOT / 'bridge-settings/webview'))
         except Exception as error:

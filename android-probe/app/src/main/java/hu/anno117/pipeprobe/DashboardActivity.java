@@ -100,6 +100,34 @@ public final class DashboardActivity extends Activity {
         });
     }
     public final class NativeApi {
+        @JavascriptInterface public void discoverServers(){new Thread(()->{
+            org.json.JSONArray found=new org.json.JSONArray();java.util.HashSet<String> seen=new java.util.HashSet<>();
+            String nonce=java.util.UUID.randomUUID().toString().replace("-","").substring(0,24);
+            try(DatagramSocket sock=new DatagramSocket()){
+                sock.setBroadcast(true);sock.setSoTimeout(200);byte[] query=("ANNO117_COMPANION_DISCOVER_V1 "+nonce).getBytes(StandardCharsets.US_ASCII);
+                java.util.HashSet<InetAddress> targets=new java.util.HashSet<>();targets.add(InetAddress.getByName("255.255.255.255"));
+                java.util.Enumeration<NetworkInterface> nets=NetworkInterface.getNetworkInterfaces();
+                while(nets.hasMoreElements())for(InterfaceAddress item:nets.nextElement().getInterfaceAddresses())if(item.getBroadcast()!=null)targets.add(item.getBroadcast());
+                for(InetAddress target:targets)try{sock.send(new DatagramPacket(query,query.length,target,11791));}catch(Exception ignored){}
+                long end=System.currentTimeMillis()+2000;
+                while(System.currentTimeMillis()<end){try{
+                    byte[] bytes=new byte[2048];DatagramPacket packet=new DatagramPacket(bytes,bytes.length);sock.receive(packet);
+                    JSONObject value=new JSONObject(new String(bytes,0,packet.getLength(),StandardCharsets.UTF_8));
+                    if(!value.optString("service").equals("anno117-companion")||!value.optString("nonce").equals(nonce)||!packet.getAddress().isSiteLocalAddress())continue;
+                    int port=value.optInt("port");if(port<1||port>65535)continue;
+                    String host="http://"+packet.getAddress().getHostAddress()+":"+port;if(!seen.add(host))continue;
+                    found.put(new JSONObject().put("name",value.optString("name","PC")).put("address",host).put("requires_pairing",true));
+                }catch(SocketTimeoutException ignored){}catch(Exception ignored){}}
+            }catch(Exception ignored){}
+            main.post(()->js("window.discoveryReply("+found.toString()+")"));
+        },"Companion-discovery").start();}
+        @JavascriptInterface public void connectionDiagnostics(){final String host=address,secret=token;worker.execute(()->{
+            HttpURLConnection c=null;
+            try{c=(HttpURLConnection)new URL(host+"/v1/setup").openConnection();c.setConnectTimeout(5000);c.setReadTimeout(15000);c.setInstanceFollowRedirects(false);c.setRequestProperty("Authorization","Bearer "+secret);
+                if(c.getResponseCode()!=200)throw new IOException();JSONObject value=new JSONObject(read(c.getInputStream()));main.post(()->js("window.launchDiagnosticsReply("+value+")"));
+            }catch(Exception e){main.post(()->js("window.launchDiagnosticsReply({runtime:'unknown',launchers:[],pipe_state:'PC unavailable or not paired'})"));}finally{if(c!=null)c.disconnect();}
+        });}
+
         @JavascriptInterface public void refreshSnapshot(){main.post(() -> {if(!demo&&!busy)fetch(generation);});}
         @JavascriptInterface public void saveInsights(String id,String body){
             final String host=address,secret=token;
@@ -199,6 +227,6 @@ public final class DashboardActivity extends Activity {
     }
     @Override protected void onResume(){super.onResume();visible=true;if(ready){if(demo!=WidgetStore.demo(this)){demo=WidgetStore.demo(this);loadMode();}else if(!demo)fetch(generation);else openWidgetTarget();}}
     @Override protected void onPause(){visible=false;main.removeCallbacksAndMessages(null);super.onPause();}
-    @Override public void onBackPressed(){web.evaluateJavascript("(function(){if(!document.getElementById('overlay').hidden){window.backDetails();return true;}if(typeof current!=='undefined'&&current!=='home'){nav('home');return true;}return false;})()",result -> {if(!"true".equals(result))super.onBackPressed();});}
+    @Override public void onBackPressed(){web.evaluateJavascript("Boolean(window.companionBack&&window.companionBack())",result -> {if(!"true".equals(result))super.onBackPressed();});}
     @Override protected void onDestroy(){ready=false;generation++;main.removeCallbacksAndMessages(null);if(request!=null)request.disconnect();worker.shutdownNow();web.removeJavascriptInterface("Native");web.destroy();super.onDestroy();}
 }

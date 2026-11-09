@@ -124,21 +124,21 @@ class Bridge:
         self.stop_event = threading.Event()
         self.active_pipe = None
         self.state = {'bridge_version': APP_VERSION, 'pipe_state': 'waiting_for_game', 'protocol_version': None,
-                      'session_name': None, 'messages': 0, 'last_message_at': None, 'last_error': None}
+                      'session_name': None, 'pipe_session_id':secrets.token_hex(16), 'messages': 0, 'last_message_at': None, 'last_error': None}
         if self.cache_path and self.cache_path.is_file() and self.cache_path.stat().st_size < 16_000_000:
             try:
                 saved=json.loads(self.cache_path.read_text(encoding='utf-8'))
                 if saved.get('schema')==1:
                     self.areas={area_key(a):a for a in saved['areas']}
                     self.journal.extend(saved.get('journal',[]))
-                    self.state.update(session_name=saved.get('session_name'),protocol_version=2)
+                    self.state.update(session_name=saved.get('session_name'),protocol_version=2,pipe_session_id=saved.get('pipe_session_id') or self.state['pipe_session_id'])
             except (OSError,ValueError,TypeError,KeyError):
                 self.areas.clear();self.journal.clear()
 
     def persist_cache(self):
         if not self.cache_path:return
         with self.lock:
-            payload={'schema':1,'session_name':self.state['session_name'],'areas':list(self.areas.values()),'journal':list(self.journal)}
+            payload={'schema':1,'pipe_session_id':self.state['pipe_session_id'],'session_name':self.state['session_name'],'areas':list(self.areas.values()),'journal':list(self.journal)}
             body=json.dumps(payload,ensure_ascii=False,allow_nan=False)
             while len(body.encode('utf-8'))>15_000_000 and payload['journal']:
                 payload['journal'].pop(0);body=json.dumps(payload,ensure_ascii=False,allow_nan=False)
@@ -174,6 +174,7 @@ class Bridge:
                 self.areas.clear()
                 self.journal.clear()
                 self.state['session_name'] = message.get('name')
+                self.state['pipe_session_id'] = secrets.token_hex(16)
             elif kind == 'AreaProductionStatistics':
                 self.areas[area_key(message)] = message
                 self.journal.append(copy.deepcopy(message))
@@ -278,6 +279,8 @@ def handler_for(bridge, token, trade_store=None, insights=None):
                         insights.refresh()
                     elif value.get('action') == 'use_saves' and set(value) == {'action','enabled'}:
                         insights.set_use_saves(value['enabled'])
+                    elif value.get('action') == 'selection_mode' and set(value) == {'action','mode'}:
+                        insights.set_selection_mode(value['mode'])
                     elif value.get('action') == 'select' and set(value) <= {'action','profile_id','participant','file_name'}:
                         insights.choose(value['profile_id'], value.get('participant'), value.get('file_name'))
                     else:
@@ -303,9 +306,9 @@ def handler_for(bridge, token, trade_store=None, insights=None):
                     length=int(self.headers.get('Content-Length','0'))
                     if not 0<length<=2_000_000:raise ValueError('Invalid request size')
                     value=json.loads(self.rfile.read(length))
-                    status,document=trade_store.put(context,value['revision'],value['routes'],value.get('skipped',[]))
+                    status,document=trade_store.put(context,value['revision'],value['routes'],value.get('skipped',[]),value.get('planner'))
                     self.reply(status,document)
-                else:self.reply(200,trade_store.get(context))
+                else:self.reply(200,trade_store.index() if context=='__contexts__' else trade_store.get(context))
             except (ValueError,KeyError,TypeError):self.reply(400,{'error':'Invalid route plan'})
             except OSError:self.reply(503,{'error':'Route plans could not be saved'})
 
@@ -359,6 +362,15 @@ def handler_for(bridge, token, trade_store=None, insights=None):
 
         def do_GET(self):
             path = unquote(urlsplit(self.path).path)
+            if path in ('/v1/setup','/v1/discovery'):
+                supplied=self.headers.get('Authorization','')
+                valid=pairing.authenticate(supplied[7:]) if pairing and supplied.startswith('Bearer ') else (not pairing and hmac.compare_digest(supplied.encode(),('Bearer '+token).encode()))
+                if not valid:self.reply(401,{'error':'Pairing required'});return
+                from connection_tools import launch_diagnostics,discover,save_connection_summary
+                if path=='/v1/discovery':self.reply(200,{'servers':discover()})
+                else:
+                    state=bridge.snapshot();self.reply(200,{**launch_diagnostics(),**{k:state.get(k) for k in ('pipe_state','last_error','protocol_version','messages')},'save':save_connection_summary(insights,state)})
+                return
             if path == '/v1/save-insights':self.insights_request();return
             if path=='/v1/trade-routes':self.trade_request();return
             if path != '/v1/snapshot':
@@ -451,6 +463,7 @@ class BridgeService:
         self.save_preview = save_preview
         self.connect_pipe = connect_pipe
         self.insights = None
+        self.discovery = None
 
     def start(self):
         if self.server:
@@ -469,8 +482,11 @@ class BridgeService:
             self.pipe_thread.start()
         self.insights.start()
         threading.Thread(target=server.serve_forever, daemon=True).start()
+        from connection_tools import DiscoveryServer
+        self.discovery=DiscoveryServer(self.port,self.host);self.discovery.start()
 
     def stop(self):
+        if self.discovery:self.discovery.stop()
         if self.insights:
             self.insights.stop()
         if self.bridge:

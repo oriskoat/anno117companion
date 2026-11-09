@@ -24,6 +24,28 @@ def quantity(value,integer=False):
     return value
 
 
+def validate_planner(value):
+    if not isinstance(value,dict):raise ValueError('Invalid planner document')
+    def visit(v,depth=0):
+        if depth>9:raise ValueError('Planner document too deep')
+        if isinstance(v,dict):
+            if len(v)>200:raise ValueError('Planner document too large')
+            for k,x in v.items():
+                if not isinstance(k,str) or len(k)>120:raise ValueError('Invalid planner key')
+                visit(x,depth+1)
+        elif isinstance(v,list):
+            if len(v)>150:raise ValueError('Planner list too large')
+            for x in v:visit(x,depth+1)
+        elif isinstance(v,str):
+            if len(v)>600:raise ValueError('Planner text too long')
+        elif isinstance(v,(int,float)) and not isinstance(v,bool):
+            if not math.isfinite(v) or abs(v)>1e9:raise ValueError('Invalid planner number')
+        elif v is not None and not isinstance(v,bool):raise ValueError('Invalid planner value')
+    visit(value)
+    if len(json.dumps(value,allow_nan=False).encode())>100000:raise ValueError('Planner document too large')
+    return copy.deepcopy(value)
+
+
 def validate_plan(routes,skipped):
     if not isinstance(routes,list) or len(routes)>100 or not isinstance(skipped,list) or len(skipped)>1000:raise ValueError('Plan too large')
     cleaned=[];ids=set()
@@ -66,23 +88,30 @@ class TradeRouteStore:
                     routes,skipped=validate_plan(doc['routes'],doc.get('skipped',[]))
                     if not isinstance(doc['revision'],int) or doc['revision']<0:raise ValueError('Invalid revision')
                     self.contexts[context]={'revision':doc['revision'],'routes':routes,'skipped':skipped}
+                    if 'planner' in doc:self.contexts[context]['planner']=validate_planner(doc['planner'])
             except (OSError,ValueError,KeyError,TypeError):
                 # Preserve a corrupt file: saving requires an explicit repair first.
                 self.contexts={};self.load_failed=True
+
+    def index(self):
+        with self.lock:
+            return {'contexts':[{'context':key,'routes':len(doc['routes']),'name':doc['routes'][0]['name'] if doc['routes'] else key,'islands':list(dict.fromkeys(s['name'] for r in doc['routes'] for s in r['stops']))[:4]} for key,doc in list(self.contexts.items())[-100:]]}
 
     def get(self,context):
         bounded_text(context,240)
         with self.lock:return copy.deepcopy(self.contexts.get(context,{'revision':0,'routes':[],'skipped':[]}))
 
-    def put(self,context,revision,routes,skipped):
+    def put(self,context,revision,routes,skipped,planner=None):
         bounded_text(context,240)
         if isinstance(revision,bool) or not isinstance(revision,int) or revision<0:raise ValueError('Invalid revision')
         routes,skipped=validate_plan(routes,skipped)
+        if planner is not None:planner=validate_planner(planner)
         with self.lock:
             if getattr(self,'load_failed',False):raise OSError('Existing route file needs repair')
             old=self.contexts.get(context,{'revision':0,'routes':[],'skipped':[]})
             if old['revision']!=revision:return 409,copy.deepcopy(old)
             document={'revision':revision+1,'routes':routes,'skipped':skipped}
+            if planner is not None or 'planner' in old:document['planner']=planner if planner is not None else copy.deepcopy(old['planner'])
             contexts={**self.contexts,context:document}
             if len(contexts)>100:raise ValueError('Too many plan collections')
             if self.path:

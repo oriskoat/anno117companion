@@ -1,10 +1,76 @@
 # Android APK changelog
 
+## 0.28.0 — 9 November 2026
+
+- Release APK uses the public application ID and existing public signing certificate, not the development beta key. Android Back follows the shared page history.
+- Share a fuel-aware unit recipe across Chains and Planner, including multi-building fuel consumption.
+- Preserve newer matching pipe rates while paused; keep saved inventories/buildings independent. Unknown clock domains and producer decompositions stay explicit.
+- Isolate shared routes, manual Needs observations and device drafts by campaign fingerprint; preview/import older name-based plans explicitly.
+- Restore Needs/page state through browser and Android Back. Keep scenario choices across reloads. Use five primary mobile destinations, with secondary pages in More.
+- Add Build readiness with recorded permits, completed/queued research and conditional unlock checks.
+- Compare fewer buildings, workforce, nominal upkeep or seasonal reserve at the same demand; show construction materials and concrete specialist-copy allocation.
+- Add bounded ship target-transition cycle observations, explicit travel/loading assumptions and required fleet counts. No sea-path inference or exact arrival claim.
+- Make saved population/finance/knowledge facts actionable and include them, patrons and current proposal details in the shared HTML/native-PDF report payload.
+- Expand the fictional Demo and translated UI. Replace generic Home resource symbols with official resource artwork.
+- Build from one release manifest, verify runtime/source/APK assets and public Android certificate, and keep operator settings/captures/keys out of archives.
+
+This is a conservative scenario planner, not a guaranteed global optimum. Spatial coverage, actual shipping capacity, unknown unlocks, prerequisites and hypothetical placements remain conditional. Nominal building maintenance is not a forecast of total treasury changes. All features remain free.
+
+
 Reconstructed through **0.21.5** from the development conversation, APK manifests, retained source and release notes. Latest entries appear first. Dates are development dates in Europe/Budapest, not public publication dates.
 
 This log covers the Android app, native WebView integration, pairing, printing, updater and home-screen widget, plus shared dashboard features shipped in the APK. PC pipe reading, server persistence and Windows window management belong to [CHANGELOG_WINDOWS.md](CHANGELOG_WINDOWS.md). Live Android data requires the Windows bridge; the bundled recorded demo works offline.
 
 Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub APK releases. Older entries document local development checkpoints. There is no Play Store release.
+
+## 0.27.0 local beta 8 - unpublished, 8 November 2026
+
+- Shared dashboard source gains saved empire facts, population/patron drill-down and compact single-producer rows.
+- No Android APK built in this local iteration; phone browser layout checked.
+
+## 0.26.1 local beta 7 - unpublished, 8 November 2026
+
+- Shared dashboard source gains compact producer controls and a persistent result summary.
+- No APK built; responsive phone browser checks only.
+
+## 0.26.0 local beta 6 — unpublished, 8 November 2026
+
+- Shared dashboard source gains balanced chain cards, synchronized assumptions, compact save controls and contextual Back navigation.
+- No APK built for this local iteration. Android compilation remains deferred until an authorized GitHub release; phone viewport behavior is tested in the browser.
+
+See [beta guide](docs/BETA_026.md).
+
+## 0.25.0 local beta 5 — unpublished, 8 November 2026
+
+- Shared dashboard source now includes regional Home, stable background refresh, human-readable durations and coupled supply/bonus scenarios.
+- No APK was built for this local beta, by owner request. Android compilation is deferred until an authorized GitHub release. Mobile browser layout was checked.
+
+See [beta guide](docs/BETA_025.md).
+
+## 0.24.0 local beta 4 — unpublished, 8 November 2026
+
+- Include stable expanded planner sections, concrete producer operating recommendations and explicit forecast duration.
+- Include saved granary source/radius evidence and shipping observations supplied by the updated PC bridge.
+- Retain the separate productionbeta application and development signing; versionCode 32. No physical-device test is claimed.
+
+See [beta guide](docs/BETA_024.md) for the boundaries of coverage and shipping evidence.
+
+## 0.23.0 local beta 3 — unpublished, 8 November 2026
+
+- Ship the same province/empire planning dashboard and shared PC plan workflow as the Windows beta.
+- Add searchable progressive good detail, recorded water/module evidence and responsive decision groups.
+- Retain the separate productionbeta package and development signature; versionCode 31. No physical-device test is claimed.
+
+See [beta guide](docs/BETA_023.md) for assumptions and limits.
+
+## 0.22.0 local beta 2 — unpublished, 8 November 2026
+
+- Include the same island planner, regional event icons, cycle blueprints, source scopes and shared-plan logic as the Windows/browser beta.
+- Discover local PCs from Android connection settings using a bounded UDP scan, including interface broadcast addresses. Choosing a server does not bypass pairing approval.
+- Request pipe and save diagnostics from the paired PC; keep successful pairing encrypted on the device.
+- Build a separate development APK (hu.anno117.companion.productionbeta) so public app data and signing remain untouched.
+- Keep beta updates separate from the public stable channel. Extend the synthetic demo with Aegyptus; no real captures or saves are bundled.
+- Responsive browser/model checks and APK compilation pass; a physical Android device was not connected for this build.
 
 ## 0.21.5 — FAQ and a cleaner More page
 
