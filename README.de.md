@@ -1,194 +1,94 @@
+<div align="center">
+
+<img src="android-probe/app/src/main/assets/dashboard/emblem.svg" width="64" alt="">
+
 # Anno 117 Companion
 
-## Neu in 0.28.0: das ganze Imperium planen
+**Dein Imperium. Klarer im Blick.**
 
-Versorgungspläne für Provinzen und das gesamte Imperium berücksichtigen vollständige Produktionsketten, Brennstoff, saisonale Reserven und Transporte. Hinzu kommen gespeicherte Genehmigungen und Forschung, Vergleiche von Gebäudezahl, Arbeitskräften und Unterhalt, die Verfügbarkeit einzelner Spezialisten, der Flottenbedarf und ausführlichere illustrierte Berichte.
+Produktion, Versorgung und Planung für **Anno 117: Pax Romana**.<br>
+Ein kostenloser, inoffizieller Companion von Ádám. Windows-App · Android-App · Browser auf iPhone & PC.
 
-[Neuerungen und Anleitung](docs/RELEASE_028.md). **Alle Funktionen bleiben kostenlos.** Bereits installiert? Unter **Mehr → Updates** auf Windows oder Android aktualisieren.
+**[Für Windows herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Für Android herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk)**
 
-[English](README.md) · **Deutsch**
+[Einrichtung](docs/SETUP.de.md) · [Neueste Version](https://github.com/oriskoat/anno117companion/releases/latest) · [English](README.md) · [☕ Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)
 
-**Dein Imperium. Klarer im Blick.** Ein kostenloser, inoffizieller Companion für Anno 117: Pax Romana von Ádám.
+</div>
 
-[Windows-ZIP herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip) · [Android-APK herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk) · [Alle Downloads / neueste Version](https://github.com/oriskoat/anno117companion/releases/latest)
+![Companion-Übersicht mit Bevölkerung, Finanzen und den drei Provinzen](docs/screenshots/20-overview-desktop.png)
 
-![Version 0.28.0 im Desktop-Browser · fiktives Demo-Imperium](docs/screenshots/17-candidate-home-desktop.png)
+*Tatsächliche Browseroberfläche mit erfundenen Demo-Daten. Zum Ausprobieren der Demo ist keine Spielverbindung nötig.*
 
-## Poster zu den Produktionsketten
+## Was braucht dein Imperium?
 
-PNG-Dateien in voller Auflösung zum Herunterladen oder Drucken:
-
-**[Latium (A2)](.posters/latium-production-a2.png) · [Albion (A2)](.posters/albion-production-a2.png) · [Aegyptus (A2)](.posters/aegyptus-production-a2.png)**
-
-[Aegyptus · A4-Kurzübersicht](.posters/aegyptus-chain-poster-a4.png)
-
-☕ **[Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)** — der Companion ist kostenlos. Unterstützung ist vollkommen freiwillig. Kein Tribut erforderlich.
-
-[Windows-Änderungsverlauf](CHANGELOG_WINDOWS.md) · [Android-Änderungsverlauf](CHANGELOG_ANDROID.md) — beide auf Englisch.
-
-Zuerst Windows, danach jedes Gerät in deinem lokalen Netzwerk: Die Windows-App liest die Produktions-Pipe des Spiels und stellt dieselbe Übersicht im eigenen Fenster, in der Android-App oder im Browser auf einem iPhone beziehungsweise weiteren Computer bereit.
-
-**Neu in 0.21.1:** Jede Bedürfniskarte lässt sich einzeln einklappen. Im geschlossenen Zustand bleiben Name und Erfüllungsstatus sichtbar.
-
-Unter **Mehr → FAQ / How To** findest du Hilfe zur Einrichtung, Kopplung, Fehlerbehebung und Planung.
-
-## Neu in 0.21.0: Aegyptus und Save Insights
-
-**Aegyptus / Dawn of the Delta** ergänzt fünf Bevölkerungsgruppen und 81 regionale Produktionsketten. Der Katalog für Latium und Albion wurde auf Spielversion 3.0 aktualisiert. Unter **Chains** kannst du nach Region oder DLC filtern. Wähle eine Zielinsel, um lokale Produktion und Importmöglichkeiten zu vergleichen.
-
-**Save Insights ist kostenlos.** Öffne unter Windows **More → Save Insights**, wähle deine Kampagne und aktiviere **Use save data**. Der Companion liest Spielstände lokal. Frische Pipe-Daten derselben Kampagne haben Vorrang. Gekoppelte Geräte zeigen unter anderem gespeicherte Routen, Lagerverläufe und passende Spezialisten.
-
-Du nutzt den Companion bereits? Unter **More → Updates** findest du das aktuelle Update für Windows und Android.
-
-[So funktioniert Save Insights (Englisch)](.ideas/save-insights.md)
-
-![Aegyptus-Produktionsketten im Companion-Browser](docs/screenshots/14-aegyptus-chains.png)
-
-## Screenshots
-
-**Windows Companion — das tatsächliche EXE-Fenster:**
-
-![Windows Companion mit erfundenen Beispieldaten](docs/screenshots/01-windows-home.jpg)
-
-**Tatsächliche Android-App und Startbildschirm-Widget auf einem Samsung:**
-
-| Versorgungsvorschläge in der App | Startbildschirm-Widget |
+| Deine Frage | Die passende Übersicht |
 | --- | --- |
-| <img src="docs/screenshots/07-android-supply.png" alt="Samsung-App mit vollständigen Versorgungsvorschlägen" width="300"> | <img src="docs/screenshots/09-android-widget.png" alt="Samsung-Widget mit zwischengespeicherten Live-Spieldaten ohne persönliche Verknüpfungen" width="300"> |
+| **Wo fehlt etwas?** | Produktion, Verbrauch und lokale Bilanzen nach Insel oder Ware, mit Versorgungsvorschlägen zwischen Inseln. |
+| **Was soll ich bauen?** | Ausgeglichene Ketten nach Region, Bevölkerungsstufe, Ware und DLC. Wasser, Module, Getreidespeicher, Götterboni und passende Spezialisten als Szenario ausprobieren. |
+| **Wie versorge ich eine ganze Provinz?** | Produktion und Importe über mehrere Inseln planen, einschließlich Vorprodukten, Brennstoff und saisonalen Reserven. Gebäudezahl, Arbeitskräfte, Unterhalt und Lagerbedarf vergleichen. |
+| **Was liefert mein Spielstand?** | Aufgezeichnete Bestände, Bevölkerung, Bedürfnisse, Schutzgötter, Genehmigungen, Forschung, Routen und Spezialistenzuweisungen, soweit vorhanden. |
+| **Wie transportiere ich die Waren?** | Gemeinsam gespeicherte Routenpläne mit mehreren Waren und Stopps, Frachtprüfungen, angenommener Flottenbedarf und optionale beobachtete Zeitspannen für Rundfahrten. |
+| **Wie behalte ich unterwegs den Überblick?** | Dieselbe Oberfläche im lokalen Netzwerk, ein Android-Widget und ein illustrierter [Empire-Summary-PDF-Bericht](docs/Example-Empire-Summary.pdf). |
 
-[Alle 16 Screenshots mit englischen Beschreibungen](docs/SCREENSHOTS.md): Windows-Versorgung, Produktionsrechner und Bedürfnisse; Routen und regionaler Import im Browser; Android-Produktdetails; illustrierter PDF-Bericht.
+**Latium · Albion · Aegyptus** — Katalog für Spielupdate 3.0, 12 Oberflächensprachen, Demo/Live und lokale Save Insights. Alle Funktionen sind kostenlos.
 
-[Den tatsächlich exportierten Beispielbericht als PDF öffnen](docs/Example-Empire-Summary.pdf).
+<details>
+<summary><strong>Ausgeglichene Produktionsketten ansehen</strong></summary>
 
-## Funktionen
+![Latium-Ketten mit Gebäudezahlen, Warenbildern und anpassbaren Annahmen](docs/screenshots/21-balanced-chains.png)
 
-- **Home, Islands und Products:** empfangene Produktion, Verbrauch, lokale Bilanzen, Produktivität, Gebäude, Arbeitskräfte, Wirtschaftswerte und technische Daten.
-- **Supply:** Versorgungsvorschläge aus lokalen Überschüssen und Defiziten. **Trade Routes:** gemeinsam gespeicherte Pläne mit mehreren Waren und Zwischenstopps; manuelle Frachtmengen und Prüfung der Laderaumkapazität auf einer Rundroute.
-- Produktionsketten nach Region, Bevölkerungsstufe, Ware und DLC, mit ausgeglichenen Gebäudeverhältnissen, Produktivität und passenden Spezialisten.
-- Regionale Bau- und Importvorschläge: vor Ort produzieren, wenn möglich; andernfalls eine geeignete Produktionsinsel in der anderen Region wählen und zur ursprünglichen Zielinsel importieren.
-- Bedürfnisse nach Insel, Stufe und Kategorie, nominelle Boni pro Wohnhaus, manuelle Bestätigungen und Flächeneffekte von Produktionsgebäuden.
-- Illustrierter **Empire Summary**-PDF-Bericht: Auf Home befindet sich das kleine Zeitungssymbol neben den Einstellungen.
-- Größenveränderbares Android-Widget mit scrollbaren Versorgungsvorschlägen/lokalen Defiziten, Warenbildern, Demo/Live, Aktualisierung und Links zur App.
-- Zwölf Oberflächensprachen sowie offizielle Spielbegriffe, Dialogzeilen und Regionsbilder.
-- Die zuletzt empfangenen Werte bleiben bei ausbleibenden Spielnachrichten sichtbar. Alter und Zustand der Daten werden angezeigt.
+Dies sind Katalogszenarien. Aufgezeichnete Produktion und geplante Boni bleiben getrennt.
 
-## Start unter Windows
+</details>
 
-### 1. Companion herunterladen und öffnen
+[Weitere Bilder](docs/SCREENSHOTS.md) · [Neu in 0.28.0, Englisch](docs/RELEASE_NOTES_028.md) · [Planungsanleitung, Englisch](docs/RELEASE_028.md)
 
-1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
-2. Das heruntergeladene ZIP mit der rechten Maustaste anklicken und **Alle extrahieren** wählen. Einen beschreibbaren Ordner verwenden, zum Beispiel `Dokumente\Anno117Companion`. Die EXE aus dem entpackten Ordner starten, nicht direkt aus dem ZIP.
-3. **Anno117Companion.exe** öffnen. Python, Android Studio oder Entwicklungswerkzeuge sind nicht erforderlich.
-4. **Demo** wählen, um das erfundene „Example Empire“ ohne laufendes Spiel kennenzulernen. Die obere Leiste enthält Serversteuerung, Demo/Live und die Kopplungsdaten für weitere Geräte. Bei Bedarf die eingeklappte Leiste öffnen.
-5. Für den eigenen Spielstand `/pipe` wie unten beschrieben aktivieren und **Live** wählen. Auf dem Spiele-PC nur eine Companion-Instanz laufen lassen.
+## Loslegen
 
-Zielplattform: Windows 10 22H2 / Windows 11 **x64**. Das integrierte Fenster benötigt .NET Framework 4.8+ und WebView2 109+. Fehlen diese Komponenten, bietet die mitgelieferte Browsersteuerung **Open browser** an. Damit lässt sich die Oberfläche im installierten Browser verwenden. Voraussetzungen werden nicht ungefragt installiert. Die EXE ist nicht digital signiert; Windows kann eine Sicherheits-/Reputationswarnung anzeigen. Eine Zertifizierung auf einer sauberen Windows-VM liegt nicht vor. [Kompatibilitätsdetails, Englisch](docs/WINDOWS_COMPATIBILITY.md).
+1. **Windows-ZIP herunterladen**, in einen beschreibbaren Ordner wie Dokumente entpacken und **Anno117Companion.exe** starten. Python oder Entwicklungswerkzeuge sind nicht nötig. Zum Kennenlernen **Demo** auswählen.
+2. **Spielstand verwenden:** **Live** wählen, **Use save data** aktivieren und die Kampagne auswählen. Die Analyse erfolgt lokal; zum Ansehen eines gespeicherten Stands muss das Spiel nicht laufen.
+3. **Live-Statistiken ergänzen:** `/pipe` zu Annos Startargumenten in Steam oder Ubisoft Connect hinzufügen, das Spiel neu starten, einen Spielstand laden, die Zeit laufen lassen und die **Produktionsstatistik** öffnen.
+4. **Weiteres Gerät verbinden:** Windows Companion laufen lassen. Im selben LAN/WLAN den QR-Code scannen oder die angezeigte PC-Adresse und den sechsstelligen Kopplungscode eingeben. Ein Windows-Passwort ist nicht nötig.
 
-### 2. Statistik-Pipe des Spiels aktivieren
+**Spiel pausiert?** Während der Pause kommen keine neuen Pipe-Statistiken. Der Companion behält die letzten passenden Daten und zeigt deren Alter. Live bedeutet nicht, dass in jedem Moment eine neue Nachricht eintrifft.
 
-**Das Startargument lautet `/pipe`, einschließlich des Schrägstrichs.** Es gehört in die Startoptionen des Spiels, nicht in den Companion, einen Spielchat oder eine Konsole. Nach dem Hinzufügen muss das Spiel neu gestartet werden. Ubisoft beschreibt die Aktivierung im [Anno-117-Pipe-Beispiel](https://github.com/UbisoftMainzAnno/anno117_pipe_example#activation).
-
-**Ubisoft Connect**
-
-1. Anno 117 beenden, falls es bereits läuft.
-2. In der Ubisoft-Connect-Bibliothek **Anno 117: Pax Romana** auswählen.
-3. Im Menü beziehungsweise den Einstellungen des Spiels **Eigenschaften / Properties** öffnen. Je nach Launcher-Version ist dies über das Spielmenü, einen Rechtsklick oder **Verwalten / Manage** erreichbar.
-4. Den Bereich für **Startargumente / Game launch arguments / Add launch arguments** öffnen, `/pipe` hinzufügen und speichern. Bereits vorhandene Argumente beibehalten und `/pipe` mit einem Leerzeichen anhängen.
-5. Anno über diesen Launcher erneut starten.
-
-**Steam**
-
-1. Anno beenden. In der Steam-Bibliothek mit der rechten Maustaste auf das Spiel klicken und **Eigenschaften → Allgemein** öffnen.
-2. Unter **Startoptionen** `/pipe` ergänzen; vorhandene Argumente beibehalten. Eigenschaften schließen und das Spiel neu starten. [Steam-Anleitung zu Startoptionen](https://help.steampowered.com/en/faqs/view/7D01-D2DD-D75E-2955).
-3. Falls die Steam-Version über Ubisoft Connect startet und keine Daten eintreffen, zusätzlich die Anno-Startargumente in Ubisoft Connect prüfen.
-
-### 3. Erste Live-Statistiken empfangen
-
-**Das Spiel liefert neue Statistiken nur bei laufender Simulation — nicht während einer Pause.** Lass das Spiel zunächst laufen, bis mindestens einmal Statistiken empfangen wurden. Wenn du danach pausierst, zeigt der Companion weiterhin die **zuletzt empfangenen Daten** einschließlich der daraus berechneten Versorgungsvorschläge. Ältere Werte werden als **Cached** mit ihrem Alter gekennzeichnet. Während der Pause werden keine Änderungen erfunden oder hochgerechnet. Sobald du die Simulation fortsetzt und das Spiel wieder Statistiken sendet, aktualisieren sich die Werte automatisch. Wurden noch keine Daten empfangen, kann im pausierten Zustand auch kein erster Datenstand angezeigt werden.
-
-1. Den **lokalen Server** im Companion laufen lassen und **Live** wählen.
-2. In Anno einen Spielstand laden und die **Simulation fortsetzen**.
-3. Die **Produktionsstatistik** über die Statistikoberfläche des Spiels öffnen. Kurz warten: Inseln können nacheinander aktualisiert werden.
-4. Den Status im Companion prüfen. **Live + cached** bedeutet, dass einige Inseln frische Daten haben und andere noch ihre vorherigen Werte verwenden. Jede Insel zeigt ihr eigenes Datenalter.
-5. Beim Pausieren, Verlassen der Statistikansicht oder Beenden des Spiels kann die Datenübertragung aussetzen. Die letzten Werte bleiben als **Cached** mit Altersangabe sichtbar. Live bedeutet „meine Spielverbindung verwenden“, nicht „in diesem Augenblick trifft eine neue Nachricht ein“.
-
-Das vollständige Werkzeug funktioniert im EXE-Fenster oder über **Open browser**. Für andere Geräte muss die Windows-App weiterlaufen. Minimieren ist möglich; Schließen beendet ihren Server.
-
-## Android, iPhone und weiterer Computer
-
-### Vor dem Koppeln
-
-- Windows Companion starten und den lokalen Server laufen lassen. Die Kopplungsleiste zeigt **PC-Adresse**, **sechsstelligen Code** und **QR-Code**; gegebenenfalls aufklappen.
-- PC und Telefon/Tablet/Laptop mit demselben vertrauenswürdigen Netzwerk verbinden. Der PC darf per Ethernet und das Telefon per WLAN verbunden sein.
-- Die im Companion angezeigte Adresse einschließlich Port verwenden, beispielsweise `http://192.168.1.50:11780`. Das ist nur ein Beispiel: **die tatsächlich angezeigte PC-Adresse** verwenden. `localhost` auf dem Telefon bezeichnet nicht den PC. Der sechsstellige Code allein findet den PC nicht.
-- Bei einer Windows-Firewall-Abfrage den Companion im vertrauenswürdigen **privaten Netzwerk** zulassen. Gast-WLAN, Geräteisolierung oder VPN können die Verbindung zwischen Geräten verhindern.
-
-### Android-App
-
-1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
-2. Falls Android eine Installationsberechtigung für Browser/Dateimanager verlangt, diese Installationsquelle prüfen und für die Installation erlauben. Die APK wird direkt installiert, nicht über den Play Store.
-3. **Anno Companion** öffnen. Demo funktioniert ohne Kopplung und ohne Spiel.
-4. **Live** wählen. Ohne Kopplung öffnet sich die Verbindungsansicht. Die PC-Adresse und den aktuellen sechsstelligen Code aus der Windows-App eingeben und verbinden.
-5. Die Kopplung wird gespeichert. Bei abgelaufenem Code den aktuellen Code am PC verwenden. Windows-Benutzername, Windows-Passwort und SMB-Zugriff sind nicht erforderlich.
-6. Für das Widget **More → Add home screen widget** wählen und die Platzierung im Launcher bestätigen; alternativ das Widget-Menü des Launchers verwenden. Das Widget besitzt eine eigene Demo/Live-Steuerung. Hintergrundaktualisierungen hängen von Android ab; bei Bedarf die Aktualisierungstaste verwenden.
-
-Erfordert Android **8.0+**. Die öffentliche App-ID ist `hu.anno117.companion`. Ältere Pipe-Probe-/Entwicklungsinstallationen haben eine andere ID und bleiben getrennte Apps. Die öffentliche App einmal koppeln. Öffentliche Updates behalten Paketkennung und dedizierte Signatur bei. Der private Signaturschlüssel ist nicht im Repository enthalten.
-
-### iPhone / iPad
-
-1. Den QR-Code der Windows-App mit der Kamera scannen und den Link in Safari öffnen. Alternativ die angezeigte PC-Adresse eingeben und bei Aufforderung den sechsstelligen Code verwenden.
-2. **Live** für die eigenen Statistiken oder **Demo** für das Beispielimperium wählen.
-3. Für ein Symbol in Safari **Teilen → Zum Home-Bildschirm** verwenden. Die Bezeichnungen können je nach iOS-Version abweichen.
-4. Die PC-App weiterlaufen lassen und im selben Netzwerk bleiben. Es gibt keine native iOS-App; verwendet wird die lokale Weboberfläche.
-
-### Weiterer Computer
-
-Die angezeigte PC-Adresse im Browser des anderen Computers öffnen, den sechsstelligen Code eingeben und Demo oder Live wählen. Auf dem Anzeigecomputer sind weder ein zweiter Bridge-Prozess noch das Spiel erforderlich.
-
-## Wenn die Verbindung nicht funktioniert
-
-| Anzeige / Problem | Prüfen |
+| Gerät | Verwendung |
 | --- | --- |
-| Live gewählt, aber Cached | Spiel fortsetzen; prüfen, ob `/pipe` vor dem letzten Spielstart gesetzt wurde; Produktionsstatistik schließen und erneut öffnen. Datenalter der einzelnen Inseln beachten. |
-| Live + cached | Einige Inseln werden bereits aktualisiert. Andere behalten ihre letzten Werte, bis das Spiel neue Daten für sie sendet. |
-| Waiting for Anno / keine Inseln | Spielstand laden und Produktionsstatistik öffnen. Nur ein Pipe-Lesewerkzeug gleichzeitig starten: Ein zweiter Companion oder anderer Pipe-Reader kann die Pipe belegen. |
-| Telefon erreicht den PC nicht | Windows-Server, tatsächliche IP/Port, gemeinsames LAN, Firewall-Freigabe für private Netzwerke, Gastnetz-Isolierung und VPN prüfen. |
-| Kopplungscode abgelehnt | Aktuellen sechsstelligen PC-Code verwenden. Er läuft ab beziehungsweise wechselt und ist nicht die Windows-PIN oder das Passwort. Nach mehreren Fehlversuchen eine Minute warten. |
-| Integriertes Windows-Fenster nicht verfügbar | **Open browser** in der angebotenen Steuerung verwenden. Expliziter Browserstart aus dem entpackten Ordner: `Anno117Companion.exe --browser`. |
-| Zweite Companion-Instanz startet nicht | Vorherige Instanz schließen. Der Serverport kann bereits belegt sein. |
+| **Windows 10/11 x64** | Vollständiges Companion-Fenster oder **Open browser**. Die Windows-App stellt den lokalen Server bereit. |
+| **Android 8.0+** | APK installieren, mit dem PC koppeln und optional das Startbildschirm-Widget hinzufügen. |
+| **iPhone / iPad** | PC-QR-Link in Safari öffnen; über **Teilen → Zum Home-Bildschirm** ein Symbol hinzufügen. Keine native iOS-App erforderlich. |
+| **Weiterer Computer** | PC-Adresse im Browser öffnen und koppeln. Keine zweite Spielinstallation nötig. |
 
-Für Fehlerberichte Plattform, Companion-Version, sichtbaren Verbindungszustand und Schritte zum Nachstellen angeben. Keine `bridge-settings`, Kopplungscodes, QR-Codes, Tokens oder persönlichen Exporte hochladen.
+**Bereits installiert?** Unter **More → Updates** auf Windows oder Android aktualisieren. Die APK behält ihre öffentliche Signaturidentität. Die Windows-EXE ist derzeit nicht digital signiert.
 
-## Bedeutung der Zahlen
+[Ausführliche Einrichtung & Fehlerbehebung](docs/SETUP.de.md) · [Windows-Kompatibilität, Englisch](docs/WINDOWS_COMPATIBILITY.md) · [Selbst bauen, Englisch](docs/BUILD.md)
 
-Die Spiel-Pipe liefert Produktionsstatistiken, aber keine Lagerbestände, tatsächlichen Importe, Schiffe oder gemessene Wohnhaus-/Dienstleistungsabdeckung. Eine negative lokale Bilanz kann durch Handel bereits ausgeglichen sein. Vorschläge und Routen sind Pläne, die im Spiel manuell umgesetzt werden. Die App sendet keine Spielbefehle.
+## Poster der Produktionsketten
 
-Die nominellen Katalogwerte stammen aus extrahierten Ressourcen von Patch 2.0. Der Schwierigkeitsgrad betrifft manuelle Wohnhaus-Bedarfsszenarien, nicht den bereits gemessenen Verbrauch oder die Rezeptverhältnisse. Wohnhausanzahl, Fruchtbarkeit, Vorkommen, Freischaltungen und aktiven DLC-Besitz im Spiel prüfen. Manuelle Bedürfnisbestätigungen werden auf dem jeweiligen Gerät gespeichert, gemeinsame Routen auf der PC-Bridge. Die Umrechnung der Raten in Minutenwerte, die Katalogabdeckung und selbst erstellte Übersetzungen haben weiterhin Prüfgrenzen. Die mitgelieferte Demo verwendet erfundene Example-Inseln; der ausdrücklich beschriftete Widget-Screenshot zeigt zwischengespeicherte Live-Daten des Autors.
+Zum Nachschlagen oder Drucken in voller Auflösung herunterladen:
 
-## Updates und gespeicherte Daten
+| Latium | Albion | Aegyptus |
+| :---: | :---: | :---: |
+| **[A2-Poster](.posters/latium-production-a2.png)** | **[A2-Poster](.posters/albion-production-a2.png)** | **[A2-Poster](.posters/aegyptus-production-a2.png)** |
 
-Die App sucht über GitHub Releases nach Updates und prüft Downloads. Windows startet zum Ersetzen der EXE neu; Android verwendet den Systeminstaller. Entwürfe und Vorabversionen werden vom stabilen Updater nicht ausgewählt. Beim Austausch der Windows-EXE den danebenliegenden Ordner `bridge-settings` beibehalten: Er enthält private Kopplungsdaten, gemeinsame Routen und den Cache. Diesen Ordner und persönliche PDFs nicht an Fehlerberichte anhängen.
+[Aegyptus-Kurzübersicht in A4](.posters/aegyptus-chain-poster-a4.png)
 
-## Selbst bauen und testen
+## Gut zu wissen
 
-**Windows:** Python **3.11 x64** mit Tk installieren, `pip install -r requirements-build.txt` und anschließend `.\build_release.ps1 -Version 0.21.5` ausführen. Der Build prüft die nativen DLL-Abhängigkeiten. Die erzeugten Dashboard-/Katalogressourcen sind enthalten; zum Bauen dieses Standes ist keine lokale Spielextraktion nötig.
+Der Companion **liest Daten und hilft beim Planen**. Er steuert das Spiel nicht und erstellt keine Routen im Spiel. Ein lokales Produktionsdefizit kann bereits durch deine Schiffe ausgeglichen sein. Gespeicherte Informationen, manuelle Beobachtungen und geplante Änderungen bleiben getrennt. Unbekannte Abdeckung, Voraussetzungen und hypothetische Bauplätze bleiben bedingt; die Versorgungsplanung ist ein konservatives Szenario, kein garantiertes globales Optimum.
 
-**Android:** JDK 17, Android SDK Plattform 35 und den Gradle Wrapper verwenden. Eine eigene, nicht eingecheckte Datei `android-probe/local.properties` anlegen und in diesem Ordner `gradlew.bat assembleDebug lintDebug` ausführen. Ein Release-Build benötigt die privaten Signatur-Umgebungsvariablen `ANNO_KEYSTORE`, `ANNO_STORE_PASSWORD`, `ANNO_KEY_ALIAS`, `ANNO_KEY_PASSWORD`; danach `assembleRelease lintRelease`. Debug-Builds verwenden den Paket-Zusatz `.dev`. Schlüssel und Passwörter niemals einchecken.
+Für gekoppelte Geräte muss die Windows-App weiterlaufen. Spielstände und Spieldaten bleiben lokal. Kein Pflichtkonto, kein Abo und keine Werbung. [Datenschutz, Englisch](PRIVACY.md)
 
-**Tests:** `python -m unittest test_bridge test_trade_routes test_updater test_public test_startup test_report`; mit Node 22 zunächst `npm ci`, danach `npm test`.
+## Von einem Mitspieler
 
-Ein selbst gebautes APK kann mit einem eigenen Schlüssel signiert werden. Es kann offizielle Release-Installationen nur ersetzen, wenn die Signaturidentität übereinstimmt. Builds müssen zwischen verschiedenen Umgebungen nicht byteidentisch sein.
+Ich bin **Ádám**, ein Spieler aus Ungarn. Ich habe den Companion gebaut, um mehr Zeit mit meinem Imperium und weniger Zeit in Statistikmenüs zu verbringen.
 
-## Pannonia — eine weitere Idee
+Wenn er dir hilft, **[spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)**. Unterstützung ist vollkommen freiwillig. **Kein Tribut erforderlich. Viel Freude mit deinem Imperium!**
 
-Meine nächste Idee ist eine **von Albion inspirierte pannonische Region für Anno 117**. Dafür gibt es jetzt einen eigenen [Pannonia-Konzeptordner](.ideas/README.md) in diesem Repository. Der ausführliche Entwurf beschreibt zwei Bevölkerungswege, Obstgärten und Korbflechterei, Pferdezucht, Monumente und das Grenznetz der Ripa Pannonica. Das Konzept ist vom Companion getrennt; eine spielbare Mod oder ein Veröffentlichungstermin sind nicht angekündigt. Die Konzeptbeschreibung und die ergänzenden Planungsnotizen sind auf Englisch.
+Meine nächste Idee: eine [von Albion inspirierte pannonische Region](.ideas/README.md). Ein Konzept, noch keine veröffentlichte Mod.
 
-## Über den Autor, Unterstützung und Rechte
+---
 
-Entwickelt von Ádám, einem Spieler aus Ungarn. Kostenlos nutzbar, ohne Konto, Werbung oder verpflichtende Zahlung.
+[Windows-Changelog](CHANGELOG_WINDOWS.md) · [Android-Changelog](CHANGELOG_ANDROID.md) · [Fehler melden](https://github.com/oriskoat/anno117companion/issues)
 
-[Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500) — freiwillig. Kein Tribut erforderlich. Viel Freude mit deinem Imperium!
-
-Dies ist ein inoffizielles Community-Projekt ohne Verbindung zu oder Unterstützung durch Ubisoft. Der ursprüngliche Anwendungscode steht unter MIT-Lizenz. Anno-117-Grafiken, offizielle Spieltexte/Dialoge und aus dem Spiel abgeleitete Ressourcen bleiben Ubisoft-Materialien und werden **nicht** unter MIT neu lizenziert. Drittanbieter-Software behält ihre eigenen Lizenzen. Siehe [LICENSE](LICENSE), [ASSET_RIGHTS.md](ASSET_RIGHTS.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) und `third-party/`.
-
-[Datenschutz, Englisch](PRIVACY.md). Keine Analyse-, Werbe-SDKs oder Uploads deiner Spieldaten. GitHub verarbeitet Update-Verkehr, Revolut die freiwillige Unterstützung. Die lokale HTTP-Verbindung ist unverschlüsselt und für ein vertrauenswürdiges LAN gedacht.
+Inoffizielles Community-Projekt ohne Verbindung zu oder Unterstützung durch Ubisoft. Der ursprüngliche Anwendungscode steht unter [MIT-Lizenz](LICENSE). Ubisoft-Grafiken, Spieltexte und abgeleitete Ressourcen behalten ihre Rechte und werden nicht unter MIT neu lizenziert. [Grafiken und Rechte](ASSET_RIGHTS.md) · [Drittanbieter-Hinweise](THIRD_PARTY_NOTICES.md)

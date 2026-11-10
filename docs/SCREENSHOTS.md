@@ -2,7 +2,9 @@
 
 These are real browser renders of the 0.28.0 dashboard using the fictional Demo empire. Mobile browser images are **not** presented as photographs of an installed Android APK.
 
-- [Home, desktop browser](screenshots/17-candidate-home-desktop.png)
+- [Overview, desktop browser](screenshots/20-overview-desktop.png)
+- [Balanced chains, desktop browser](screenshots/21-balanced-chains.png)
+- [Full Home page, desktop browser](screenshots/17-candidate-home-desktop.png)
 - [Supply plan, mobile browser](screenshots/18-candidate-plan-mobile-browser.png)
 - [More, mobile browser](screenshots/19-candidate-more-mobile-browser.png)
 - [Illustrated report with saved empire and proposal](Example-Empire-Summary.pdf)
