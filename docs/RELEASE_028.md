@@ -1,10 +1,10 @@
 # 0.28.0 — Supply Planning
 
-Released with owner approval. Windows and Android use the same dashboard and public update channel. All features remain free.
+Windows and Android use the same dashboard and public update channel. All features remain free.
 
-## Quick review
+## Try the new features
 
-1. Start the unchanged Desktop shortcut. It opens the current EXE from the fixed Companion folder, retaining settings. Choose Demo for a fictional empire or Live for your selected matching save and pipe.
+1. Open the Windows Companion. Choose Demo for a fictional empire or Live for your selected matching save and pipe.
 2. Open Home. Population and belief open people/patrons; Knowledge opens Build readiness; Treasury/Balance open financial context and a lower-upkeep scenario action.
 3. In More → Build readiness, inspect explicit permit counts, research queue/completions and conditional factory availability. Missing evidence is not a confirmed unlock.
 4. Open Chains. Single-source goods stay compact. Change water/module/granary/specialist assumptions, reload and verify the device draft. The detail view uses the same scenario.
@@ -27,7 +27,7 @@ Planning remains a conservative heuristic. Coverage geometry, slots, workforce/i
 
 - Windows: `build_release.ps1 -Version 0.28.0 -PythonExecutable <build-python> -BuildDependencies <deps>`.
 - Android: `tools/build_android_release.ps1 -SigningConfig <private-config> -JavaHome <jdk17> -AndroidSdk <sdk>`; secrets remain outside the source package.
-- Package: `python tools/package_release.py --sdk <sdk>` after both builds. Use `--published` only when preparing an approved public release. Old prepare commands delegate here.
+- Package: `python tools/package_release.py --sdk <sdk>` after both builds. Use `--published` only when preparing an approved public release. The public source file list is maintained in `release_manifest.py`. Add new public docs and tools there when preparing a release.
 - Packaging fails on source/EXE drift, APK asset mismatch, wrong app ID/version/debuggable state, or a different certificate. It writes ZIP/APK/EXE/source/checksums/manifest locally, with no upload command.
 - Windows is unsigned, as was the previous public EXE. No new Authenticode certificate is invented. The Android certificate SHA-256 is pinned in `release_manifest.py`.
 

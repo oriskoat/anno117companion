@@ -33,7 +33,7 @@ class EvidenceChecks(unittest.TestCase):
         self.assertEqual(history.observe(sample(float('nan'),1)),[])
         self.assertEqual(history.observe(sample(True,1)),[])
 
-    def test_release_source_manifest_excludes_operator_trees_and_keeps_all_tools(self):
+    def test_release_source_manifest_excludes_operator_material_and_keeps_public_tools(self):
         from release_manifest import source_files,ROOT
         names={p.relative_to(ROOT).as_posix() for p in source_files()}
         self.assertIn('save_reader/progression.py',names)
@@ -41,6 +41,20 @@ class EvidenceChecks(unittest.TestCase):
         self.assertIn('test_release_028.cjs',names)
         self.assertFalse(any(n.startswith(('bridge-settings/','build/','releases/')) for n in names))
         self.assertFalse(any(n.endswith(('.jks','.a8s')) for n in names))
+
+    def test_source_packaging_requires_explicit_public_docs_and_tools(self):
+        from release_manifest import source_files
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            public = ('README.md', 'docs/SETUP.md', 'tools/package_release.py',
+                      'android-probe/app/src/main/assets/dashboard/app.js')
+            private = ('LOCAL_REVIEW.md', 'docs/WORK_PACKAGE_028.md', 'tools/probe_local.py',
+                       '.ideas/scratch.md', 'android-probe/private-config.json')
+            for name in public + private:
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.touch()
+            self.assertEqual({p.relative_to(root).as_posix() for p in source_files(root)}, set(public))
 
     def test_candidate_filename_is_accepted_by_existing_public_updater(self):
         from updater import select_release,RELEASES
