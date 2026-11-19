@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.29.0 — Settlement Planner
+
+- Settlement Planner compares island and endgame branch pairs across the recorded provinces and drafts trade routes.
+- The production Planner surfaces build, ship and reduce actions before detailed calculations.
+- Empty pipe updates preserve usable rates and their age.
+
 ## 0.28.0 — 9 November 2026
 
 - Share a fuel-aware unit recipe across Chains and Planner, including multi-building fuel consumption.

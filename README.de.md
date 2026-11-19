@@ -9,7 +9,7 @@
 Produktion, Versorgung und Planung für **Anno 117: Pax Romana**.<br>
 Ein kostenloser, inoffizieller Companion von Ádám. Windows-App · Android-App · Browser auf iPhone & PC.
 
-**[Für Windows herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Für Android herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk)**
+**[Für Windows herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno117Companion-0.29.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Für Android herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno-Companion-0.29.0.apk)**
 
 [Einrichtung](docs/SETUP.de.md) · [Neueste Version](https://github.com/oriskoat/anno117companion/releases/latest) · [English](README.md) · [☕ Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)
 
@@ -41,7 +41,9 @@ Dies sind Katalogszenarien. Aufgezeichnete Produktion und geplante Boni bleiben 
 
 </details>
 
-[Weitere Bilder](docs/SCREENSHOTS.md) · [Neu in 0.28.0, Englisch](docs/RELEASE_NOTES_028.md) · [Planungsanleitung, Englisch](docs/RELEASE_028.md)
+**Siedlungsplaner:** Vergleiche Inseln anhand des gesamten Bevölkerungszweigs. Prüfe Produktionsstandorte und übernimm vorgeschlagene Verbindungen als Routenentwürfe.
+
+[Weitere Bilder](docs/SCREENSHOTS.md) · [Neu in 0.29.0, Englisch](docs/RELEASE_NOTES_029.md) · [Planungsanleitung, Englisch](docs/RELEASE_028.md)
 
 ## Loslegen
 

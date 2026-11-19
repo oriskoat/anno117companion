@@ -1,0 +1,21 @@
+.settlement-layout { display:grid; gap:18px; max-width:1040px; margin:auto; }
+.settlement-panel { background:var(--card,#fffdf8); border:1px solid #d9e2e8; border-radius:20px; padding:clamp(16px,3vw,28px); }
+.settlement-panel h2,.settlement-panel h3 { margin:0 0 12px; }
+.settlement-heading,.settlement-shipment { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+.settlement-heading small { color:#815516; letter-spacing:.12em; }
+.settlement-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr)); gap:14px; margin:10px 0 18px; }
+.settlement-fields label { display:grid; gap:5px; font-size:.85rem; }
+.settlement-candidates { display:grid; gap:8px; margin:12px 0; }
+.settlement-candidates article { background:#edf3f6; border-radius:12px; padding:0 12px 8px; }
+.settlement-candidates button { display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:center; gap:12px; text-align:left; width:100%; padding:11px 3px; color:inherit; background:none; border:0; }
+.settlement-candidates button[aria-pressed="true"] { color:#124c77; box-shadow:inset 0 -2px #366e98; }
+.settlement-candidates small,.settlement-goods small { display:block; margin-top:3px; color:#46637a; }
+.settlement-layout summary { cursor:pointer; }
+.settlement-candidates details { font-size:.85rem; }
+.settlement-plan { border-top:1px solid #d9e2e8; margin-top:20px; padding-top:16px; }
+.settlement-goods { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:8px; }
+.settlement-goods > span { padding:10px; background:#edf3f6; border-radius:10px; }
+.settlement-goods img { width:28px; height:28px; object-fit:contain; vertical-align:middle; }
+.settlement-shipment { border-top:1px solid #d9e2e8; margin-top:12px; padding:12px 0; }
+.settlement-shipment p { margin:4px 0; }
+@media (max-width:520px) { .settlement-candidates button { grid-template-columns:1fr auto; } .settlement-candidates button > span:nth-child(2) { grid-row:2; } }

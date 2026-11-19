@@ -10,7 +10,7 @@ Use Python **3.11 x64** with Tk. From the repository root:
 
 ```powershell
 pip install -r requirements-build.txt
-.\build_release.ps1 -Version 0.28.0 -BuildDependencies <dependency-folder> -PythonExecutable <python.exe>
+.\build_release.ps1 -Version 0.29.0 -BuildDependencies <dependency-folder> -PythonExecutable <python.exe>
 ```
 
 The script builds the self-contained EXE and audits its native DLL payload. Python and development tools are not needed by end users. See [Windows compatibility](WINDOWS_COMPATIBILITY.md) for runtime requirements and browser fallback.

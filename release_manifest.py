@@ -60,6 +60,7 @@ docs/Example-Empire-Summary.pdf
 docs/RELEASE_028.md
 docs/RELEASE_NOTES.md
 docs/RELEASE_NOTES_028.md
+docs/RELEASE_NOTES_029.md
 docs/SCREENSHOTS.md
 docs/SETUP.de.md
 docs/SETUP.md

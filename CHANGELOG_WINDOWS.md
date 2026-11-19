@@ -1,5 +1,11 @@
 # Windows EXE changelog
 
+## 0.29.0 — Settlement Planner
+
+- Settlement Planner compares island and endgame branch pairs across the recorded provinces and drafts trade routes.
+- The production Planner surfaces build, ship and reduce actions before detailed calculations.
+- Empty pipe updates preserve usable rates and their age.
+
 ## 0.28.0 — 9 November 2026
 
 - Windows native window serves the same new dashboard and save analysis to all paired LAN devices. The EXE remains unsigned, like the previous public release.

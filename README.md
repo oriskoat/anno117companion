@@ -9,7 +9,7 @@
 Production, supply and planning for **Anno 117: Pax Romana**.<br>
 A free, unofficial companion by Ádám. Windows app · Android app · iPhone & desktop browser.
 
-**[Download for Windows](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Download for Android](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk)**
+**[Download for Windows](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno117Companion-0.29.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Download for Android](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno-Companion-0.29.0.apk)**
 
 [Setup guide](docs/SETUP.md) · [Latest release](https://github.com/oriskoat/anno117companion/releases/latest) · [Deutsch](README.de.md) · [☕ Buy me a coffee](https://revolut.me/vafvyop?currency=EUR&amount=500)
 
@@ -25,6 +25,7 @@ A free, unofficial companion by Ádám. Windows app · Android app · iPhone & d
 | --- | --- |
 | **Where am I short?** | Production, consumption and local balances by island or good, with supply suggestions between islands. |
 | **What should I build?** | Balanced chains by region, population tier, good and DLC. Try water, modules, granaries, deity bonuses and relevant specialists. |
+| **Where should I settle next?** | Compare islands for the full population branch, then review production islands and draft the routes that connect them. |
 | **Can I supply a whole province?** | Plan production and imports across islands, including upstream ingredients, fuel and seasonal reserves. Compare buildings, workforce, upkeep and storage objectives. |
 | **What can I use from my save?** | Recorded stocks, population, needs, patrons, permits, research, routes and specialist assignments, where available. |
 | **How will I move the goods?** | Shared multi-good, multi-stop route plans, cargo checks, assumed fleet requirements and optional bounded cycle observations. |
@@ -41,7 +42,7 @@ These are catalogue scenarios. Recorded production and proposed bonuses remain s
 
 </details>
 
-[More screenshots](docs/SCREENSHOTS.md) · [What's new in 0.28.0](docs/RELEASE_NOTES_028.md) · [Planner guide](docs/RELEASE_028.md)
+[More screenshots](docs/SCREENSHOTS.md) · [What's new in 0.29.0](docs/RELEASE_NOTES_029.md) · [Planner guide](docs/RELEASE_028.md)
 
 ## Get started
 

@@ -176,7 +176,14 @@ class Bridge:
                 self.state['session_name'] = message.get('name')
                 self.state['pipe_session_id'] = secrets.token_hex(16)
             elif kind == 'AreaProductionStatistics':
-                self.areas[area_key(message)] = message
+                key = area_key(message)
+                previous = self.areas.get(key)
+                if (not message['entries'] and previous and previous['entries']
+                        and previous.get('session_guid') == message.get('session_guid')
+                        and previous.get('area_name') == message.get('area_name')):
+                    # Keep the original timestamp: an empty update does not refresh rates.
+                    return message
+                self.areas[key] = message
                 self.journal.append(copy.deepcopy(message))
                 cutoff=datetime.fromisoformat(received).timestamp()-60
                 while self.journal and datetime.fromisoformat(self.journal[0]['received_at']).timestamp()<cutoff:

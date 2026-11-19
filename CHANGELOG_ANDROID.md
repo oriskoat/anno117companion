@@ -1,5 +1,11 @@
 # Android APK changelog
 
+## 0.29.0 — Settlement Planner
+
+- Settlement Planner compares island and endgame branch pairs across the recorded provinces and drafts trade routes.
+- The production Planner surfaces build, ship and reduce actions before detailed calculations.
+- Includes the new dashboard. Update the Windows Companion for the matching bridge and save data.
+
 ## 0.28.0 — 9 November 2026
 
 - Release APK uses the public application ID and existing public signing certificate, not the development beta key. Android Back follows the shared page history.

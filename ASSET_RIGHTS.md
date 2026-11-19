@@ -10,7 +10,7 @@ from Anno 117: Pax Romana and remain Ubisoft materials. The MIT license does not
 grant rights in those materials. This app is unofficial and is not endorsed by
 Ubisoft. Third-party libraries retain their own licenses (see THIRD_PARTY_NOTICES).
 
-Provenance: the local extracted patch 2.0 production, consumption, specialist,
+Provenance: the local extracted patch 3.0 production, consumption, specialist,
 icon, region-art and official-language text datasets. The app keeps nominal
 catalogue data separate from experimental pipe observations.
 

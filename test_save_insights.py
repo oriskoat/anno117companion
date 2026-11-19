@@ -210,6 +210,12 @@ class ServiceChecks(unittest.TestCase):
         pipe.update(areas=[fresh],session_name='Campaign_1',pipe_state='connected')
         merged=self.service.dashboard(pipe)
         self.assertEqual(merged['areas'][0]['entries'][0]['ProductDelta'],2.)
+        pipe['areas'] = [{**fresh, 'entries': []}]
+        fallback = self.service.dashboard(pipe)['areas'][0]
+        self.assertEqual(fallback['entries'][0]['ProductConsumption'], 1.5)
+        self.assertEqual(fallback['provenance']['decision'], 'empty_pipe_preserved_saved_rates')
+        pipe['areas'] = [{**fresh, 'entries': [{'ProductGuid': 2153, 'ProductDelta': 0.}]}]
+        self.assertEqual(self.service.dashboard(pipe)['areas'][0]['data_source'], 'pipe')
         pipe['session_name']='Different campaign'
         self.assertEqual(self.service.dashboard(pipe)['areas'][0]['data_source'],'save')
         self.assertTrue(self.service.dashboard(pipe)['save_source']['conflicting_pipe'])

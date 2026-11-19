@@ -1,4 +1,4 @@
-param([string]$Version = '0.28.0', [string]$BuildDependencies = '', [string]$PythonExecutable = 'python')
+param([string]$Version = '0.29.0', [string]$BuildDependencies = '', [string]$PythonExecutable = 'python')
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
 if (-not $BuildDependencies) { $BuildDependencies = Join-Path $projectRoot 'tools\build-deps' }

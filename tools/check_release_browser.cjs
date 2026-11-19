@@ -7,7 +7,7 @@ try{for(const width of [1440,390]){
  await page.goto((process.env.ANNO_TEST_URL||'http://127.0.0.1:11793')+'/#sample=1');
  await page.waitForSelector('.g-dashboard');
  assert(await page.locator('.eo-metric').count());
- assert.equal(await page.locator('.bottom-nav button').count(),width<800?5:9);
+ assert.equal(await page.locator('.bottom-nav button').count(),width<1000?5:10);
  await page.locator('.eo-metric[data-eo-action="knowledge"]').count();
  await page.evaluate(()=>nav('readiness'));await page.waitForSelector('.cap-tech');
  await page.evaluate(()=>nav('chains'));await page.waitForSelector('.cc-card');

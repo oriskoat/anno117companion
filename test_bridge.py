@@ -42,6 +42,15 @@ class BridgeChecks(unittest.TestCase):
         self.assertEqual(len(snapshot['areas']),2)
         self.assertTrue(all(e['ProductNameEnglish']=='Clay' for a in snapshot['areas'] for e in a['entries']))
         self.assertEqual(len(snapshot['supply_suggestions']),1)
+        label = b'Example island 1'
+        empty = (struct.pack('<BBBBi', 3, 1, 1, 1, 3245) + bytes([len(label)]) + label
+                 + struct.pack('<qi', 200, 0))
+        bridge.accept(empty, version)
+        after_empty = bridge.snapshot()
+        self.assertEqual(len(after_empty['supply_suggestions']), 1)
+        self.assertEqual(after_empty['areas'][0]['received_at'], snapshot['areas'][0]['received_at'])
+        self.assertEqual(after_empty['areas'][0]['game_timestamp'], 100)
+        self.assertEqual(len(bridge.journal), 2)
         bridge.accept(b'\x02',2)
         self.assertEqual(bridge.snapshot()['areas'],[])
         with self.assertRaises(ValueError):

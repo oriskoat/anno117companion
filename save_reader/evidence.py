@@ -7,6 +7,8 @@ def tick(value):
 
 def retain_pipe(area,saved,meta,pipe_state):
     if not area:return False,'saved_only'
+    if not area.get('entries') and saved.get('entries'):
+        return False, 'empty_pipe_preserved_saved_rates'
     if pipe_state=='connected' and not area.get('cached',True) and not area.get('stale',True):return True,'fresh_pipe'
     pt,st=tick(area.get('game_timestamp')),tick(saved.get('statistics_tick'))
     if pt is not None and st is not None and area.get('game_clock_domain')=='simulation_ms' and saved.get('statistics_clock_domain')=='simulation_ms':

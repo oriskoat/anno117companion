@@ -19,7 +19,7 @@ from .vendor.parser.filedb.version import detect_version, FileDBVersion
 from .vendor.parser.filedb.dictionary import parse_tag_section
 from .vendor.parser.filedb.dom import iter_dom, EventKind
 
-SCHEMA = 8
+SCHEMA = 9
 MAX_SAVE_BYTES = 256 * 1024 * 1024
 MAX_INNER_BYTES = 768 * 1024 * 1024
 MAX_EVENTS = 40_000_000
@@ -407,19 +407,35 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
         captures.append((session, records))
         for aid, info in records:
             all_areas[aid] = {'name': catalogue.city(info, aid), 'owner': integer(info.get('OwnerProfile'))}
-    humans = sorted({a['owner'] for a in all_areas.values() if a['owner'] in catalogue.humans})
+    active_humans = {integer(node.get('ParticipantGUID')) for node in participants_with_items
+                     if node.get('MetaParticipant') is not None}
+    humans = sorted(catalogue.humans & (active_humans | {a['owner'] for a in all_areas.values()}))
     if participant is None:
         if len(humans) != 1:
             raise ParticipantRequired(humans)
         participant = humans[0]
     if participant not in humans:
-        raise SaveReadError('The selected human participant has no identified islands.')
+        raise SaveReadError('The selected human participant was not identified in the save.')
     flood_gate = None
     for pid, record in pairs(production_unlocks.at('UnlockData/Data') if production_unlocks else None):
         if pid != participant: continue
         for guid, lock in pairs(record.get('LockState')):
             if guid == 157020:
                 flood_gate = integer(lock.at('value/value/value'))
+    settlement_islands = []
+    for session, records in captures:
+        for aid, info in records:
+            owner = integer(info.get('OwnerProfile'))
+            if owner not in (None, 0, participant):
+                continue
+            fertility = info.get('Fertility')
+            settlement_islands.append({
+                'area_key': area_key(aid), 'name': catalogue.city(info, aid),
+                'region': catalogue.name(session['session_guid']), 'owned': owner == participant,
+                'fertilities': sorted({guid for child in (fertility.children if fertility else [])
+                                       if (guid := integer(child)) is not None}),
+                'fertility_recorded': fertility is not None,
+            })
     owned = {}
     items = {}
     routes = extract_routes(route_map, participant, all_areas, catalogue)
@@ -484,7 +500,7 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
                 'need_consumption_setting_raw': integer(profile.at('SetupNeedConsumption/value/id')),
                 'production_context': {'global_effects': [e for e in global_production_effects if e['participant'] in (None, participant)], 'flood_gate_state': flood_gate},
                 'simulator_clock': clock, 'file_name': path.name, 'saved_at': timestamp(before.st_mtime),
-                'parsed_at': timestamp(), 'areas': list(owned.values()), 'routes': routes, 'owned_items': list(items.values()),
+                'parsed_at': timestamp(), 'areas': list(owned.values()), 'settlement_islands': settlement_islands, 'routes': routes, 'owned_items': list(items.values()),
                 'transport': {'observed_game_ms': clock.get('GameTotal'), 'ships': ship_observations,
                               'timing_status': 'unmeasured', 'path_status': 'not_reconstructed'},
                 'metrics': {'parse_seconds': round(time.monotonic() - start, 3), 'save_bytes': before.st_size,

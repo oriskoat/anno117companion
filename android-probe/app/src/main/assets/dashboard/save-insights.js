@@ -89,7 +89,7 @@ async function loadSaveInsights(force=false,body=null){
   else if(reply.status===401){s.live=null;s.error='Pair your PC bridge to read saved insights.';}
   else throw Error(reply.document?.error||'Save Insights is unavailable on this PC. Update the preview or check its connection.');
  }catch(error){if(generation===s.generation)s.error=error.message;}
- finally{if(generation===s.generation){s.busy=false;if(!body&&typeof window.governorBackgroundUpdate==='function'){window.governorBackgroundUpdate('save');}else if(current==='insights')render(true);else if(['home','supply','needs','more'].includes(current)||current==='planner'&&!document.activeElement?.closest('.ap-layout,.ip-filters,.ip-cycle-controls'))render(true);}}
+ finally{if(generation===s.generation){s.busy=false;if(current==='settlement'){const stamp=JSON.stringify([s.live?.status,s.live?.use_saves,s.live?.snapshot?.parsed_at,s.error]);const main=$('main');if(main.dataset.settlementStamp!==stamp){main.dataset.settlementStamp=stamp;render(true);}}else if(!body&&typeof window.governorBackgroundUpdate==='function'){window.governorBackgroundUpdate('save');}else if(current==='insights')render(true);else if(['home','supply','needs','more'].includes(current)||current==='planner'&&!document.activeElement?.closest('.ap-layout,.ip-filters,.ip-cycle-controls'))render(true);}}
 }
 function refreshSaveInsights(){return loadSaveInsights(true,{action:'refresh'});}
 function selectSaveProfile(id,participant=null,fileName=null){saveInsightsState.live={...saveInsightsState.live,status:'waiting',snapshot:null};saveInsightsState.island='all';return loadSaveInsights(true,{action:'select',profile_id:id,participant,file_name:fileName});}
