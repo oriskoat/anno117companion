@@ -44,7 +44,7 @@ Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub releases. Older entries doc
 - Open contextual product details from Home, with distinct supply/planning/island actions and restored Back navigation, filters and scroll.
 - Remove the unhelpful Albion water-link headline. Keep polling stable and preserve the fixed Desktop shortcut.
 
-See [beta guide](docs/BETA_026.md).
+See [supply planning notes](docs/RELEASE_028.md).
 
 ## 0.25.0 local beta 5 — unpublished, 8 November 2026
 
@@ -56,7 +56,7 @@ See [beta guide](docs/BETA_026.md).
 - Compare conditional water, silo/Dovecote, granary, specialist and whole-island deity/belief scenarios before building; recalculate complete scope on preview.
 - Retain unknown/unreconciled inputs explicitly and preserve physical cargo rather than discarding blocked deliveries.
 
-See [beta guide](docs/BETA_025.md).
+See [supply planning notes](docs/RELEASE_028.md).
 
 ## 0.24.0 local beta 4 — unpublished, 8 November 2026
 
@@ -67,7 +67,7 @@ See [beta guide](docs/BETA_025.md).
 - Read schema 6 owned-route ship positions, assigned targets and installed modules; show observed fleet evidence without claiming measured voyage times.
 - Deploy each latest build to one fixed Anno117Companion.exe path; leave the Desktop shortcut unchanged after migration. Use an explicit embedded beta channel independent of executable filenames.
 
-See [beta guide](docs/BETA_024.md) for the boundaries of coverage and shipping evidence.
+See [supply planning notes](docs/RELEASE_028.md) for the boundaries of coverage and shipping evidence.
 
 ## 0.23.0 local beta 3 — unpublished, 8 November 2026
 
@@ -76,7 +76,7 @@ See [beta guide](docs/BETA_024.md) for the boundaries of coverage and shipping e
 - Save manual route proposals with campaign, data-change and shared-revision checks. Preserve existing manual plans.
 - Use region-specific overview cards, call the resting PoA phase Dormant, and keep detailed decisions collapsed/searchable.
 
-See [beta guide](docs/BETA_023.md) for assumptions and limits.
+See [supply planning notes](docs/RELEASE_028.md) for assumptions and limits.
 
 ## 0.22.0 local beta 2 — unpublished, 8 November 2026
 

@@ -38,14 +38,14 @@ Versions 0.20.0, 0.20.1 and 0.20.2 are public GitHub APK releases. Older entries
 - Shared dashboard source gains balanced chain cards, synchronized assumptions, compact save controls and contextual Back navigation.
 - No APK built for this local iteration. Android compilation remains deferred until an authorized GitHub release; phone viewport behavior is tested in the browser.
 
-See [beta guide](docs/BETA_026.md).
+See [supply planning notes](docs/RELEASE_028.md).
 
 ## 0.25.0 local beta 5 — unpublished, 8 November 2026
 
 - Shared dashboard source now includes regional Home, stable background refresh, human-readable durations and coupled supply/bonus scenarios.
 - No APK was built for this local beta, by owner request. Android compilation is deferred until an authorized GitHub release. Mobile browser layout was checked.
 
-See [beta guide](docs/BETA_025.md).
+See [supply planning notes](docs/RELEASE_028.md).
 
 ## 0.24.0 local beta 4 — unpublished, 8 November 2026
 
@@ -53,7 +53,7 @@ See [beta guide](docs/BETA_025.md).
 - Include saved granary source/radius evidence and shipping observations supplied by the updated PC bridge.
 - Retain the separate productionbeta application and development signing; versionCode 32. No physical-device test is claimed.
 
-See [beta guide](docs/BETA_024.md) for the boundaries of coverage and shipping evidence.
+See [supply planning notes](docs/RELEASE_028.md) for the boundaries of coverage and shipping evidence.
 
 ## 0.23.0 local beta 3 — unpublished, 8 November 2026
 
@@ -61,7 +61,7 @@ See [beta guide](docs/BETA_024.md) for the boundaries of coverage and shipping e
 - Add searchable progressive good detail, recorded water/module evidence and responsive decision groups.
 - Retain the separate productionbeta package and development signature; versionCode 31. No physical-device test is claimed.
 
-See [beta guide](docs/BETA_023.md) for assumptions and limits.
+See [supply planning notes](docs/RELEASE_028.md) for assumptions and limits.
 
 ## 0.22.0 local beta 2 — unpublished, 8 November 2026
 
