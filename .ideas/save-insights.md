@@ -1,5 +1,7 @@
 # Save Insights
 
+**Available in the free Companion.** Version 0.30.0 shows active deity and wonder bonuses from your selected save. See [the release notes](../docs/RELEASE_NOTES_030.md) and [current screenshots](../docs/SCREENSHOTS.md).
+
 Save Insights is available for free in Companion **0.21.0**. Open **More → Save Insights** on Windows, choose a campaign, then turn **Use save data** on. You can follow the latest save automatically or select a specific save. Paired Android and browser clients use the Windows Companion to access the results.
 
 - The Windows app reads save files locally without changing or uploading them.

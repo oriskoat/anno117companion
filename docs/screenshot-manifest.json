@@ -1,8 +1,50 @@
 {
-  "version": "0.20.2",
-  "data": "Synthetic Example Empire except user-approved cached Live widget screenshot",
+  "version": "0.30.0",
+  "data": "Fictional dashboard examples; historical gallery includes the author-approved cached widget image",
   "reviewed": true,
   "images": [
+    {
+      "file": "22-030-home-desktop.png",
+      "surface": "Desktop browser",
+      "caption": "Home dashboard with the fictional empire, population, finances and the dominant deity.",
+      "version": "0.30.0",
+      "sha256": "9080f17235f5db289e47224fd8243e1324ac43f0337207ac977457a83b104101"
+    },
+    {
+      "file": "23-030-settlement-desktop.png",
+      "surface": "Desktop browser",
+      "caption": "Settlement candidates compared against Example Aurelia, with changed local chains and shipping volume.",
+      "version": "0.30.0",
+      "sha256": "86f2e3602763c1e51252eb34df9518b954f40328a3700cf713a15d233fdaa5ea"
+    },
+    {
+      "file": "24-030-chain-output-desktop.png",
+      "surface": "Desktop browser",
+      "caption": "Woodcutter on Example Aurelia with its additional resin and coal output.",
+      "version": "0.30.0",
+      "sha256": "5b329770294c9f43e1310b5ca30ed6d08a4fb77b745de2b0d296ddc32837864c"
+    },
+    {
+      "file": "25-030-search-mobile.png",
+      "surface": "Mobile browser",
+      "caption": "Companion search with deity and island patron results.",
+      "version": "0.30.0",
+      "sha256": "550c3a7f2063c8a7992cc6ad4488e66ce094ca0783b3623056f07d40eddbbab8"
+    },
+    {
+      "file": "26-030-patrons-mobile.png",
+      "surface": "Mobile browser",
+      "caption": "Ceres profile with local belief, empire belief and active bonuses.",
+      "version": "0.30.0",
+      "sha256": "58c543be308689b941644d84da546388e7f26025909aa05f96a50fe2c2659d15"
+    },
+    {
+      "file": "27-030-optimiser-desktop.png",
+      "surface": "Desktop browser",
+      "caption": "Supply Optimiser actions and the supply checks to review before building.",
+      "version": "0.30.0",
+      "sha256": "6789e1741f393b4fac3792437eb2a14eef745739f6bd8166fe05b09d3ffd74ee"
+    },
     {
       "file": "01-windows-home.jpg",
       "surface": "Windows EXE",

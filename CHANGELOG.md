@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.30.0 — Search, deity bonuses and joint production
+
+- Add global search for pages, goods, chains, islands, routes, tiers, specialists and deities.
+- Compare settlement alternatives against the selected island and draft routes from production-island recommendations.
+- Read dominant deity and wonder status from saves. Show all 11 portraits, local and empire belief and compact milestone cards.
+- Show additional output in Chains and account for by-products from proposed builds in the Supply Optimiser.
+- Add Chains region and tier shortcuts, Routes cargo previews and clearer planning actions.
+
 ## 0.29.0 — Settlement Planner
 
 - Settlement Planner compares island and endgame branch pairs across the recorded provinces and drafts trade routes.

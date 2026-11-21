@@ -19,7 +19,7 @@ from .vendor.parser.filedb.version import detect_version, FileDBVersion
 from .vendor.parser.filedb.dictionary import parse_tag_section
 from .vendor.parser.filedb.dom import iter_dom, EventKind
 
-SCHEMA = 9
+SCHEMA = 10
 MAX_SAVE_BYTES = 256 * 1024 * 1024
 MAX_INNER_BYTES = 768 * 1024 * 1024
 MAX_EVENTS = 40_000_000
@@ -360,14 +360,14 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
     profile = next((n for _, n in select(header, lambda p: p == ('CorporationProfile',), cancelled)), None)
     if profile is None:
         raise SaveReadError('Save profile metadata is missing.')
-    from .production_context import effects as production_effects
+    from .production_context import effects as production_effects, empire_religion
     global_production_effects, production_unlocks = [], None
-    empire_economies, empire_money = None, None
+    empire_economies, empire_money, religion_manager = None, None, None
     sessions, route_map, clock, history, participants_with_items = [], None, {}, {}, []
     def outer_wanted(p):
         return (p[:2] == ('MetaGameManager', 'GameSessions') and len(p) == 3
                 or p[:3] == ('MetaGameManager', 'MetaGameObjectManager', 'MetaObjectMap') and len(p) == 4
-                or p in [('MetaGameManager','MetaEffectManager'), ('MetaGameManager','ParticipantUnlockManager'), ('MetaGameManager','EconomyManager'), ('MetaGameManager','MetaMoneyManager')]
+                or p in [('MetaGameManager','MetaEffectManager'), ('MetaGameManager','ParticipantUnlockManager'), ('MetaGameManager','EconomyManager'), ('MetaGameManager','MetaMoneyManager'), ('MetaGameManager','MetaReligionManager')]
                 or p == ('MetaGameManager', 'SessionTradeRouteManager', 'RouteMap')
                 or p == ('MetaGameManager', 'EconomyStatisticManager', 'History', 'areaHistory')
                 or p in [('MetaGameManager', 'GameTotal'), ('MetaGameManager', 'GameCount')])
@@ -379,6 +379,8 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
             empire_economies = node
         elif where[-1] == 'MetaMoneyManager':
             empire_money = node
+        elif where[-1] == 'MetaReligionManager':
+            religion_manager = node
         elif where[-1] == 'MetaEffectManager':
             global_production_effects = production_effects(node)
         elif where[-1] == 'ParticipantUnlockManager':
@@ -498,7 +500,8 @@ def read_save(path, catalogue, participant=None, cancelled=lambda: False):
                 'profile_display_name': text(profile.get('SavegameProfileDisplayName')),
                 'participant': participant, 'game_seed': integer(profile.get('GameSeed')),
                 'need_consumption_setting_raw': integer(profile.at('SetupNeedConsumption/value/id')),
-                'production_context': {'global_effects': [e for e in global_production_effects if e['participant'] in (None, participant)], 'flood_gate_state': flood_gate},
+                'production_context': {'global_effects': [e for e in global_production_effects if e['participant'] in (None, participant)], 'flood_gate_state': flood_gate,
+                                       'religion': empire_religion(religion_manager, participant)},
                 'simulator_clock': clock, 'file_name': path.name, 'saved_at': timestamp(before.st_mtime),
                 'parsed_at': timestamp(), 'areas': list(owned.values()), 'settlement_islands': settlement_islands, 'routes': routes, 'owned_items': list(items.values()),
                 'transport': {'observed_game_ms': clock.get('GameTotal'), 'ships': ship_observations,

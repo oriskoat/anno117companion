@@ -19,4 +19,12 @@ input={areas:[{key:'A',name:'A',entries:[{guid:1,production:10,consumption:0}],g
 input={areas:[makeArea([[1,4,1],[2,4,1]])],scopeKeys:['A'],providers:[make('mismatch',1,2,2,[{good:2,rate:2}])],candidates:[]};result=PM.optimize(input);assert(result.accounting.issues.length);near(result.demands.find(d=>d.good===2).rate,1);
 // Losing optional module feed removes its bonus; base production can continue.
 input={areas:[makeArea([[1,0,2]],{1:0,2:0})],scopeKeys:['A'],providers:[],candidates:[{...make('module-new',1,2,0),support:[{good:2,rate:.2}],phases:[{name:'Steady',guid:0,minutes:300,rate:2,withoutModuleRate:1,inputs:[],withoutModuleInputs:[]}]}]};result=PM.optimize(input);assert(result.coupled.inputShortages.some(i=>i.optional));assert(result.coupled.unmet>0&&result.coupled.unmet<599);
+const joint=make('joint',2,2,0,[{good:3,rate:1}]);
+joint.phases[0].side=[{guid:1,rate:1}];
+input={areas:[makeArea([[1,0,1],[2,0,2]],{1:0,2:0,3:40})],scopeKeys:['A'],providers:[],candidates:[joint]};
+result=PM.optimize(input,{horizon:30});
+near(result.coupled.nodes.find(n=>n.good===1).unmet,0);
+input.areas[0].goods[3].stock=0;
+result=PM.optimize(input,{horizon:30});
+near(result.coupled.nodes.find(n=>n.good===1).unmet,30);
 console.log('PASS: downstream reductions propagate upstream, other consumers preserved, seasonal input starvation, startup reserve, protected exports, cargo conservation, uncertain accounting.');

@@ -14,3 +14,7 @@
 .cc-card:has(.cc-options[open]){overflow:visible}.sheet .cc-live-summary{top:60px}
 
 .cc-single-producer{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 0;color:#536f86;font-size:12px}.cc-single-producer b{color:#183b60;font-size:17px;white-space:nowrap}.cc-single-producer small{font-size:10px;font-weight:400;color:#637d90}.cc-simple .cc-card-heading{margin-bottom:2px}.cc-simple .cc-card-footer{margin:8px 0}.cc-simple .cc-options{padding:10px 12px}.cc-simple .cc-options>summary{font-size:11px}
+.cc-byproducts { display:flex; gap:5px 10px; flex-wrap:wrap; align-items:center; padding:9px 11px; margin-top:7px; background:#e8f2eb; color:#245140; border-radius:9px; font-size:.8rem; }
+.cc-byproducts > b { flex-basis:100%; }
+.cc-byproducts span { display:inline-flex; align-items:center; gap:4px; }
+.cc-byproducts .product-icon { width:21px; height:21px; object-fit:contain; }

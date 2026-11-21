@@ -115,7 +115,13 @@ function savedOverview(){
 }
 function savedRouteCards(){
  const doc=savedSnapshot(),q=savedQuery(),rows=(doc?.routes||[]).filter(r=>(saveInsightsState.island==='all'||r.stops.some(s=>s.area_key===saveInsightsState.island))&&(!q||[r.name,...r.stops.flatMap(s=>[s.name,...s.goods.map(g=>savedName(g.product_guid,g.name))])].join(' ').toLocaleLowerCase(appLanguage).includes(q)));
- return `<p class="small-note">Observed route definitions from this save. These are separate from your editable Companion plans. A configured route does not prove delivered throughput.</p>${rows.map(r=>`<details class="card saved-observed-route"><summary><span class="saved-route-mark">${svg('supply')}</span><span><b>${esc(r.name)}</b><small>${r.stops.length} stops · ${r.ship_ids.length} assigned ship references</small><small>${r.stops.map(s=>esc(s.name)).join(' → ')}</small></span>${svg('chevron')}</summary><ol class="saved-route-stops">${r.stops.map(s=>`<li><h3>${esc(s.name)}</h3>${s.goods.length?s.goods.map(g=>`<div class="saved-route-good">${icon(g.product_guid)}<span><b>${esc(savedName(g.product_guid,g.name))}</b><small>${g.action==='unload'?'Unload':g.action==='load'?'Load':'Loading flag omitted · direction unconfirmed'}</small></span><strong>${g.amount===null?'—':fmt(g.amount)}<small>per visit</small></strong></div>`).join(''):'<p class="small-note">No goods command at this stop.</p>'}</li>`).join('')}</ol><p class="small-note">Loading defaults omitted by the save are not assumed. Ship references: ${r.ship_ids.map(esc).join(', ')}.</p></details>`).join('')||savedEmpty()}`;
+ return `<p class="small-note">Routes recorded in the selected save. Quantities show configured cargo per visit.</p><div class="saved-observed-grid">${rows.map(r=>{
+  const goods=[...new Map(r.stops.flatMap(s=>s.goods).map(g=>[g.product_guid,g])).values()];
+  const search=[r.name,...r.stops.map(s=>s.name),...goods.map(g=>savedName(g.product_guid,g.name))].join(' ');
+  return `<details class="card saved-observed-route" data-observed-route="${esc(r.id)}" data-route-search="${esc(search)}"
+   ${tradeState().observedOpen.has(String(r.id))?'open':''} ontoggle="updateObservedRouteDisclosure(this)"><summary><span class="saved-route-mark">${svg('supply')}</span><span><b>${esc(r.name)}</b><small>${r.ship_ids.length} ${r.ship_ids.length===1?'assigned ship':'assigned ships'} · ${r.stops.length} stops</small>
+   <span class="saved-route-path">${r.stops.map(s=>`<span>${esc(s.name)}</span>`).join(svg('arrow'))}</span>
+   ${goods.length?`<span class="saved-route-cargo" aria-label="Cargo">${goods.slice(0,6).map(g=>`<span title="${esc(savedName(g.product_guid,g.name))}">${icon(g.product_guid)}</span>`).join('')}${goods.length>6?'<small>+'+(goods.length-6)+'</small>':''}</span>`:''}</span>${svg('chevron')}</summary><ol class="saved-route-stops">${r.stops.map(s=>`<li><h3>${esc(s.name)}</h3>${s.goods.length?s.goods.map(g=>`<div class="saved-route-good">${icon(g.product_guid)}<span><b>${esc(savedName(g.product_guid,g.name))}</b><small>${g.action==='unload'?'Unload':g.action==='load'?'Load':'Loading flag omitted · direction unconfirmed'}</small></span><strong>${g.amount===null?'—':fmt(g.amount)}<small>per visit</small></strong></div>`).join(''):'<p class="small-note">No goods command at this stop.</p>'}</li>`).join('')}</ol><p class="small-note">Loading defaults omitted by the save are not assumed. Ship references: ${r.ship_ids.map(esc).join(', ')}.</p></details>`;}).join('')||savedEmpty()}</div>`;
 }
 function savedStockRows(){
  const q=savedQuery(),s=saveInsightsState,rows=savedSelectedAreas().flatMap(area=>area.inventory.map(item=>({area,item}))).filter(({area,item})=>!q||(savedName(item.product_guid,item.name)+' '+area.name).toLocaleLowerCase(appLanguage).includes(q));
@@ -225,8 +231,20 @@ tradePage=function(){
  const tabs=`<div class="saved-tabs"><button class="${showObserved?'active':''}" onclick="saveInsightsState.routeTab='observed';tradeState().view='list';render(true)">In-game routes (${doc.routes.length})</button><button class="${!showObserved?'active':''}" onclick="saveInsightsState.routeTab='plans';render(true)">Companion plans (${state.doc.routes.length})</button></div>`;
  if(!showObserved)return tabs+html.replace('The game does not report existing routes, ships or cargo.','In-game route definitions from the selected save are shown separately on the In-game routes tab.');
  const oldIsland=saveInsightsState.island,oldQuery=saveInsightsState.query;saveInsightsState.island='all';saveInsightsState.query='';const routes=savedRouteCards();saveInsightsState.island=oldIsland;saveInsightsState.query=oldQuery;
- return tabs+`<div class="section-title"><h2>In-game routes</h2><span class="badge">Saved ${esc(savedDate(doc.saved_at))}</span></div>`+routes;
+ return tabs+`<div class="section-title"><h2>In-game routes</h2><span class="badge">Saved ${esc(savedDate(doc.saved_at))}</span></div><label class="search pv-route-search">${svg('search')}<input type="search" aria-label="Search routes" placeholder="Search route, island or good…" oninput="filterObservedRoutes(this.value)"></label><p id="observedRouteEmpty" class="small-note" hidden>No matching routes.</p>`+routes;
 };
+function updateObservedRouteDisclosure(card) {
+ if(!card.isConnected)return;
+ const opened = tradeState().observedOpen;
+ if(card.open)opened.add(card.dataset.observedRoute);
+ else opened.delete(card.dataset.observedRoute);
+}
+function filterObservedRoutes(query) {
+ const term=query.trim().toLocaleLowerCase(appLanguage);
+ const cards=[...document.querySelectorAll('#main [data-route-search]')];
+ for(const card of cards)card.hidden=!card.dataset.routeSearch.toLocaleLowerCase(appLanguage).includes(term);
+ $('observedRouteEmpty').hidden=cards.some(card=>!card.hidden);
+}
 companionPages.routes.content=tradePage;
 
 const savedReceiveBase=window.receiveSnapshot;

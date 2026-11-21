@@ -20,8 +20,14 @@ function schedule(phases,horizon,startIndex=0,firstRemaining=null){
  for(let steps=0;t<horizon&&steps<10000;steps++){const end=Math.min(horizon,t+duration);if(end>t)segments.push({start:t,end,rate:phases[i].rate,guid:phases[i].guid});t=end;i=(i+1)%phases.length;duration=phases[i].minutes;}
  if(t<horizon)throw Error('Too many phase changes');return segments;
 }
-function patronEntries(rules,patron,belief,factory){const result=[];for(const local of rules.patrons[patron]?.local||[]){const effect=rules.effects[local.effect],step=local.milestones.filter(m=>m.belief<=belief).at(-1);if(step&&effect?.targets.includes(factory))for(const guid of effect.buffs)result.push({guid,scale:step.scale});}return result;}
+function patronTrack(milestones,belief,advance=false){
+ if(!Number.isFinite(belief))return {next:milestones[0],nextValue:milestones[0]};
+ const level=milestones.filter(m=>m.belief<=belief).length-1,boost=Number(advance);
+ const last=milestones.length-1,index=Math.min(last,level+boost);
+ return {active:milestones[index],next:index<last?milestones[level+1]:undefined,nextValue:milestones[index+1]};
+}
+function patronEntries(rules,patron,belief,factory,advance=false,exclude=new Set()){const result=[];for(const local of rules.patrons[patron]?.local||[]){if(exclude.has(local.effect))continue;const effect=rules.effects[local.effect],step=patronTrack(local.milestones,belief,advance).active;if(step&&effect?.targets.includes(factory))for(const guid of effect.buffs)result.push({guid,scale:step.scale});}return result;}
 function phaseEntries(rules,phase,factory){const result=[];for(const item of phase.effects||[]){const effect=rules.effects[item.guid];if(effect?.targets.includes(factory))for(const guid of effect.buffs)result.push({guid,scale:1});}return result;}
-function nextBelief(rules,patron,belief,factoryIds){const values=[];for(const local of rules.patrons[patron]?.local||[]){if(!rules.effects[local.effect]?.targets.some(f=>factoryIds.includes(f)))continue;const next=local.milestones.find(m=>m.belief>belief);if(next)values.push(next.belief);}return values.length?Math.min(...values):null;}
-const api={designCycle,demands,schedule,patronEntries,phaseEntries,nextBelief};root.IslandModel=api;if(typeof module!=='undefined')module.exports=api;
+function nextBelief(rules,patron,belief,factoryIds,advance=false){const values=[];for(const local of rules.patrons[patron]?.local||[]){if(!rules.effects[local.effect]?.targets.some(f=>factoryIds.includes(f)))continue;const next=patronTrack(local.milestones,belief,advance).next;if(next)values.push(next.belief);}return values.length?Math.min(...values):null;}
+const api={designCycle,demands,schedule,patronEntries,phaseEntries,nextBelief,patronTrack};root.IslandModel=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);

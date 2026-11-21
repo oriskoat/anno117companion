@@ -6,11 +6,13 @@
 
 ### 1. Companion herunterladen und öffnen
 
-1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno117Companion-0.28.0-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
+1. **[Windows-ZIP direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.30.0/Anno117Companion-0.30.0-Windows-x64.zip)** oder das Windows-ZIP auf der [neuesten Release-Seite](https://github.com/oriskoat/anno117companion/releases/latest) wählen. **Code → Download ZIP** auf GitHub lädt den Quellcode herunter, nicht die startfertige App.
 2. Das heruntergeladene ZIP mit der rechten Maustaste anklicken und **Alle extrahieren** wählen. Einen beschreibbaren Ordner verwenden, zum Beispiel `Dokumente\Anno117Companion`. Die EXE aus dem entpackten Ordner starten, nicht direkt aus dem ZIP.
 3. **Anno117Companion.exe** öffnen. Python, Android Studio oder Entwicklungswerkzeuge sind nicht erforderlich.
 4. **Demo** wählen, um das erfundene „Example Empire“ ohne laufendes Spiel kennenzulernen. Die obere Leiste enthält Serversteuerung, Demo/Live und die Kopplungsdaten für weitere Geräte. Bei Bedarf die eingeklappte Leiste öffnen.
 5. Für den eigenen Spielstand `/pipe` wie unten beschrieben aktivieren und **Live** wählen. Auf dem Spiele-PC nur eine Companion-Instanz laufen lassen.
+
+Mit **Strg+F** oder der Lupe findest du Waren, Inseln, Produktionsketten, Routen, Spezialisten, Gottheiten und Seiten des Companion.
 
 Zielplattform: Windows 10 22H2 / Windows 11 **x64**. Das integrierte Fenster benötigt .NET Framework 4.8+ und WebView2 109+. Fehlen diese Komponenten, bietet die mitgelieferte Browsersteuerung **Open browser** an. Damit lässt sich die Oberfläche im installierten Browser verwenden. Voraussetzungen werden nicht ungefragt installiert. Die EXE ist nicht digital signiert; Windows kann eine Sicherheits-/Reputationswarnung anzeigen. Eine Zertifizierung auf einer sauberen Windows-VM liegt nicht vor. [Kompatibilitätsdetails, Englisch](WINDOWS_COMPATIBILITY.md).
 
@@ -55,7 +57,7 @@ Das vollständige Werkzeug funktioniert im EXE-Fenster oder über **Open browser
 
 ### Android-App
 
-1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.28.0/Anno-Companion-0.28.0.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
+1. **[Android-APK direkt herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.30.0/Anno-Companion-0.30.0.apk)** und die heruntergeladene Datei auf dem Telefon öffnen.
 2. Falls Android eine Installationsberechtigung für Browser/Dateimanager verlangt, diese Installationsquelle prüfen und für die Installation erlauben. Die APK wird direkt installiert, nicht über den Play Store.
 3. **Anno Companion** öffnen. Demo funktioniert ohne Kopplung und ohne Spiel.
 4. **Live** wählen. Ohne Kopplung öffnet sich die Verbindungsansicht. Die PC-Adresse und den aktuellen sechsstelligen Code aus der Windows-App eingeben und verbinden.

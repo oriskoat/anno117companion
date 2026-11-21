@@ -11,6 +11,15 @@
 .pv-island-tier { display:flex; gap:10px; align-items:center; }
 .pv-island-tier img { width:44px; height:44px; object-fit:contain; }
 .pv-island-tier small,.pv-action small { display:block; color:#425d73; margin-top:3px; }
+.pv-production-island { margin-top:14px; padding:14px 18px; background:#fffdf8; border:1px solid #dbe3e7; border-radius:17px; }
+.pv-production-island > div > span { color:#78521c; font-size:.75rem; font-weight:700; }
+.pv-production-island h3 { margin:4px 0 8px; font-size:1.2rem; }
+.pv-production-island ul { list-style:none; padding:0; margin:0; }
+.pv-production-leg { border-top:1px solid #dbe3e7; padding-top:8px; margin-top:8px; }
+.pv-production-island li { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:10px; padding-block:4px; }
+.pv-production-island li img { width:36px; height:36px; object-fit:contain; }
+.pv-production-island li small { display:block; color:#425d73; }
+.pv-production-rate { text-align:right; white-space:nowrap; }
 .pv-routes { margin-top:17px; }
 .pv-routes h3,.pv-action-group h3 { margin:0 0 9px; font-size:1rem; }
 .pv-route,.pv-action { background:#fffdf8; border:1px solid #dbe3e7; border-radius:12px; padding:0 12px; margin-bottom:8px; }
@@ -47,3 +56,86 @@
  .pv-island-art { min-height:96px; }
  .pv-route summary b { flex:1 0 80%; }
 }
+
+body:is([data-companion-page="chains"],[data-companion-page="supply"]) .hero {
+ padding-block:14px; margin-bottom:0;
+}
+body:is([data-companion-page="chains"],[data-companion-page="supply"]) .hero .brand-row { margin-bottom:5px; }
+body:is([data-companion-page="chains"],[data-companion-page="supply"]) .hero h1 { font-size:clamp(1.65rem,3vw,2.35rem); }
+body:is([data-companion-page="chains"],[data-companion-page="supply"]) .hero p { margin-top:4px; }
+body:is([data-companion-page="chains"],[data-companion-page="supply"]) .hero blockquote { margin-block:4px; padding-block:4px; }
+body[data-companion-page="supply"] main { row-gap:8px; }
+body[data-companion-page="supply"] main > .notice { margin-block:4px 8px; }
+.pv-blockers { border:1px solid #dabb89; background:#fff4de; color:#564525; border-radius:14px; padding:12px 16px; margin:0 0 16px; }
+.pv-blockers p,.pv-stage > p { line-height:1.55; margin:6px 0; }
+.pv-stage > summary { text-align:left; }
+.pv-stage > summary span { font-weight:400; color:#426078; }
+.pv-stage .pv-route { margin-top:6px; }
+.pv-route .pv-cargo-icons img { width:32px; height:32px; }
+[data-po-panel],[data-pv-manifest] { scroll-margin-top:155px; }
+.cc-rate-evidence { grid-column:1/-1; padding:10px 12px; border-radius:10px; background:#edf3f6; line-height:1.5; }
+.cc-rate-evidence ul { list-style:none; margin:5px 0; padding:0; }
+.cc-rate-evidence li { display:flex; justify-content:space-between; gap:8px; }
+.cc-rate-evidence small { display:block; color:#425d73; }
+
+body:is([data-companion-page="chains"],[data-companion-page="supply"]) .hero .game-quote { margin:7px 0 0; padding-block:6px 0; }
+.pv-worklist-grid { align-items:start; }
+.cc-rate-evidence small + small { margin-top:3px; }
+
+.eo-island-disclosure { padding:8px 12px!important; background:#eef3f6; border:1px solid #dbe3e7; }
+.eo-island-disclosure summary { padding:6px 2px; }
+.eo-island-disclosure summary small { margin-inline-start:7px; font-weight:400; }
+.eo-island-disclosure .eo-island:last-child { border:0; }
+.eo-patron { display:flex; align-items:center; gap:6px; }
+.eo-patron .product-icon { width:23px; height:23px; }
+.pv-intro { margin:0 0 14px; color:#425d73; }
+.pv-tier-list { margin:8px 0; display:grid; gap:6px; }
+.pv-tier { margin:0; padding:0 8px; background:#edf3f6; }
+.pv-tier summary { display:flex; gap:8px; align-items:center; padding:7px 0; list-style:none; }
+.pv-tier summary > span { flex:1; }
+.pv-tier summary small { display:block; font-weight:400; margin-top:2px; }
+.pv-tier summary img { width:27px; height:31px; object-fit:contain; }
+.pv-tier summary svg { width:14px; }
+.pv-tier-legend,.pv-need-row { display:grid; grid-template-columns:1.2fr .9fr .9fr; align-items:center; gap:5px; padding:5px 0; }
+.pv-tier-legend { font-weight:700; color:#425d73; }
+.pv-need-row { border-top:1px solid #dbe3e7; overflow-wrap:anywhere; }
+.pv-need-row > span:first-child { display:flex; align-items:center; gap:4px; }
+.pv-need-row .product-icon { width:20px; height:20px; }
+.pv-need-state { font-weight:700; }
+.pv-candidate-reference { display:grid; gap:4px; margin:12px 0; padding:14px 16px; border:1px solid #cbdce7; border-left:4px solid #366e98; border-radius:12px; background:#f0f5f8; }
+.pv-candidate-reference > span,.pv-candidate-reference > small { color:#46637a; font-size:.8rem; }
+.pv-candidate-reference > strong { font-size:1.15rem; }
+.pv-candidate-reference > p { margin:3px 0 0; line-height:1.45; }
+.pv-candidate-reference > button { justify-self:start; }
+.settlement-candidates .pv-candidate > button { grid-template-columns:minmax(0,1fr) auto auto; }
+.settlement-candidates .pv-candidate > button strong { font-size:1rem; }
+.settlement-candidates .pv-candidate-tag { font-size:.8rem; color:#124c77; font-weight:700; }
+.pv-candidate-facts { display:flex; flex-wrap:wrap; gap:4px 8px; padding-inline:3px; font-size:.82rem; }
+.pv-candidate-facts span { padding:3px 7px; background:#fffdf8; border-radius:6px; }
+.pv-candidate-change { margin:5px 3px 2px; padding:0; list-style:none; font-size:.85rem; line-height:1.45; }
+.pv-candidate-change b,.pv-candidate details li b,.pv-candidate details p b { margin-inline-end:.35em; }
+.pv-candidate details { padding:7px 9px; margin-top:7px; }
+.pv-candidate details :is(p,ul) { margin-block:6px 0; }
+@media (max-width:520px) {
+ .settlement-candidates .pv-candidate > button > .pv-candidate-tag { grid-row:auto; }
+}
+.pv-blockers ul { display:flex; flex-wrap:wrap; gap:6px 14px; list-style:none; padding:0; margin:8px 0; }
+.pv-blockers li small { margin-left:3px; }
+.pv-optimizer-settings { margin:14px 0; }
+.chain-pill-row { display:flex; flex-wrap:wrap; gap:5px; margin:0 0 8px; }
+.chain-pill-row button { display:inline-flex; align-items:center; gap:5px; padding:7px 10px; min-height:34px; border:1px solid #d1dce2; border-radius:9px; background:#fffdf8; }
+.chain-pill-row button[aria-pressed=true] { background:#183b60; border-color:#183b60; color:#fff; }
+.chain-pill-row img { width:20px; height:22px; object-fit:contain; }
+.chain-advanced { margin:7px 0 11px; padding:8px 11px; }
+.chain-advanced[open] > summary { margin-bottom:10px; }
+body[data-companion-page="routes"] .hero { padding-block:14px; }
+body[data-companion-page="routes"] .hero h1 { font-size:clamp(1.65rem,3vw,2.35rem); }
+body[data-companion-page="routes"] .hero .brand-row { margin-bottom:5px; }
+body[data-companion-page="routes"] .hero .game-quote { margin-block:6px 0; padding-block:5px 0; }
+.saved-observed-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(385px,100%),1fr)); gap:9px; align-items:start; }
+.saved-observed-grid .saved-observed-route { margin:0; padding:10px 13px; }
+.saved-route-path,.saved-route-cargo { display:flex; flex-wrap:wrap; align-items:center; gap:4px; margin-top:5px; }
+.saved-route-path span { background:#edf3f6; border-radius:5px; padding:3px 5px; }
+.saved-route-path svg { width:12px; }
+.saved-route-cargo .product-icon { width:25px; height:25px; }
+@media(max-width:600px) { .chain-pill-row { flex-wrap:nowrap; overflow-x:auto; padding:3px 1px; } .chain-pill-row button { flex:none; } }

@@ -5,6 +5,8 @@ const shipping=typeof module!=='undefined'?require('./shipping-model.js'):root.S
 const sum=(rows,fn)=>rows.reduce((s,r)=>s+fn(r),0);
 const demandKey=(area,good)=>area+'|'+good;
 function average(phases,field='rate'){const duration=sum(phases,p=>p.minutes);return duration?sum(phases,p=>p[field]*p.minutes)/duration:0;}
+function sideRate(phase,good){return sum(phase.side||[],item=>item.guid===good?item.rate:0);}
+function sideGoods(phases){return [...new Set(phases.flatMap(phase=>(phase.side||[]).filter(item=>item.rate>EPS).map(item=>item.guid)))];}
 function normalizedSettings(input={}){
  const number=(key,fallback,min,max)=>Number.isFinite(Number(input[key]))?Math.max(min,Math.min(max,Number(input[key]))):fallback;
  return {loading:number('loading',2,0,60),timingOverrides:input.timingOverrides||{},objective:['preserve','consolidate','buildings','workforce','upkeep','storage'].includes(input.objective)?input.objective:'preserve',horizon:number('horizon',300,30,720),interval:number('interval',15,1,120),travel:number('travel',5,.1,120),buffer:number('buffer',5,0,120),slots:Math.floor(number('slots',4,1,20)),slotCapacity:number('slotCapacity',50,1,1000)};
@@ -23,14 +25,45 @@ function allocate(input,extra,settings){
  const rows=[...demands.values()].map(d=>({...d,remaining:d.rate})).sort((a,b)=>a.good-b.good||a.area.localeCompare(b.area));
  const score=(p,d)=>{const local=p.area===d.area,link=(input.connections||[]).some(r=>r.good===d.good&&r.from===p.area&&r.to===d.area);if(['workforce','upkeep','buildings','storage'].includes(settings.objective)){const metric=settings.objective==='upkeep'?(p.nominal?.upkeep??10000):settings.objective==='workforce'?(p.nominal?.workforce??10000):settings.objective==='storage'?root.IslandModel.designCycle(p.phases,Math.min(d.remaining,p.capacity)).reserve:1;return -metric/Math.max(EPS,p.unitAverage)*1000+(local?5:0)+(link?2:0)-(p.outside?100:0);}return settings.objective==='consolidate'?p.unitAverage*1000+(local?5:0)+(link?2:0)-(p.outside?100:0):(local?100000:0)+(link?1000:0)-(p.outside?100:0)+p.unitAverage;};
  for(const d of rows){const eligible=providers.filter(p=>p.good===d.good&&p.capacity-p.allocated>EPS).sort((a,b)=>score(b,d)-score(a,d)||a.id.localeCompare(b.id));for(const p of eligible){assign(p,d,Math.min(d.remaining,p.capacity-p.allocated));if(d.remaining<=EPS)break;}}
- for(const d of rows){if(d.remaining<=EPS)continue;const candidates=(input.candidates||[]).filter(p=>p.good===d.good&&scope.has(p.area)&&average(p.phases)>EPS).sort((a,b)=>{
-   const cost=p=>{const allocated=providers.find(x=>x.id==='new:'+p.id)?.allocated||0,avg=average(p.phases);const count=Math.ceil((allocated+d.remaining)/avg-EPS)-Math.ceil(allocated/avg-EPS),weight=settings.objective==='workforce'?(p.nominal?.workforce??50):settings.objective==='upkeep'?(p.nominal?.upkeep??50):1,reserve=settings.objective==='storage'?root.IslandModel.designCycle(p.phases,d.remaining).reserve:0;return count*weight+reserve+(p.area===d.area?0:.35)+(p.conditions?.length||0)*.05;};
-   return cost(a)-cost(b)||average(b.phases)-average(a.phases)||a.id.localeCompare(b.id);
-  });
-  const candidate=candidates[0];if(!candidate){missing.push({area:d.area,good:d.good,rate:d.remaining,reason:'No eligible spare supply or verified production location in scope.'});continue;}
-  let p=providers.find(p=>p.id==='new:'+candidate.id);if(!p){p={...candidate,id:'new:'+candidate.id,unitAverage:average(candidate.phases),ownedCount:0,capacity:Infinity,allocated:0,assignments:[],outside:false,newBuild:true};providers.push(p);}assign(p,d,d.remaining);
+ const possible=new Map(),sideDemand=new Map();
+ for(const d of rows)sideDemand.set(d.good,(sideDemand.get(d.good)||0)+Math.max(0,d.remaining));
+ for(const p of input.candidates||[]){
+  if(!scope.has(p.area)||average(p.phases)<=EPS)continue;
+  const list=possible.get(p.good)||[];
+  const operating=p.phases.filter(phase=>phase.rate>EPS);
+  const coproductRatios=new Map(sideGoods(p.phases).map(good=>[good,Math.min(...operating.map(phase=>sideRate(phase,good)/phase.rate))]));
+  list.push({...p,coproductRatios});possible.set(p.good,list);
  }
- const policies=[];for(const p of providers){if(p.outside||p.allocated<=EPS)continue;const area=areaMap.get(p.area),good=area.goods?.[p.good]||{},limit=good.normalCapacity??good.capacity??null;
+ const coBenefit=(p,d)=>sum([...p.coproductRatios],([good,ratio])=>Math.min(sideDemand.get(good)||0,d.remaining*ratio));
+ const priority=new Map(rows.map(d=>[d,Math.max(0,...(possible.get(d.good)||[]).map(p=>coBenefit(p,d)))]));
+ const buildOrder=[...rows].sort((a,b)=>priority.get(b)-priority.get(a));
+ const newProviders=new Map(),generated=new Map();
+ for(const d of buildOrder){if(d.remaining<=EPS)continue;const candidates=[...(possible.get(d.good)||[])].sort((a,b)=>{
+   const cost=p=>{const allocated=providers.find(x=>x.id==='new:'+p.id)?.allocated||0,avg=average(p.phases);const count=Math.ceil((allocated+d.remaining)/avg-EPS)-Math.ceil(allocated/avg-EPS),weight=settings.objective==='workforce'?(p.nominal?.workforce??50):settings.objective==='upkeep'?(p.nominal?.upkeep??50):1,reserve=settings.objective==='storage'?root.IslandModel.designCycle(p.phases,d.remaining).reserve:0;return count*weight+reserve+(p.area===d.area?0:.35)+(p.conditions?.length||0)*.05;};
+   return cost(a)-cost(b)||coBenefit(b,d)-coBenefit(a,d)||average(b.phases)-average(a.phases)||a.id.localeCompare(b.id);
+  });
+  const candidate=candidates[0];if(!candidate)continue;
+  let p=newProviders.get(candidate.id);
+  if(!p){p={...candidate,id:'new:'+candidate.id,unitAverage:average(candidate.phases),ownedCount:0,capacity:Infinity,allocated:0,assignments:[],outside:false,newBuild:true};providers.push(p);newProviders.set(candidate.id,p);}
+  const amount=d.remaining;assign(p,d,amount);sideDemand.set(d.good,Math.max(0,(sideDemand.get(d.good)||0)-amount));
+  if(!candidate.coproductRatios.size)continue;
+  const design=root.IslandModel.designCycle(p.phases,p.allocated);
+  for(const [good,ratio] of candidate.coproductRatios){
+   const id=p.id+':side:'+good;
+   const phases=design.phases.map(phase=>({...phase,rate:sideRate(phase,good)*design.count*phase.utilization,inputs:[]}));
+   let side=generated.get(id);
+   if(!side){side={id,area:p.area,good,parent:p.id,coproduct:true,ownedCount:1,countKnown:false,allocated:0,assignments:[],startIndex:p.startIndex,firstRemaining:p.firstRemaining};generated.set(id,side);providers.push(side);}
+   Object.assign(side,{phases,capacity:p.allocated*ratio,unitAverage:average(phases)});
+   const targets=rows.filter(target=>target.good===good&&target.remaining>EPS)
+    .sort((a,b)=>Number(b.area===p.area)-Number(a.area===p.area)||score(side,b)-score(side,a));
+   for(const target of targets){
+    const used=Math.min(target.remaining,Math.max(0,side.capacity-side.allocated));
+    assign(side,target,used);sideDemand.set(good,Math.max(0,(sideDemand.get(good)||0)-used));
+   }
+  }
+ }
+ for(const d of rows)if(d.remaining>EPS)missing.push({area:d.area,good:d.good,rate:d.remaining,reason:'No eligible spare supply or verified production location in scope.'});
+ const policies=[];for(const p of providers){if(p.outside||p.coproduct||p.keepOutput||p.allocated<=EPS)continue;const area=areaMap.get(p.area),good=area.goods?.[p.good]||{},limit=good.normalCapacity??good.capacity??null;
   const design=root.IslandModel.designCycle(p.phases,p.allocated,limit,settings.buffer);
   if(!p.newBuild&&design.count>p.ownedCount){missing.push({area:p.area,good:p.good,rate:Math.max(0,p.allocated-p.capacity),reason:'The selected producer count cannot support its allocation.'});continue;}
   policies.push({...p,design,protected:protectedGoods.has(p.good)});
@@ -57,7 +90,9 @@ function routeManifests(flows,settings){
 function policyTimeline(p,horizon){if(!p.design?.possible)return [];return root.IslandModel.schedule(p.design.phases.map(x=>({...x,rate:x.output})),horizon,p.startIndex||0,p.firstRemaining);}
 function forecast(input,plan,settings){
  const areaMap=new Map(input.areas.map(a=>[a.key,a])),goods=new Set(plan.demands.filter(d=>d.rate>EPS).map(d=>d.good)),result=[],capacityIssues=[];
- for(const good of goods){const relevant=new Set([...plan.demands.filter(d=>d.good===good).map(d=>d.area),...plan.flows.filter(f=>f.good===good).flatMap(f=>[f.from,f.to])]),protectedGood=(input.protectedGoods||[]).includes(good),providers=plan.policies.filter(p=>p.good===good&&!p.protected),full=plan.providers.filter(p=>p.good===good&&!p.newBuild&&(p.outside||protectedGood));
+ for(const p of plan.providers)if(p.coproduct)goods.add(p.good);
+ for(const good of goods){const relevant=new Set([...plan.demands.filter(d=>d.good===good).map(d=>d.area),...plan.flows.filter(f=>f.good===good).flatMap(f=>[f.from,f.to])]),protectedGood=(input.protectedGoods||[]).includes(good),providers=plan.policies.filter(p=>p.good===good&&!p.protected),full=plan.providers.filter(p=>p.good===good&&!p.newBuild&&(p.outside||protectedGood||p.coproduct||p.keepOutput));
+  for(const p of full)if(p.coproduct)relevant.add(p.area);
   const timelines=new Map([...providers.map(p=>[p.id,policyTimeline(p,settings.horizon)]),...full.map(p=>[p.id,root.IslandModel.schedule(p.phases.map(x=>({...x,rate:x.rate*p.ownedCount})),settings.horizon,p.startIndex||0,p.firstRemaining)])]);
   const nodes=[...relevant].map(key=>{const a=areaMap.get(key),info=a.goods?.[good]||{},demand=plan.demands.find(d=>d.area===key&&d.good===good),own=[...providers,...full].filter(p=>p.area===key),base=a.entries.find(e=>e.guid===good);
    return {key,name:a.name,stock:info.stock??null,capacity:info.capacity??null,consumption:demand?.rate??base?.consumption??0,production:t=>sum(own,p=>timelines.get(p.id).find(s=>t>=s.start&&t<s.end)?.rate??0),breakpoints:own.flatMap(p=>timelines.get(p.id).map(s=>s.end))};
@@ -78,12 +113,12 @@ function optimize(input,options={}){
  for(;iterations<(accounting?64:16);iterations++){plan=allocate(input,extra,settings);if(inputDistance(extra,plan.inputDemands)<1e-6){converged=true;break;}extra=plan.inputDemands;}
  const manifests=routeManifests(plan.flows,settings),projection=forecast(input,plan,settings),coupled=root.ChainModel?.project(input,plan,settings)||null,actions=[];
  for(const p of plan.providers){if(p.outside)continue;const policy=plan.policies.find(x=>x.id===p.id);if(p.newBuild&&policy){const restore=Math.min(p.idleCount||0,policy.design.count);if(restore)actions.push({kind:'restore',area:p.area,good:p.good,factory:p.factory,count:restore,profile:p.id,conditions:['Resolve the idle producers\' input, workforce or access constraints before relying on this capacity.']});if(policy.design.count>restore)actions.push({kind:'build',area:p.area,good:p.good,factory:p.factory,count:policy.design.count-restore,profile:p.id,conditions:p.conditions||[]});}
-  if(!p.newBuild&&p.countKnown!==false&&!p.inactive&&p.phases.some(x=>x.rate>.001)){const retained=policy?.design.count||0;if(retained<p.ownedCount)actions.push({kind:'retirement_candidate',area:p.area,good:p.good,factory:p.factory,count:p.ownedCount-retained,protected:(input.protectedGoods||[]).includes(p.good),reason:(input.protectedGoods||[]).includes(p.good)?'External commitments are unresolved. Retain these producers.':'Nominal spare capacity only. Verify exports, coverage and input effects before retiring.'});}
+  if(!p.newBuild&&!p.keepOutput&&p.countKnown!==false&&!p.inactive&&p.phases.some(x=>x.rate>.001)){const retained=policy?.design.count||0;if(retained<p.ownedCount)actions.push({kind:'retirement_candidate',area:p.area,good:p.good,factory:p.factory,count:p.ownedCount-retained,protected:(input.protectedGoods||[]).includes(p.good),reason:(input.protectedGoods||[]).includes(p.good)?'External commitments are unresolved. Retain these producers.':'Nominal spare capacity only. Verify exports, coverage and input effects before retiring.'});}
   if(policy&&!policy.protected&&policy.design.unregulatedSurplus>.01)actions.push({kind:'regulate',area:p.area,good:p.good,factory:p.factory,profile:p.id,surplusPerCycle:policy.design.unregulatedSurplus,phases:policy.design.phases.map(x=>({name:x.name,guid:x.guid,minutes:x.minutes,output:x.output,utilization:x.utilization}))});
  }
  const operatingChanges=[];
  for(const p of plan.providers){
-  if(p.newBuild||p.outside||p.inactive||p.countKnown===false||!p.phases.some(x=>x.rate>.001)||(input.protectedGoods||[]).includes(p.good))continue;
+  if(p.newBuild||p.outside||p.keepOutput||p.inactive||p.countKnown===false||!p.phases.some(x=>x.rate>.001)||(input.protectedGoods||[]).includes(p.good))continue;
   const policy=plan.policies.find(x=>x.id===p.id),keep=policy?.design.count||0;
   const phases=p.phases.map((phase,i)=>({...phase,current:phase.rate*p.ownedCount,rate:policy?.design.phases[i]?.output||0,utilization:policy?.design.phases[i]?.utilization||0}));
   if(keep>=p.ownedCount&&phases.every(phase=>Math.abs(phase.current-phase.rate)<.001))continue;

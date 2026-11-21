@@ -1,5 +1,5 @@
 """Compile patch-specific advisor rules; input is the installed game's exported assets."""
-import argparse,hashlib,json,xml.etree.ElementTree as ET
+import argparse,hashlib,json,re,xml.etree.ElementTree as ET
 from pathlib import Path
 from functools import lru_cache
 p=argparse.ArgumentParser();p.add_argument('--assets',required=True);p.add_argument('--dashboard',required=True);args=p.parse_args()
@@ -63,6 +63,10 @@ for guid,a in assets.items():
   patrons[guid]={'name':value(guid,'Values/Standard/Name',str(guid)).replace('Patron','').strip(),'local':[]}
   for local in n.findall('LocalEffects/Item'):
    patrons[guid]['local'].append({'effect':int(local.findtext('GUID')),'milestones':[{'belief':int(v.findtext('Devotion')),'scale':float(v.findtext('BuffScaling'))} for v in local.findall('Milestones/Item')]})
+  patrons[guid]['dominant']=[{'effect':int(e.findtext('GUID')),'title':e.findtext('Title'),'description':e.findtext('Description')} for e in n.findall('DominantEffects/Item')]
+  patrons[guid]['advances_local']=n.findtext('LocalMilestoneDominantEffect')=='1'
+  if (wonder:=n.findtext('Wonder')) and wonder.isdecimal():
+   patrons[guid]['wonder']={'asset':int(wonder),'title':n.findtext('WonderTitle') or value(int(wonder),'Values/Text/OasisId'),'description':n.findtext('WonderDescription')}
  wh=element(guid,'Values/Warehouse')
  if wh is not None:
   productlist=element(guid,'Values/Warehouse/ProductStorageList')
@@ -104,6 +108,21 @@ for guid,w in warehouses.items():
  if productlist and productlist.isdecimal() and int(productlist) in assets:
   w['products']=[int(n.text) for n in assets[int(productlist)].iter() if n.tag=='Product' and n.text and n.text.isdecimal()]
 rules={'schema':1,'game':'3.0','assets_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'factories':definitions,'buffs':buffs,'effects':effects,'patrons':patrons,'warehouses':warehouses,'seasons':{'dry':150490,'flood':150491,'dry_minutes':180,'flood_minutes':120,'targets':list(pool(155619)),'dry_extra_per_cycle':1,'flood_relative':-75,'gate':157020},'overflow_products':overflow}
+balancing='Values/ReligionBalancing/'
+rules['religion']={'dominant_threshold':int(value(30743,balancing+'DominantPatronThreshold')),
+                   'wonder_threshold':int(value(30743,balancing+'WonderThreshold')),
+                   'wonder_retention':int(value(30743,balancing+'WonderHysteresis')),
+                   'text':{}}
+line_ids={entry[key] for patron in patrons.values()
+          for entry in patron['dominant']+[patron.get('wonder',{})]
+          for key in ('title','description') if entry.get(key)}
+languages=('english','german','french','italian','spanish','japanese','korean','polish','brazilian','russian','simplified_chinese','traditional_chinese')
+for locale,language in zip(knowledge['languages'],languages):
+ export=source.parent/f'texts_{language}.xml'
+ if not export.is_file():continue
+ rules['religion']['text'][locale]={
+  line:' '.join(re.sub(r'<[^>]*>','',node.findtext('Text','')).split())
+  for node in ET.parse(export).iter('Text') if (line:=node.findtext('LineId')) in line_ids}
 modules={}
 for guid in {d['module'] for d in definitions.values() if d['module']}:
  bs=[]

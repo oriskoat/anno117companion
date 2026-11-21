@@ -74,13 +74,26 @@ function settlementResults(context) {
  const next = second.find(row=>settlementPairKey(row)===draft.second) || second[0];
  const plans = next && chosen ? (next.home?[{...next.home,houses},{...next,houses:nextHouses}]:[{...next,houses:nextHouses}]) : [];
  const support = next ? SettlementModel.support(islands,[...network,next.island],plans,difficulty,find) : [];
- return {tiers,tier,nextTiers,nextFilter,houses,nextHouses,difficulty,first,chosen,second,next,support};
+ const finalPlans = support[0]?.plans || plans;
+ const stageRows = [];
+ if (chosen) {
+  const targets=[{island:chosen.island,tier:chosen.tier,houses}];
+  if(next)targets.push({island:next.island,tier:next.tier,houses:nextHouses});
+  const earlyFind=draft.specialists?SettlementModel.makeFinders(false):find;
+  const expansionSites=next?[...network,next.island]:network;
+  stageRows.push({label:'Start on the first island',plans:SettlementModel.stage(network,
+   [{...targets[0],tier:SettlementModel.path(chosen.tier)[0]}],difficulty,earlyFind)});
+  if(next)stageRows.push({label:'Bring the second island online',plans:SettlementModel.stage(expansionSites,
+   targets.map(t=>({...t,tier:SettlementModel.path(t.tier).at(-2)||t.tier})),difficulty,earlyFind)});
+  stageRows.push({label:'Supply the endgame tiers',plans:finalPlans.length?finalPlans:[chosen]});
+ }
+ for(const row of stageRows)row.routes=settlementGroupFlows(row.plans.flatMap(p=>p.flows));
+ return {tiers,tier,nextTiers,nextFilter,houses,nextHouses,difficulty,first,chosen,second,next,support,finalPlans,stageRows};
 
 }
 
 function settlementPairKey(row) { return row.island.area_key+'@'+row.tier.guid; }
-function settlementShipments(result, step) {
- const flows = [...result.flows,...(step==='next'?result.home?.flows||[]:[])];
+function settlementGroupFlows(flows) {
  const pairs = new Map();
  for (const flow of flows) {
   const key = [flow.island.area_key,flow.destination.area_key].sort().join('/');
@@ -93,11 +106,15 @@ function settlementRoute(step,index) {
  const context = settlementContext();
  if (!context) return;
  const result = settlementResults(context);
- const target = step === 'first' ? result.chosen : result.next;
- const flow = step==='support' ? settlementShipments({flows:result.support[0]?.flows||[]},step)[index] :
-   target && settlementShipments(target,step)[index];
- if (!flow) return;
- const state = tradeState();
+ const flow=result.stageRows[Number(step)]?.routes[index];
+ if(!flow)return;
+ const state=tradeState();
+ if(state.draft) {
+  state.view='editor';
+  state.error='Finish or save this draft, then return to Settlement Planner to open the proposed route.';
+  nav('routes');
+  return;
+ }
  const from = {id:tradeId(),areaKey:flow.from.area_key,name:flow.from.name};
  const to = {id:tradeId(),areaKey:flow.to.area_key,name:flow.to.name};
  const minutes = Math.min(1440,Math.max(0,context.draft.minutes || 0));
@@ -122,24 +139,123 @@ function settlementNumber(label, field, value, min, max) {
  return '<label><span>'+esc(label)+'</span><input class="form-input" type="number" min="'+min+'" max="'+max+
   '" value="'+value+'" onchange="settlementSet(\''+field+'\',this.value)"></label>';
 }
-function settlementTop(rows, selected, pair=false) {
- const chosen = rows.find(row => (pair?settlementPairKey(row):row.island.area_key) === selected);
- return chosen && rows.indexOf(chosen) > 3 ? [...rows.slice(0,3),chosen] : rows.slice(0,4);
+const settlementResourceNames={149820:'Hippo Population',150506:'Gold Ore Deposit'};
+function settlementResourceName(id) {
+ return gameName(id,settlementResourceNames[id]||'Unnamed resource');
 }
-function settlementRest(rows, selected, pair=false) {
- const top = new Set(settlementTop(rows,selected,pair));
- return rows.filter(row=>!top.has(row));
+function settlementGapGoods(row) {
+ return [...new Set(row.unresolved.flatMap(group=>[...group.goods.keys()]))];
 }
-function settlementCandidates(rows, field, selected, showBest=true) {
- return rows.length ? '<div class="settlement-candidates">'+rows.map((r,i)=>{
-  const island = r.island;
-  const id = field==='second'?settlementPairKey(r):island.area_key;
-  const active = selected === id;
-  return `<article><button type="button" aria-pressed="${active}" onclick="settlementSet('${field}','${esc(id)}')">
-   <span><strong>${esc(island.name)}${field==='second'?' · '+esc(gameName(r.tier.guid,r.tier.tier)):''}</strong><small>${active?'Selected · ':i===0&&showBest?'Best match · ':''}${island.owned?'Already settled':field==='second'&&settlementContext()?.draft.first===island.area_key?'Continue here':'Settlement candidate'}</small></span>
-   <span><b>${r.localGoods}/${r.choices.length} local goods</b><small>${esc(island.region)} · ${r.open} unresolved · ${r.networkBuildings??r.buildings} buildings</small></span>${svg('chevron')}</button>
-   <details><summary>Fertilities and deposits recorded in the save</summary><p>${island.fertilities.length?island.fertilities.map(g=>esc(gameName(g))).join(' · '):'No entries recorded.'}</p></details></article>`;
- }).join('')+'</div>' : '<p>No eligible candidates recorded in this region.</p>';
+function settlementTierNeeds(row,tier) {
+ const area=advisorSaved()?.areas?.find(a=>a.area_key===row.island.area_key);
+ const houses=(area?.housing||[]).filter(h=>h.tier_guid===tier.guid).reduce((n,h)=>n+h.count,0);
+ const needs=N.needs.filter(n=>n.region===tier.region&&n.tier===tier.tier);
+ const choices=new Map(row.choices.map(choice=>[choice.good,choice]));
+ const gaps=new Set(settlementGapGoods(row));
+ const goods=needs.map(need=>{
+  const saved=savedNeedSummary(area,need.product_guid,tier.guid);
+  const choice=choices.get(need.product_guid);
+  let recorded='Unknown';
+  if(saved&&(saved.explicit_zero||saved.explicit_partial))recorded='Not fully met';
+  else if(saved&&houses>0&&saved.explicit_full>=houses&&!saved.omitted)recorded='Met';
+  let proposed=need.is_service?'Check service coverage':need.only_available_through_buff?'Conditional need':'Supply not assessed';
+  if(choice)proposed=!choice.missing.length?'Local chain':choice.missing.some(g=>gaps.has(g))?'Source needed':'Import planned';
+  return {need,recorded,proposed};
+ });
+ return {tier,houses,goods};
+}
+function settlementTierHTML(row) {
+ return `<div class="pv-tier-list">${row.tiers.map(tier=>{
+  const {houses,goods}=settlementTierNeeds(row,tier);
+  const met=goods.filter(g=>g.recorded==='Met').length;
+  const low=goods.filter(g=>g.recorded==='Not fully met').length;
+  const unknown=goods.length-met-low;
+  const summary=houses?`${met} met · ${low} not fully met${unknown?' · '+unknown+' unknown':''}`:
+   row.island.owned?'No residences recorded':'Proposed tier';
+  return `<details class="pv-tier" data-pv-key="tier-${esc(row.island.area_key)}-${tier.guid}"><summary>
+   ${needArt(tier.tier)}<span><b>${esc(gameName(tier.guid,tier.tier))}</b><small>${esc(summary)}</small></span>${svg('chevron')}</summary>
+   <div class="pv-tier-needs"><div class="pv-tier-legend"><span>Need</span><span>In the save</span><span>In the plan</span></div>
+    ${goods.map(({need,recorded,proposed})=>`<div class="pv-need-row"><span>${icon(need.product_guid)}${esc(gameName(need.product_guid,need.product_name))}</span>
+     <span class="pv-need-state ${recorded==='Met'?'positive':recorded==='Not fully met'?'negative':''}">${recorded}</span><span>${proposed}</span></div>`).join('')}</div>
+  </details>`;
+ }).join('')}</div>`;
+}
+function settlementCandidateChanges(row, reference) {
+ const plans = candidate => [candidate, ...(candidate.home ? [candidate.home] : [])];
+ const local = candidate => candidate.choices.filter(choice=>!choice.missing.length).map(choice=>choice.good);
+ const difference = (left,right) => left.filter(good=>!right.includes(good));
+ const goods = ids => ids.map(good=>esc(gameName(good))).join(', ');
+ const facts = [];
+ const details = [];
+ function measure(value, baseline, label, unit='') {
+  const delta = value-baseline;
+  if (Math.abs(delta)>=.005) facts.push(`${delta>0?'+':'−'}${fmt(Math.abs(delta))}${unit} ${label}`);
+ }
+ function names(label, ids) {
+  if(ids.length) details.push(`<li><b>${label}</b> ${goods(ids)}</li>`);
+ }
+ measure(row.localGoods,reference.localGoods,'local chains');
+ measure(row.networkBuildings??row.buildings,reference.networkBuildings??reference.buildings,'capacity buildings');
+ const shipping = candidate => plans(candidate).reduce((total,plan)=>total+plan.importRate,0);
+ measure(shipping(row),shipping(reference),'to ship',' t/min');
+ names('Now fully local',difference(local(row),local(reference)));
+ names('No longer fully local',difference(local(reference),local(row)));
+ plans(row).forEach((plan,index)=>{
+  const previous = plans(reference)[index];
+  if (!previous) return;
+  const suffix = index ? ' on the first island' : '';
+  const missing = settlementGapGoods(plan);
+  const oldMissing = settlementGapGoods(previous);
+  names('Source found'+suffix,difference(oldMissing,missing));
+  names('Still need a new source'+suffix,difference(missing,oldMissing));
+  const sources = candidate => new Map(candidate.flows.flatMap(flow=>[...flow.goods.keys()].map(good=>[good,flow.island])));
+  const before = sources(previous);
+  for (const [good,from] of sources(plan)) {
+   if (before.has(good) && before.get(good).area_key!==from.area_key) {
+    details.push(`<li><b>${esc(gameName(good))} imports${suffix}</b> ${esc(before.get(good).name)} → ${esc(from.name)}</li>`);
+   }
+  }
+ });
+ return {facts,details};
+}
+function settlementCandidates(rows, field, selected) {
+ if (!rows.length) return '<p>No eligible islands recorded for this target.</p>';
+ const second = field==='second';
+ const reference = selected || rows[0];
+ const sameTier = rows.filter(row=>row!==reference && row.tier.guid===reference.tier.guid);
+ const otherTiers = rows.filter(row=>row.tier.guid!==reference.tier.guid);
+ const goods = ids => ids.map(good=>esc(gameName(good))).join(', ');
+ function card(row) {
+  const {island,tier} = row;
+  const id = second?settlementPairKey(row):island.area_key;
+  const comparable = tier.guid===reference.tier.guid;
+  const {facts,details} = comparable ? settlementCandidateChanges(row,reference) :
+   {facts:[`${row.localGoods}/${row.choices.length} local chains`,`${row.open} without a source`],
+    details:row.open?[`<li><b>Needs a source</b> ${goods(settlementGapGoods(row))}</li>`]:[]};
+  return `<article class="pv-candidate">
+   <button type="button" onclick="settlementSet('${field}','${esc(id)}')" aria-label="Choose ${esc(island.name)}, ${esc(gameName(tier.guid,tier.tier))}">
+    <span><strong>${esc(island.name)}</strong><small>${island.owned?'Already settled':'Settlement candidate'}${comparable?'':' · '+esc(tier.region)+' · '+esc(gameName(tier.guid,tier.tier))}</small></span>
+    <span class="pv-candidate-tag">Choose island</span>${svg('chevron')}</button>
+   <div class="pv-candidate-facts">${facts.map(fact=>`<span>${esc(fact)}</span>`).join('')}${!facts.length&&!details.length?'<span>Same totals, goods and import sources</span>':''}</div>
+   ${details.length?`<ul class="pv-candidate-change">${details[0]}</ul>`:''}
+   ${details.length>1||island.fertilities.length?`<details data-pv-key="${field}-island-${esc(id)}"><summary>${details.length>1?'More differences and resources':'Resources'}</summary>
+    ${details.length>1?`<ul>${details.slice(1).join('')}</ul>`:''}
+    ${island.fertilities.length?`<p><b>Recorded resources</b> ${island.fertilities.map(settlementResourceName).map(esc).join(' · ')}</p>`:''}</details>`:''}</article>`;
+ }
+ const missing = settlementGapGoods(reference);
+ const homeMissing = reference.home ? settlementGapGoods(reference.home) : [];
+ const summary = `<div class="pv-candidate-reference">
+   <span>${selected?'Comparing with':'Suggested starting point'}</span>
+   <strong>${esc(reference.island.name)}</strong><small>${esc(reference.tier.region)} · ${esc(gameName(reference.tier.guid,reference.tier.tier))}</small>
+   <p>${reference.localGoods}/${reference.choices.length} local chains · ${reference.networkBuildings??reference.buildings} capacity buildings${second?' across both settlements':''}</p>
+   ${missing.length?`<p><b>Needs a source</b> ${goods(missing)}</p>`:''}
+   ${homeMissing.length?`<p><b>Still needed on the first island</b> ${goods(homeMissing)}</p>`:''}
+   ${selected?'':`<button type="button" class="link" onclick="settlementSet('${field}','${esc(second?settlementPairKey(reference):reference.island.area_key)}')">Choose island ${svg('arrow')}</button>`}
+  </div>`;
+ const list = options => `<div class="settlement-candidates">${options.map(card).join('')}</div>`;
+ return summary + (sameTier.length ? list(sameTier.slice(0,3)) : '<p>No other islands for this target.</p>') +
+  (sameTier.length>3?`<details data-pv-key="${field}-more"><summary>Show ${sameTier.length-3} more islands for this target</summary>${list(sameTier.slice(3))}</details>`:'') +
+  (otherTiers.length?`<details data-pv-key="${field}-other-tiers"><summary>Other target tiers · ${otherTiers.length} options</summary>${list(otherTiers)}</details>`:'');
 }
 function settlementDetails(result) {
  if (!result) return '';
@@ -181,16 +297,14 @@ function settlementPage() {
    <button class="link" onclick="nav('insights')">Choose a different save ${svg('arrow')}</button>
    ${draft.specialists?'<p>Check acquisition and coverage for any specialist shown in the plan.</p>':''}</details>
   <details class="settlement-panel pv-disclosure" id="settlement-first" ${!r.chosen?'open':''}><summary>Compare first islands <small>${r.first.length} candidates</small></summary>
-   ${settlementCandidates(settlementTop(r.first,draft.first),'first',draft.first)}
-   ${r.first.length>4?`<details><summary>Compare ${r.first.length-4} more islands</summary>${settlementCandidates(settlementRest(r.first,draft.first),'first',draft.first,false)}</details>`:''}
+   ${settlementCandidates(r.first,'first',r.chosen)}
   </details>
   ${r.chosen?`<details class="settlement-panel pv-disclosure" id="settlement-second"><summary>Compare next settlements <small>${r.second.length} island and tier options</small></summary>
    <div class="settlement-fields">${settlementSelect('Compare endgame branches','next',[[0,'Recommend automatically'],...r.nextTiers.map(t=>[t.guid,t.region+' · '+targetName(t)])],r.nextFilter||0)}
     ${settlementNumber('Target residences','nextHouses',r.nextHouses,1,100000)}</div>
-   ${settlementCandidates(settlementTop(r.second,r.next&&settlementPairKey(r.next),true),'second',r.next&&settlementPairKey(r.next))}
-   ${r.second.length>4?`<details><summary>Compare ${r.second.length-4} more options</summary>${settlementCandidates(settlementRest(r.second,r.next&&settlementPairKey(r.next),true),'second',r.next&&settlementPairKey(r.next),false)}</details>`:''}
+   ${settlementCandidates(r.second,'second',r.next)}
    </details>`:''}
-  ${r.chosen?`<details class="settlement-panel pv-disclosure"><summary>Production, services and open supply gaps</summary>${settlementDetails(r.chosen)}${settlementDetails(r.next)}</details>`:''}
+  ${r.chosen?`<details class="settlement-panel pv-disclosure"><summary>Production, services and open supply gaps</summary>${(r.finalPlans.length?r.finalPlans:[r.chosen]).map(settlementDetails).join('')}</details>`:''}
   <details class="settlement-panel"><summary>What the planner checks</summary><p>Sizes complete nominal chains for every regular good on the selected tier path. Shared goods use the highest demand across stages. Buildings round up after shared inputs are combined. Next-island recommendations compare island and tier together. Future sources require new production capacity. The two residence targets are scenarios; existing demand and deliveries still need to be checked before building a shared route.</p><p>Confirm settlement rights, harbour and buildable space, unlocks, water access, seasonal production and public services in game. A recorded resource does not establish usable capacity. The save may contain islands you have yet to scout. Only provinces present in the save are shown.</p></details>
  </div>`;
 }

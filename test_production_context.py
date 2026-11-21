@@ -1,12 +1,24 @@
 import json,struct,tempfile,unittest
 from pathlib import Path
 from save_reader.reader import Node
-from save_reader.production_context import inventory,effects,observe
+from save_reader.production_context import inventory,effects,observe,empire_religion
 from trade_routes import TradeRouteStore,validate_planner
 
 def tag(name,*children):return Node(name,children=list(children))
 def integer(name,value):return Node(name,value.to_bytes(8,'little'))
 class ProductionContextChecks(unittest.TestCase):
+ def test_dominant_and_wonder_bonuses_use_the_selected_participant(self):
+  cernunnos = tag('_', integer('CumulativeDevotion', 4000), integer('WonderActive', 1))
+  selected = tag('_', integer('ActiveDominantPatronGuid', 43594),
+                 tag('Patrons', integer('_', 50242), cernunnos))
+  rival = tag('_', integer('ActiveDominantPatronGuid', 50242))
+  manager = tag('MetaReligionManager', tag('ParticipantPatronInfos',
+                tag('Data', integer('_', 42), rival, integer('_', 41), selected)))
+  result = empire_religion(manager, 41)
+  self.assertEqual(result['dominant_patron_guid'], 43594)
+  self.assertEqual(result['patrons'][50242], {'belief': 4000, 'wonder_active': True})
+  self.assertIsNone(empire_religion(manager, 43))
+
  def test_sparse_stock_full_sentinel_and_guid_deltas(self):
   raw=struct.pack('<IIII',2068,2,120,0)
   stocks=inventory(tag('info',tag('AreaEconomy',Node('StrgLrg',raw))))

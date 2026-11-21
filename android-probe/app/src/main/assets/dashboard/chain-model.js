@@ -2,7 +2,7 @@
 (function(root){'use strict';
 const sum=(rows,fn)=>rows.reduce((s,r)=>s+fn(r),0),key=(a,g)=>a+'|'+g,EPS=1e-7;
 function baseline(input){const credits=new Map(),issues=[],scope=new Set(input.scopeKeys);
- for(const p of input.providers)if(scope.has(p.area)&&!(input.protectedGoods||[]).includes(p.good)&&p.inputTrusted&&p.countKnown!==false){const phase=(p.originalPhases||p.phases)[p.startIndex||0];for(const item of [...(phase.inputs||[]),...(p.originalSupport||p.support||[])]){const k=key(p.area,item.good),r=credits.get(k)||{area:p.area,good:item.good,rate:0,profiles:new Set()};r.rate+=item.rate*p.ownedCount;r.profiles.add(p.id);credits.set(k,r);}}
+ for(const p of input.providers)if(scope.has(p.area)&&!p.keepOutput&&!(input.protectedGoods||[]).includes(p.good)&&p.inputTrusted&&p.countKnown!==false){const phase=(p.originalPhases||p.phases)[p.startIndex||0];for(const item of [...(phase.inputs||[]),...(p.originalSupport||p.support||[])]){const k=key(p.area,item.good),r=credits.get(k)||{area:p.area,good:item.good,rate:0,profiles:new Set()};r.rate+=item.rate*p.ownedCount;r.profiles.add(p.id);credits.set(k,r);}}
  for(const [k,r] of credits){const observed=input.areas.find(a=>a.key===r.area)?.entries.find(e=>e.guid===r.good)?.consumption;if(!Number.isFinite(observed)||r.rate>observed+.02+observed*.05){credits.delete(k);issues.push({area:r.area,good:r.good,reason:'Recipe accounting differs from received consumption; its existing demand remains unchanged.'});}else r.rate=Math.min(r.rate,observed);}
  return {credits,issues};
 }
@@ -18,10 +18,10 @@ function project(input,plan,settings){const scope=new Set(input.scopeKeys),credi
  const ensure=(area,good)=>{const k=key(area,good);if(!nodes.has(k)){const a=input.areas.find(a=>a.key===area),info=a?.goods?.[good]||{},base=a?.entries.find(e=>e.guid===good)?.consumption||0,credit=credits.get(k)?.rate||0;nodes.set(k,{key:k,area,good,name:a?.name||area,stock:info.stock??null,capacity:info.capacity??null,normal:info.normalCapacity??info.capacity??null,minimum:info.stock??null,external:Math.max(0,base-credit),unmet:0,blocked:0,pressure:0,unknown:info.stock===null||info.stock===undefined});}return nodes.get(k);};
  for(const d of plan.demands)ensure(d.area,d.good);
  const protectedGoods=new Set(input.protectedGoods||[]);
- for(const p of plan.providers){const policy=plan.policies.find(x=>x.id===p.id),full=!p.newBuild&&(p.outside||protectedGoods.has(p.good));if(!policy&&!full)continue;
+ for(const p of plan.providers){if(p.coproduct)continue;const policy=plan.policies.find(x=>x.id===p.id),full=!p.newBuild&&(p.outside||p.keepOutput||protectedGoods.has(p.good));if(!policy&&!full)continue;
   const count=full?p.ownedCount:policy.design.count,phases=full?p.phases.map(x=>({...x,output:x.rate*count,utilization:1})):policy.design.phases;
   const schedule=root.IslandModel.schedule(phases.map((x,index)=>({...x,rate:index})),settings.horizon,p.startIndex||0,p.firstRemaining);
-  ensure(p.area,p.good);for(const phase of phases)for(const i of phase.inputs||[])ensure(p.area,i.good);for(const i of p.support||[])ensure(p.area,i.good);
+  ensure(p.area,p.good);for(const phase of phases){for(const i of phase.inputs||[])ensure(p.area,i.good);if(p.newBuild)for(const i of phase.side||[])ensure(p.area,i.guid);}for(const i of p.support||[])ensure(p.area,i.good);
   producers.push({p,count,phases,schedule,blockedMinutes:0,unknownInputs:false});
  }
  // Feed raw producers before processing chains. Cyclic support still needs starting stock.
@@ -45,6 +45,15 @@ function project(input,plan,settings){const scope=new Set(input.scopeKeys),credi
    if(fraction<1-EPS&&output>EPS)x.blockedMinutes+=dt*(1-fraction);
    for(const i of recipe){const n=ensure(x.p.area,i.good),need=i.rate*dt;if(n.stock!==null){if(n.stock<need-EPS){const k=x.p.id+'|'+i.good,r=missingInputs.get(k)||{profile:x.p.id,area:x.p.area,factory:x.p.factory,product:x.p.good,good:i.good,amount:0,first:t};r.amount+=need-n.stock;missingInputs.set(k,r);}n.stock=Math.max(0,n.stock-need*fraction);}}
    if(out.stock!==null)out.stock+=output*fraction;
+   if(x.p.newBuild){
+    const side=new Map(),base=phase.withoutModuleSide||phase.side||[];
+    for(const item of base)side.set(item.guid,(side.get(item.guid)||0)+item.rate*(1-moduleFraction));
+    for(const item of phase.side||[])side.set(item.guid,(side.get(item.guid)||0)+item.rate*moduleFraction);
+    for(const [good,rate] of side){
+     const node=ensure(x.p.area,good),amount=rate*x.count*util*dt*fraction;
+     if(node.stock!==null)node.stock=Math.min(node.capacity??Infinity,node.stock+amount);
+    }
+   }
   }
   for(const n of nodes.values()){if(n.stock===null)continue;const used=n.external*dt;n.unmet+=Math.max(0,used-n.stock);n.stock=Math.max(0,n.stock-used);n.minimum=Math.min(n.minimum,n.stock);if(n.normal!==null)n.pressure=Math.max(n.pressure,n.stock-n.normal);}
   t=end;

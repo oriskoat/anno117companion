@@ -9,15 +9,21 @@
 Produktion, Versorgung und Planung für **Anno 117: Pax Romana**.<br>
 Ein kostenloser, inoffizieller Companion von Ádám. Windows-App · Android-App · Browser auf iPhone & PC.
 
-**[Für Windows herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno117Companion-0.29.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Für Android herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno-Companion-0.29.0.apk)**
+**[Für Windows herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.30.0/Anno117Companion-0.30.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Für Android herunterladen](https://github.com/oriskoat/anno117companion/releases/download/v0.30.0/Anno-Companion-0.30.0.apk)**
 
 [Einrichtung](docs/SETUP.de.md) · [Neueste Version](https://github.com/oriskoat/anno117companion/releases/latest) · [English](README.md) · [☕ Spendier mir einen Kaffee](https://revolut.me/vafvyop?currency=EUR&amount=500)
 
 </div>
 
-![Companion-Übersicht mit Bevölkerung, Finanzen und den drei Provinzen](docs/screenshots/20-overview-desktop.png)
+![Companion-Übersicht mit Bevölkerung, Finanzen und dem aktiven Schutzgott](docs/screenshots/22-030-home-desktop.png)
 
-*Tatsächliche Browseroberfläche mit erfundenen Demo-Daten. Zum Ausprobieren der Demo ist keine Spielverbindung nötig.*
+*Desktop-Browseransicht mit erfundenen Demo-Daten. Zum Ausprobieren der Demo ist keine Spielverbindung nötig.*
+
+## Neu in 0.30.0
+
+Mit **Strg+F** durchsuchst du den gesamten Companion. Der **Siedlungsplaner** vergleicht andere Inseln mit deiner aktuellen Wahl. **Save Insights** zeigt aktive Götter- und Wunderboni. Der **Versorgungsoptimierer** berücksichtigt Nebenprodukte geplanter Gebäude bei der Berechnung des verbleibenden Bedarfs.
+
+[Änderungen auf Englisch](docs/RELEASE_NOTES_030.md) · [Aktuelle Screenshots](docs/SCREENSHOTS.md)
 
 ## Was braucht dein Imperium?
 
@@ -43,7 +49,7 @@ Dies sind Katalogszenarien. Aufgezeichnete Produktion und geplante Boni bleiben 
 
 **Siedlungsplaner:** Vergleiche Inseln anhand des gesamten Bevölkerungszweigs. Prüfe Produktionsstandorte und übernimm vorgeschlagene Verbindungen als Routenentwürfe.
 
-[Weitere Bilder](docs/SCREENSHOTS.md) · [Neu in 0.29.0, Englisch](docs/RELEASE_NOTES_029.md) · [Planungsanleitung, Englisch](docs/RELEASE_028.md)
+[Weitere Bilder](docs/SCREENSHOTS.md) · [Planungsanleitung, Englisch](docs/RELEASE_028.md)
 
 ## Loslegen
 

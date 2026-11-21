@@ -17,6 +17,7 @@ def webp(raw, target, size, alpha=True):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('archives','config','dashboard'):p.add_argument(key,type=Path)
+    p.add_argument('--patrons-only',action='store_true')
     a=p.parse_args(); d=a.dashboard
     k=payload(d/'knowledge.js'); n=payload(d/'needs-data.js'); gallery=payload(d/'gallery.js')
     manifest=json.loads((d/'icons.json').read_text(encoding='utf8'))
@@ -28,6 +29,27 @@ def main():
     wanted.update(c['guid'] for c in k.get('captains',[]))
     assets={int(g):x for x in ET.parse(a.config/'assets.xml').iter('Asset')
             if (g:=x.findtext('Values/Standard/GUID')) and g.isdecimal()}
+    portraits={}
+    for guid, asset in assets.items():
+        if (path:=asset.findtext('Values/Patron/PortraitSmall')):
+            image=PurePosixPath(path.lower().replace('\\','/').replace('/fhd/','/4k/'))
+            portraits[str(image.with_name(image.stem+'_0.dds'))]=guid
+    for name in ('zz_patchfiles_301','zz_patchfiles_300','ui','dlc01_graphics','dlc03_graphics_01'):
+        archive=a.archives/(name+'.rda')
+        if not archive.is_file() or not portraits:continue
+        with RDAArchive(archive) as arc:
+            for entry in arc.entries:
+                path=entry.filename.lower().replace('\\','/')
+                if (guid:=portraits.pop(path,None)) is not None:
+                    target=f'icons/patron-{guid}.webp'
+                    webp(arc.read(entry.filename),d/target,(192,192))
+                    manifest[str(guid)]=target
+    if portraits:raise ValueError(f'Patron portraits absent: {list(portraits)}')
+    if a.patrons_only:
+        data=json.dumps(manifest,ensure_ascii=False,separators=(',',':'))
+        (d/'icons.json').write_text(data+'\n',encoding='utf8')
+        (d/'icons.js').write_text('window.iconPaths='+data+';\n',encoding='utf8')
+        return
     def file_for(g,seen=frozenset()):
         if g in seen or g not in assets:return ''
         x=assets[g]

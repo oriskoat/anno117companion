@@ -1,5 +1,12 @@
 # Windows EXE changelog
 
+## 0.30.0 — Search, deity bonuses and joint production
+
+- Press Ctrl+F anywhere in the Companion to search the dashboard.
+- Compare settlement alternatives, review active deity bonuses from your save and see additional output in construction proposals.
+- The Supply Optimiser credits additional output from proposed builds before sizing separate capacity.
+- Update through More → Updates. The Windows EXE remains unsigned.
+
 ## 0.29.0 — Settlement Planner
 
 - Settlement Planner compares island and endgame branch pairs across the recorded provinces and drafts trade routes.

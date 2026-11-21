@@ -9,15 +9,21 @@
 Production, supply and planning for **Anno 117: Pax Romana**.<br>
 A free, unofficial companion by Ádám. Windows app · Android app · iPhone & desktop browser.
 
-**[Download for Windows](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno117Companion-0.29.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Download for Android](https://github.com/oriskoat/anno117companion/releases/download/v0.29.0/Anno-Companion-0.29.0.apk)**
+**[Download for Windows](https://github.com/oriskoat/anno117companion/releases/download/v0.30.0/Anno117Companion-0.30.0-Windows-x64.zip)** &nbsp; · &nbsp; **[Download for Android](https://github.com/oriskoat/anno117companion/releases/download/v0.30.0/Anno-Companion-0.30.0.apk)**
 
 [Setup guide](docs/SETUP.md) · [Latest release](https://github.com/oriskoat/anno117companion/releases/latest) · [Deutsch](README.de.md) · [☕ Buy me a coffee](https://revolut.me/vafvyop?currency=EUR&amount=500)
 
 </div>
 
-![The Companion dashboard: population, finances and the three provinces](docs/screenshots/20-overview-desktop.png)
+![The Companion dashboard with population, finances and the active patron](docs/screenshots/22-030-home-desktop.png)
 
-*Actual browser dashboard with fictional Demo data. No game connection is needed to explore Demo.*
+*Desktop browser dashboard with fictional Demo data. No game connection is needed to explore Demo.*
+
+## New in 0.30.0
+
+**Ctrl+F** searches across the entire Companion. **Settlement Planner** compares island options against your current choice. **Save Insights** identifies active deity and wonder bonuses, and the **Supply Optimiser** uses additional output from proposed builds to reduce the remaining capacity needed.
+
+[What changed](docs/RELEASE_NOTES_030.md) · [Current screenshots](docs/SCREENSHOTS.md)
 
 ## See what your empire needs
 
@@ -42,7 +48,7 @@ These are catalogue scenarios. Recorded production and proposed bonuses remain s
 
 </details>
 
-[More screenshots](docs/SCREENSHOTS.md) · [What's new in 0.29.0](docs/RELEASE_NOTES_029.md) · [Planner guide](docs/RELEASE_028.md)
+[More screenshots](docs/SCREENSHOTS.md) · [Planner guide](docs/RELEASE_028.md)
 
 ## Get started
 

@@ -5,9 +5,20 @@ const timber=K.factories.find(f=>f.factory_name==='Sawmill'&&f.regions.includes(
 // Nominal mode agrees with the catalogue, with Nile output bonuses disabled.
 for(const f of K.factories)for(const o of f.outputs){const unit=CM.unit(f,o.product_guid,state(f),AR,AM);near(unit.gross,o.amount_per_minute_100pct);}
 const farm=K.factories.find(f=>AR.factories[f.factory_guid]?.water_buffs.length&&f.regions.includes('Aegyptus')),scenario=state(farm),before=CM.unit(farm,farm.outputs[0].product_guid,scenario,AR,AM);scenario.modifiers[farm.factory_guid]={water:true};const after=CM.unit(farm,farm.outputs[0].product_guid,scenario,AR,AM);assert(after.rate>before.rate);assert(after.inputs.every(i=>i.rate>=0));
+const mixed=CM.unit(farm,farm.outputs[0].product_guid,{...scenario,recordedMix:{[farm.factory_guid]:[
+ {water:true,module:false,count:3},{water:false,module:false,count:2}
+]}},AR,AM);
+near(mixed.rate,(3*after.rate+2*before.rate)/5);
+assert.deepEqual(mixed.groups.map(g=>g.count),[3,2]);
 const moduleFarm=K.factories.find(f=>AR.factories[f.factory_guid]?.module),withModule=state(moduleFarm);withModule.modifiers[moduleFarm.factory_guid]={module:true};const unit=CM.unit(moduleFarm,moduleFarm.outputs[0].product_guid,withModule,AR,AM);near(unit.inputs.find(i=>i.good===2069).rate,.2);assert(unit.rate>CM.unit(moduleFarm,moduleFarm.outputs[0].product_guid,state(moduleFarm),AR,AM).rate);
 // Synthetic self-fed setup exercises cycle accounting without claiming such a farm exists in game.
 const wheat=K.factories.find(f=>f.factory_name==='Wheat Farm'),synthetic={...AR,factories:{...AR.factories,[wheat.factory_guid]:{...AR.factories[wheat.factory_guid],module:77954}}},selfState=state(wheat);selfState.modifiers[wheat.factory_guid]={module:true};const self=CM.unit(wheat,2069,selfState,synthetic,AM);near(self.gross-self.rate,.2);assert(!CM.plan(K.factories,synthetic,AM,selfState,1).warnings.some(w=>w.message.includes('Cyclic')));
 const reeds=K.factories.find(f=>f.factory_guid===151997),dry=state(reeds);dry.season='dry';const flood={...dry,season:'flood'},nominal={...dry,season:'nominal'};assert(CM.unit(reeds,2103,dry,AR,AM).rate>CM.unit(reeds,2103,nominal,AR,AM).rate);assert(CM.unit(reeds,2103,flood,AR,AM).rate<CM.unit(reeds,2103,nominal,AR,AM).rate);
 assert(plan.workers.some(w=>w.amount>0));
+const forester=K.factories.find(f=>f.factory_name==='Woodcutter'&&AR.effects[50262].targets.includes(f.factory_guid));
+const withWonder={...state(forester),savedEffects:[{guid:50262,scale:1}]};
+const wonderPlan=CM.plan(K.factories,AR,AM,withWonder,1);
+assert.deepEqual(wonderPlan.byproducts.map(item=>K.names.en[item.guid]).sort(),['Coal','Resin']);
+assert(CM.unit(forester,forester.outputs[0].product_guid,withWonder,AR,AM).rate>
+ CM.unit(forester,forester.outputs[0].product_guid,state(forester),AR,AM).rate);
 console.log('PASS: Timber 1:1, all nominal catalogue rates, water input scaling, self-fed module net output, Nile basis, and recorded workforce requirements.');

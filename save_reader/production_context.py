@@ -1,6 +1,22 @@
 """Small, read-only production evidence joined to the selected save."""
 import struct
 
+def empire_religion(manager, participant):
+ from .reader import integer, pairs
+ participant_map = manager.at('ParticipantPatronInfos/Data') if manager else None
+ info = next((entry for owner, entry in pairs(participant_map) if owner == participant), None)
+ if info is None:
+  return None
+ return {
+  'dominant_patron_guid': integer(info.get('ActiveDominantPatronGuid')),
+  'next_dominant_patron_guid': integer(info.get('NextDominantPatronGuid')),
+  'patrons': {
+   guid: {'belief': integer(entry.get('CumulativeDevotion')),
+          'wonder_active': integer(entry.get('WonderActive')) == 1}
+   for guid, entry in pairs(info.get('Patrons'))
+  },
+ }
+
 def _id(node):
  from .reader import integer
  value=integer(node,False)

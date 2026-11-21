@@ -61,6 +61,7 @@ docs/RELEASE_028.md
 docs/RELEASE_NOTES.md
 docs/RELEASE_NOTES_028.md
 docs/RELEASE_NOTES_029.md
+docs/RELEASE_NOTES_030.md
 docs/SCREENSHOTS.md
 docs/SETUP.de.md
 docs/SETUP.md
@@ -89,6 +90,12 @@ docs/screenshots/18-candidate-plan-mobile-browser.png
 docs/screenshots/19-candidate-more-mobile-browser.png
 docs/screenshots/20-overview-desktop.png
 docs/screenshots/21-balanced-chains.png
+docs/screenshots/22-030-home-desktop.png
+docs/screenshots/23-030-settlement-desktop.png
+docs/screenshots/24-030-chain-output-desktop.png
+docs/screenshots/25-030-search-mobile.png
+docs/screenshots/26-030-patrons-mobile.png
+docs/screenshots/27-030-optimiser-desktop.png
 docs/windows-compatibility-results.json
 docs/windows-dependencies-0.20.0.json
 docs/windows-dependencies-0.20.1.json

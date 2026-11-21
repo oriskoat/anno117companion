@@ -195,8 +195,12 @@ const SettlementModel = (() => {
    const updated = plans.map(p=>evaluate(p.island,p.tier,p.houses,difficulty,network));
    const gain = missing-updated.reduce((sum,p)=>sum+p.open,0);
    const flows = updated.flatMap(p=>p.flows).filter(f=>f.island.area_key===island.area_key);
-   return {island,gain,flows};
+   return {island,gain,flows,plans:updated};
   }).filter(r=>r.gain>0&&r.flows.length).sort((a,b)=>b.gain-a.gain||a.flows.length-b.flows.length);
  }
- return {rank,rankPairs,compare,path,targets,progress,sourceRegions,makeFinders,support};
+ function stage(committed, plans, difficulty, find) {
+  const network=new Map(committed.map(island=>[island.area_key,{island,find:find(island)}]));
+  return plans.map(({island,tier,houses})=>evaluate(island,tier,houses,difficulty,network));
+ }
+ return {rank,rankPairs,compare,path,targets,progress,sourceRegions,makeFinders,support,stage};
 })();

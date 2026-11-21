@@ -19,13 +19,31 @@ const chainProgressionOrder={
 };
 function chainGroupRank(c){return (c.region==='Latium'?0:c.region==='Albion'?100:200)+(chainTierOrder[c.region]?.indexOf(c.tier)??99);}
 function chainSortRecord(c){const f=K.factories.find(f=>f.factory_guid===c.factory_guid),position=chainProgressionOrder[c.region+'/'+c.tier]?.indexOf(c.name)??-1;return {name:gameName(c.product_guid,c.name),id:c.factory_guid,capacity:f.outputs[0].amount_per_minute_100pct,progression:position<0?1000+K.chains.indexOf(c):position};}
+function chainQuickSelect(field,value) {
+ if(field==='region'){chainRegion=value;chainTier='all';}
+ else chainTier=value;
+ renderChains();
+ document.querySelector(`[data-chain-quick="${field}"] button[aria-pressed="true"]`)?.focus({preventScroll:true});
+}
+function chainQuickFilters(tiers) {
+ const button=(field,value,label,active,art='')=>`<button type="button" aria-pressed="${active}" data-value="${esc(value)}"
+ onclick="chainQuickSelect('${field}',this.dataset.value)">${art}${esc(label)}</button>`;
+ const tierLabel=t=>gameName(N.tiers.find(n=>n.tier===t)?.guid,t);
+ const ordered=[...new Set(Object.values(chainTierOrder).flat())].filter(t=>tiers.includes(t));
+ return `<div class="chain-pill-row" data-chain-quick="region" role="group" aria-label="Region">
+  ${['all',...Object.keys(chainTierOrder)].map(r=>button('region',r,r==='all'?'All regions':r,chainRegion===r)).join('')}</div>
+  <div class="chain-pill-row" data-chain-quick="tier" role="group" aria-label="Population tier">
+  ${button('tier','all','All tiers',chainTier==='all')}${ordered.map(t=>button('tier',t,tierLabel(t),chainTier===t,needArt(t))).join('')}</div>`;
+}
 function chainPage(){
- return `<div class="search">${svg('search')}<input aria-label="Search production chains" placeholder="Search good, ingredient or building…" value="${esc(chainSearch)}" oninput="chainSearch=this.value;renderChains()"></div>${browseToolbar('chains')}<div class="chain-selectors"><label>Region<select id="chainRegionFilter" onchange="chainRegion=this.value;chainTier='all';renderChains()"><option value="all">All regions</option>${Object.keys(chainTierOrder).map(r=>`<option ${chainRegion===r?'selected':''}>${r}</option>`).join('')}</select></label><label>Population tier<select id="chainTierFilter" onchange="chainTier=this.value;renderChains()"></select></label><label>Good<select id="chainGoodFilter" onchange="chainGood=this.value;renderChains()"><option value="all">All goods</option>${[...new Set(K.chains.map(c=>c.product_guid))].sort((a,b)=>gameName(a).localeCompare(gameName(b))).map(g=>`<option value="${g}" ${String(g)===chainGood?'selected':''}>${esc(gameName(g))}</option>`).join('')}</select></label><label>Recipe filter<select onchange="chainType=this.value;renderChains()"><option value="all">All production</option><option value="raw">Raw materials</option><option value="processed">Processed goods</option><option value="fuel">Uses fuel</option><option value="specialists">Specialist options</option></select></label><label>DLC<select id="chainDlcFilter" onchange="chainDlc=this.value;renderChains()"><option value="all">All content</option><option value="base">Base game only</option><option value="67902">${esc(gameName(67902,'Prophecies of Ash'))}</option><option value="67904">${esc(gameName(67904,'Dawn of the Delta'))}</option></select></label></div><p class="small-note">Browse by region, population tier and good. Nominal recipes: extracted patch 3.0. Open a chain to compare your current islands and plan additional production.</p><div id="chainCount" class="small-note"></div><div id="chainList"></div>`;
+ return `<div id="chainQuickFilters"></div><div class="search">${svg('search')}<input aria-label="Search production chains" placeholder="Search good, ingredient or building…" value="${esc(chainSearch)}" oninput="chainSearch=this.value;renderChains()"></div><details class="chain-advanced"><summary>Sort & more filters</summary>${browseToolbar('chains')}<div class="chain-selectors"><label>Region<select id="chainRegionFilter" onchange="chainRegion=this.value;chainTier='all';renderChains()"><option value="all">All regions</option>${Object.keys(chainTierOrder).map(r=>`<option ${chainRegion===r?'selected':''}>${r}</option>`).join('')}</select></label><label>Population tier<select id="chainTierFilter" onchange="chainTier=this.value;renderChains()"></select></label><label>Good<select id="chainGoodFilter" onchange="chainGood=this.value;renderChains()"><option value="all">All goods</option>${[...new Set(K.chains.map(c=>c.product_guid))].sort((a,b)=>gameName(a).localeCompare(gameName(b))).map(g=>`<option value="${g}" ${String(g)===chainGood?'selected':''}>${esc(gameName(g))}</option>`).join('')}</select></label><label>Recipe filter<select onchange="chainType=this.value;renderChains()"><option value="all">All production</option><option value="raw">Raw materials</option><option value="processed">Processed goods</option><option value="fuel">Uses fuel</option><option value="specialists">Specialist options</option></select></label><label>DLC<select id="chainDlcFilter" onchange="chainDlc=this.value;renderChains()"><option value="all">All content</option><option value="base">Base game only</option><option value="67902">${esc(gameName(67902,'Prophecies of Ash'))}</option><option value="67904">${esc(gameName(67904,'Dawn of the Delta'))}</option></select></label></div></details><div id="chainCount" class="small-note"></div><div id="chainList"></div>`;
 }
 function renderChains(){
  $('chainDlcFilter').value=chainDlc;
  const tiers=[...new Set(K.chains.filter(c=>chainRegion==='all'||c.region===chainRegion).map(c=>c.tier))];
  if(!tiers.includes(chainTier))chainTier='all';
+ $('chainRegionFilter').value=chainRegion;
+ if($('chainQuickFilters'))$('chainQuickFilters').innerHTML=chainQuickFilters(tiers);
  $('chainTierFilter').innerHTML='<option value="all">All tiers</option>'+tiers.map(t=>`<option ${chainTier===t?'selected':''}>${esc(t)}</option>`).join('');
  const query=chainSearch.trim().toLowerCase();
  const rows=K.chains.filter(c=>{

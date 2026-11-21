@@ -1,5 +1,11 @@
 # Android APK changelog
 
+## 0.30.0 — Search, deity bonuses and joint production
+
+- Open global search using the magnifying glass. Results open directly in the dashboard.
+- Compare settlement options, view deity portraits and saved bonus status, and see additional production when planning a chain or supply.
+- This APK keeps the same app identifier and public signing certificate. Use the matching Windows release for Live and Save Insights.
+
 ## 0.29.0 — Settlement Planner
 
 - Settlement Planner compares island and endgame branch pairs across the recorded provinces and drafts trade routes.

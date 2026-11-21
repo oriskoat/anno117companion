@@ -27,6 +27,20 @@ input={areas:[area('A',[[1,0,3]])],scopeKeys:['A'],providers:[],candidates:[{...
 const manifests=PM.routeManifests([{from:'A',to:'B',good:1,rate:9},{from:'A',to:'B',good:2,rate:4}],PM.normalizedSettings({interval:15,slots:2,slotCapacity:50}));
 near(manifests.routes.flatMap(m=>m.cargo).reduce((s,c)=>s+c.amount,0),195);assert(manifests.routes.every(m=>m.cargo.reduce((s,c)=>s+Math.ceil(c.amount/m.slotCapacity-1e-9),0)<=2));
 
+// New joint production supplies the other good before a separate build is sized.
+const forest=unit('forest','A',2,2,0);
+forest.phases[0].side=[{guid:1,rate:1}];
+input={areas:[area('A',[[2,0,2]]),area('B',[[1,0,2]])],scopeKeys:['A','B'],providers:[],candidates:[forest,unit('independent','B',1,1,0)]};
+r=PM.optimize(input);
+assert(r.converged);
+near(r.providers.find(p=>p.coproduct).allocated,1);
+near(r.flows.find(f=>f.good===1).rate,1);
+assert.equal(r.actions.find(a=>a.good===1&&a.kind==='build').count,1);
+// Observed joint production is preserved, with no second copy of its additional output.
+input={areas:[area('A',[[1,1,1],[2,2,0]])],scopeKeys:['A'],providers:[{...forest,ownedCount:1,keepOutput:true},unit('received','A',1,1)],candidates:[]};
+r=PM.optimize(input);
+assert(!r.operatingChanges.length&&!r.providers.some(p=>p.coproduct));
+
 // Recommendations use actual retained counts, with one explicit forecast window.
 input={areas:[area('A',[[1,12,7]])],scopeKeys:['A'],providers:[unit('group','A',1,2,6)],candidates:[]};r=PM.optimize(input,{horizon:600});assert.equal(r.operatingChanges.length,1);const op=r.operatingChanges[0];assert.equal(op.owned,6);assert.equal(op.keep,4);assert.equal(op.pause,2);near(op.phases[0].target,7);near(op.phases[0].utilization,.875);near(op.avoidedVolume,3000);near(op.plannedVolume,4200);
 input.protectedGoods=[1];r=PM.optimize(input);assert.equal(r.operatingChanges.length,0);

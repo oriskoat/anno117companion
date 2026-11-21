@@ -1,3 +1,34 @@
+# Companion 0.30.0 screenshots
+
+The desktop and mobile browser captures below use fictional example data. The patron and settlement examples illustrate the kinds of data available from a matching save. The historical gallery retains labelled Windows and Samsung app captures.
+
+### Home dashboard with the fictional empire, population, finances and the dominant deity
+
+![Desktop browser — Home dashboard with the fictional empire, population, finances and the dominant deity.](screenshots/22-030-home-desktop.png)
+
+### Settlement candidates compared against Example Aurelia, with changed local chains and shipping volume
+
+![Desktop browser — Settlement candidates compared against Example Aurelia, with changed local chains and shipping volume.](screenshots/23-030-settlement-desktop.png)
+
+### Woodcutter on Example Aurelia with its additional resin and coal output
+
+![Desktop browser — Woodcutter on Example Aurelia with its additional resin and coal output.](screenshots/24-030-chain-output-desktop.png)
+
+### Companion search with deity and island patron results
+
+![Mobile browser — Companion search with deity and island patron results.](screenshots/25-030-search-mobile.png)
+
+### Ceres profile with local belief, empire belief and active bonuses
+
+![Mobile browser — Ceres profile with local belief, empire belief and active bonuses.](screenshots/26-030-patrons-mobile.png)
+
+### Supply Optimiser actions and the supply checks to review before building
+
+![Desktop browser — Supply Optimiser actions and the supply checks to review before building.](screenshots/27-030-optimiser-desktop.png)
+
+<details>
+<summary>Earlier releases, native Android and the home-screen widget</summary>
+
 # 0.28.0 dashboard previews
 
 These are real browser renders of the 0.28.0 dashboard using the fictional Demo empire. Mobile browser images are **not** presented as photographs of an installed Android APK.
@@ -110,3 +141,5 @@ Actual local browser dashboard with synthetic example data. The Windows and Andr
 ![Aegyptus needs](screenshots/15-aegyptus-needs.png)
 
 ![Save Insights overview](screenshots/16-save-insights.png)
+
+</details>
